@@ -221,3 +221,25 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(26px);
 }
+
+/* style.css の一番下に追記 */
+.ip-display {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 1.5em;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: #333;
+    margin: 10px 0 20px 0;
+}
+#ip-input {
+    font-family: 'Mochiy Pop One', sans-serif;
+    padding: 10px 15px;
+    border: 2px solid #ffccbc;
+    border-radius: 10px;
+    font-size: 1.2em;
+    width: 80%;
+    text-align: center;
+    margin-bottom: 15px;
+}

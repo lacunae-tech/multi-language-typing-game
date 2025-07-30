@@ -24,4 +24,13 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
     // ゲーム画面で使うAPI (New!)
     getCurrentStageId: () => ipcRenderer.invoke('get-current-stage-id'),
+
+
+
+    // --- ネットワークAPI ---
+    startServer: () => ipcRenderer.invoke('start-server'),
+    connectToServer: (ip) => ipcRenderer.invoke('connect-to-server', ip),
+    sendMessage: (message) => ipcRenderer.invoke('send-message', message),
+    onNetworkEvent: (callback) => ipcRenderer.on('network-event', (event, ...args) => callback(...args)),
+    closeConnection: () => ipcRenderer.send('close-connection'),
 });

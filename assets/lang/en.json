@@ -36,5 +36,16 @@
     "settingSFX": "Sound FX",
     "settingLanguage": "Language",
     "settingLayout": "Keyboard Layout",
-    "backButton": "Back"
+    "backButton": "Back",
+
+
+    "lobbyTitle": "Versus Lobby",
+    "lobbyHostButton": "Become Host",
+    "lobbyJoinButton": "Join Game",
+    "lobbyYourIP": "Your IP Address:",
+    "lobbyHostIPLabel": "Host's IP Address:",
+    "lobbyConnectButton": "Connect",
+    "lobbyStatusWaiting": "Waiting for opponent...",
+    "lobbyStatusConnected": "Connected! Waiting for the host to start the game.",
+    "lobbyStartButton": "Start Match"
 }

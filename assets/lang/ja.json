@@ -36,5 +36,16 @@
     "settingSFX": "効果音 (SFX)",
     "settingLanguage": "言語",
     "settingLayout": "キーボードレイアウト",
-    "backButton": "もどる"
+    "backButton": "もどる",
+
+    "lobbyTitle": "対戦ロビー",
+    "lobbyHostButton": "ホストになる",
+    "lobbyJoinButton": "参加する",
+    "lobbyYourIP": "あなたのIPアドレス:",
+    "lobbyHostIPLabel": "ホストのIPアドレス:",
+    "lobbyConnectButton": "接続",
+    "lobbyStatusWaiting": "対戦相手を待っています...",
+    "lobbyStatusConnected": "接続完了！ホストがゲームを開始するのを待っています。",
+    "lobbyStartButton": "対戦開始"
+
 }

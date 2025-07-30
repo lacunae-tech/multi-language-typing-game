@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>対戦ロビー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 data-translate-key="lobbyTitle">対戦ロビー</h1>
+
+        <!-- 初期選択画面 -->
+        <div id="initial-choice">
+            <button class="menu-button" id="host-button" data-translate-key="lobbyHostButton">ホストになる</button>
+            <button class="menu-button" id="join-button" data-translate-key="lobbyJoinButton">参加する</button>
+        </div>
+
+        <!-- ホスト用画面 -->
+        <div id="host-view" style="display: none;">
+            <p data-translate-key="lobbyYourIP">あなたのIPアドレス:</p>
+            <p id="ip-address" class="ip-display">127.0.0.1</p>
+            <p id="host-status" data-translate-key="lobbyStatusWaiting">対戦相手を待っています...</p>
+            <button class="menu-button" id="start-match-button" disabled data-translate-key="lobbyStartButton">対戦開始</button>
+        </div>
+
+        <!-- クライアント用画面 -->
+        <div id="client-view" style="display: none;">
+            <label for="ip-input" data-translate-key="lobbyHostIPLabel">ホストのIPアドレス:</label>
+            <input type="text" id="ip-input" placeholder="192.168.1.10">
+            <button class="menu-button" id="connect-button" data-translate-key="lobbyConnectButton">接続</button>
+            <p id="client-status"></p>
+        </div>
+        
+        <button class="menu-button" id="back-button" data-translate-key="backButton" style="margin-top: 20px;">もどる</button>
+    </div>
+    <script src="./lobby.renderer.js"></script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 const { app, BrowserWindow, ipcMain, dialog } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const net = require('net'); // Node.jsのnetモジュールをインポート
+const os = require('os');   // IPアドレス取得用にosモジュールをインポート
 
 const saveDir = path.join(app.getPath('userData'), 'save_data');
 if (!fs.existsSync(saveDir)) {
@@ -18,6 +20,12 @@ const defaultSettings = {
 let mainWindow;
 let currentUser = null;
 let currentStageId = null; // (New!) 現在選択されているステージID
+
+
+// --- ネットワーク関連の変数 ---
+let server = null;
+let clientSocket = null;
+let hostSocket = null;
 
 function loadSettings() {
     try {
@@ -44,6 +52,19 @@ function saveSettings(settings) {
         console.error('設定ファイルの保存に失敗しました:', error);
         return { success: false, error: error.message };
     }
+}
+
+// --- IPアドレスを取得する関数 ---
+function getLocalIpAddress() {
+    const interfaces = os.networkInterfaces();
+    for (const name of Object.keys(interfaces)) {
+        for (const iface of interfaces[name]) {
+            if (iface.family === 'IPv4' && !iface.internal) {
+                return iface.address;
+            }
+        }
+    }
+    return '127.0.0.1';
 }
 
 const createWindow = () => {
@@ -189,4 +210,43 @@ ipcMain.on('navigate-to-game', (event, stageId) => {
 // (New!) ゲーム画面から現在のステージIDを要求されたときの処理
 ipcMain.handle('get-current-stage-id', () => {
     return currentStageId;
+});
+
+
+// --- ネットワークAPI ---
+ipcMain.handle('start-server', () => {
+    server = net.createServer((socket) => {
+        hostSocket = socket;
+        mainWindow.webContents.send('network-event', 'client_connected', { userName: 'Opponent' }); // 仮
+        
+        socket.on('data', (data) => {
+            // クライアントからのデータ受信処理
+            const message = JSON.parse(data.toString());
+            if (message.type === 'start_game_request') {
+                 // ゲーム開始処理
+            }
+        });
+    });
+    server.listen(8080);
+    return getLocalIpAddress();
+});
+
+ipcMain.handle('connect-to-server', (event, ip) => {
+    clientSocket = new net.Socket();
+    clientSocket.connect(8080, ip, () => {
+        mainWindow.webContents.send('network-event', 'connected_to_host', { hostName: 'Host' }); // 仮
+    });
+});
+
+ipcMain.handle('send-message', (event, message) => {
+    const socket = isHost ? hostSocket : clientSocket;
+    if (socket) {
+        socket.write(JSON.stringify(message));
+    }
+});
+
+ipcMain.on('close-connection', () => {
+    if (server) server.close();
+    if (clientSocket) clientSocket.destroy();
+    if (hostSocket) hostSocket.destroy();
 });

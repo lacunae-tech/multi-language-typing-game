@@ -9,8 +9,8 @@ const stages = [
     { id: 4, name: '星降る全キー', description: 'すべてのキーの練習' },
     { id: 5, name: '単語れんしゅう', description: '隕石を破壊せよ！' }, // 更新
     { id: 6, name: '文章れんしゅう', description: '長文で隕石を破壊！' }, // 更新
-    { id: 7, name: '対戦：進捗レース', description: '（準備中）' },
-    { id: 8, name: '対戦：早食いチャレンジ', description: '（準備中）' },
+    { id: 7, name: '対戦：進捗レース', description: '対戦1' },
+    { id: 8, name: '対戦：早食いチャレンジ', description: '対戦2' },
     { id: 9, name: '苦手キー復習', description: '（準備中）' },
 ];
 
@@ -33,7 +33,11 @@ stages.forEach(stage => {
     if (stage.description !== '（準備中）') {
         stageButton.addEventListener('click', () => {
             // ゲーム画面へ、選択したステージIDを渡して遷移
-            window.electronAPI.navigateToGame(stage.id); // stageIdを渡すように修正
+            if (stage.id === 7 || stage.id === 8) {
+                window.electronAPI.navigateToLobby(stage.id); // lobbyへの遷移に変更
+            } else {
+                window.electronAPI.navigateToGame(stage.id);
+            }
         });
     }
 
