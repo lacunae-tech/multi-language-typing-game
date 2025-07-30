@@ -286,3 +286,14 @@ input:checked + .slider:before {
     transition: width 0.2s ease-out; /* 幅の変化を滑らかに見せるアニメーション */
     box-shadow: 0 0 10px #81d4fa;
 }
+
+/* プログレスバーの色の使い分け */
+.progress-bar.my-bar {
+    background: linear-gradient(90deg, #81d4fa, #29b6f6); /* 青系 */
+    box-shadow: 0 0 10px #81d4fa;
+}
+
+.progress-bar.opponent-bar {
+    background: linear-gradient(90deg, #f48fb1, #f06292); /* ピンク系 */
+    box-shadow: 0 0 10px #f48fb1;
+}

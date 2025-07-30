@@ -25,7 +25,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
     // ゲーム画面で使うAPI (New!)
     getCurrentStageId: () => ipcRenderer.invoke('get-current-stage-id'),
-
+    getRaceWordList: () => ipcRenderer.invoke('get-race-word-list'), // (追加)
 
 
     // --- ネットワークAPI ---

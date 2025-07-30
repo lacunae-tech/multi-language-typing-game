@@ -20,7 +20,7 @@ const defaultSettings = {
 let mainWindow;
 let currentUser = null;
 let currentStageId = null;
-
+let currentRaceWordList = []; // (追加) レース用の単語リストを保持する変数
 
 // --- ネットワーク関連の変数 ---
 let server = null;
@@ -151,6 +151,10 @@ ipcMain.handle('get-word-list', (event, lang) => {
     }
 });
 
+// (追加) レース用の単語リストを取得するAPI
+ipcMain.handle('get-race-word-list', () => {
+    return currentRaceWordList;
+});
 
 ipcMain.handle('login-or-create-user', async (event, userName) => {
     try {
@@ -270,6 +274,17 @@ ipcMain.handle('connect-to-server', (event, ip) => {
 ipcMain.handle('send-message', (event, message) => {
     // ゲーム開始リクエストはホストのみ
     if (isHost && message.type === 'start_game_request') {
+        // (修正) ステージ7の場合、単語リストを作成・保持する
+        if (currentStageId === 7) {
+            const lang = loadSettings().language;
+            const wordsFilePath = path.join(__dirname, `assets/words/${lang}.json`);
+            if (fs.existsSync(wordsFilePath)) {
+                const allWords = JSON.parse(fs.readFileSync(wordsFilePath, 'utf-8'));
+                const wordPool = allWords.stage5_words || []; // ステージ5の単語を流用
+                // シャッフルして60単語を抽出
+                currentRaceWordList = wordPool.sort(() => 0.5 - Math.random()).slice(0, 60);
+            }
+        }
         const startGameMessage = JSON.stringify({ type: 'start_game', stageId: currentStageId });
         if (hostSocket) {
             hostSocket.write(startGameMessage);

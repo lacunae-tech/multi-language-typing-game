@@ -1,7 +1,33 @@
 {
-  "stage5_words": [
-      "apple", "banana", "orange", "grape", "lemon", "melon", "peach", "strawberry"
-  ],
+"stage5_words": [
+  "apple", "banana", "orange", "grape", "lemon", "melon", "peach", "strawberry",
+  "apricot", "mango", "pineapple", "kiwi", "cherry", "plum", "fig", "date",
+  "pear", "raspberry", "blueberry", "currant", "watermelon", "nut", "coconut", "avocado",
+  "carrot", "tomato", "onion", "garlic", "pepper", "cucumber", "lettuce", "zucchini",
+  "eggplant", "broccoli", "cabbage", "spinach", "parsley", "cilantro", "basil", "mint",
+  "potato", "radish", "mushroom", "turnip", "celery", "lentil", "pea", "bean",
+  "rice", "bread", "cheese", "butter", "milk", "egg", "meat", "fish",
+  "chicken", "beef", "pork", "lamb", "tuna", "salmon", "shrimp", "crab",
+  "lobster", "oyster", "mussel", "squid", "snail", "pasta", "pizza", "sandwich",
+  "cake", "pie", "cookie", "chocolate", "candy", "sugar", "salt", "peppercorn",
+  "oil", "vinegar", "honey", "coffee", "tea", "water", "juice", "soda",
+  "wine", "beer", "champagne", "cocktail", "drink", "ice cream", "soup", "salad",
+  "tree", "flower", "grass", "forest", "plant", "leaf", "root", "branch",
+  "dog", "cat", "horse", "cow", "sheep", "goat", "pig", "rabbit",
+  "mouse", "rat", "bird", "hen", "rooster", "duck", "turkey", "pigeon",
+  "fish", "dolphin", "shark", "whale", "seal", "frog", "snake", "lizard",
+  "turtle", "insect", "bee", "ant", "spider", "fly", "butterfly", "ladybug",
+  "train", "car", "bus", "bicycle", "motorcycle", "truck", "boat", "airplane",
+  "rocket", "subway", "tram", "taxi", "road", "bridge", "station", "airport",
+  "house", "apartment", "room", "living room", "kitchen", "hall", "door", "window",
+  "roof", "garden", "garage", "wall", "stair", "elevator", "chair", "table",
+  "bed", "wardrobe", "lamp", "carpet", "curtain", "painting", "mirror", "pillow",
+  "book", "pen", "pencil", "paper", "notebook", "computer", "phone", "clock",
+  "watch", "radio", "television", "photo", "camera", "music", "song", "movie",
+  "school", "class", "teacher", "student", "desk", "board", "map", "marker",
+  "sport", "game", "ball", "racket", "bicycle", "ski", "swimming", "running",
+  "sun", "moon", "star", "sky", "cloud", "rain", "snow", "wind"
+],
   "stage6_sentences": [
       "The quick brown fox jumps over the lazy dog.",
       "Never put off till tomorrow what you can do today."

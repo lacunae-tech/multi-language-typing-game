@@ -27,7 +27,9 @@ const comboDisplay = document.getElementById('combo-display');
 const opponentInfoContainer = document.getElementById('opponent-info-container');
 const opponentProgressContainer = document.getElementById('opponent-progress-container');
 const opponentProgressBar = document.getElementById('opponent-progress-bar');
-
+const myProgressBar = document.getElementById('my-progress-bar');
+const myWordCount = document.getElementById('my-word-count');
+const opponentWordCount = document.getElementById('opponent-word-count');
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
@@ -125,6 +127,10 @@ let singleChar_highlightTimeout = null;
 let singleChar_highlightedKeyElement = null;
 let singleChar_consecutiveCorrectAnswers = 0;
 let singleChar_isKeyboardVisible = true;
+
+// (追加) レース用の進捗管理変数
+let myWordsCleared = 0;
+let opponentWordsCleared = 0;
 
 // --- 関数定義 ---
 function createKeyboard() {
@@ -337,6 +343,7 @@ function handleKeyPress(event) {
 
     if (currentConfig.gameMode === 'race') {
         if (event.key.length > 1) return;
+        if (!word_currentWord) return; // 単語がなければ何もしない
 
         const correctNextChar = word_currentWord[word_typedWord.length];
 
@@ -346,18 +353,21 @@ function handleKeyPress(event) {
             word_typedWord += event.key;
             updateWordAsteroidDisplay();
 
-            // 進捗率を計算して相手に送信
-            const progress = word_typedWord.length / word_currentWord.length;
-            window.electronAPI.sendMessage({ type: 'progress_update', value: progress });
-
-            // 進捗率が100%になったら勝利処理
-            if (progress >= 1) {
-                // 相手に自分がクリアしたことを通知
-                window.electronAPI.sendMessage({ type: 'game_clear' });
-                // 自身のゲームを勝利として終了
-                gameClear("勝利！");
-                return; // 処理を終了
+            if (word_typedWord === word_currentWord) {
+                myWordsCleared++;
+                myProgressBar.style.width = `${(myWordsCleared / 60) * 100}%`;
+                myWordCount.textContent = myWordsCleared;
+                
+                // 相手にクリアを通知
+                window.electronAPI.sendMessage({ type: 'word_cleared' });
+                
+                // 勝敗判定
+                if (checkRaceWinCondition()) return;
+                
+                // 次の単語へ
+                setNextRaceWord();
             }
+
         } else {
             // --- ミスした場合 ---
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
@@ -613,6 +623,9 @@ function gameOver(customMessage) { // customMessageを受け取れるように�
         } else {
             customMessage = `引き分け！ (${myScore} vs ${opponentScore})`;
         }
+    } else if (currentConfig.gameMode === 'race' && timeLeft <= 0) {
+        judgeRaceResult();
+        return;
     }
     const message = customMessage || `${currentTranslation.alertTimeUp} ${currentTranslation.alertScore}: ${score}`;
     stopGame(message);
@@ -650,11 +663,21 @@ function startGame() {
         lastSpawnTime = 0;
         fallingStars_gameLoop();
     } else if (currentConfig.gameMode === 'race') { // この else if を追加
+        myWordsCleared = 0;
+        opponentWordsCleared = 0;
         word_typedWord = '';
-        setNextWordAsteroidQuestion(); // 課題となる文章をセット
-        questionText.style.display = 'inline-block';
+        currentConfig.timeLimit = 120; // 制限時間を設定
+        timerDisplay.textContent = currentConfig.timeLimit;
+        
+        // UIの初期化
         opponentInfoContainer.style.display = 'block';
-        opponentProgressContainer.style.display = 'block';
+        myProgressBar.style.width = '0%';
+        opponentProgressBar.style.width = '0%';
+        myWordCount.textContent = '0';
+        opponentWordCount.textContent = '0';
+
+        // 最初の単語をセット
+        setNextRaceWord();
     } else if (currentConfig.gameMode === 'scoreAttack') { // このelse ifブロックを追加
         word_consecutiveCorrect = 0;
         setNextWordAsteroidQuestion(); // 最初の単語を表示
@@ -690,6 +713,12 @@ function startCountdown() {
 
 function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
+        if (data.type === 'word_cleared') {
+            opponentWordsCleared++;
+            opponentProgressBar.style.width = `${(opponentWordsCleared / 60) * 100}%`;
+            opponentWordCount.textContent = opponentWordsCleared;
+            checkRaceWinCondition();
+        }
         if (data.type === 'opponent_quit') {
             // (追加) 相手が退出したら、勝利としてゲームを終了する
             gameOver("対戦相手が退出しました。あなたの勝利です！");
@@ -711,6 +740,38 @@ function listenToOpponent() {
         }
     });
 }
+
+function setNextRaceWord() {
+    if (myWordsCleared < 60) {
+        word_currentWord = currentConfig.wordList[myWordsCleared];
+        word_typedWord = '';
+        updateWordAsteroidDisplay(); // 表示更新ロジックは流用
+    }
+}
+
+// (追加) 勝敗判定を行う関数
+function checkRaceWinCondition() {
+    if ((myWordsCleared + opponentWordsCleared) >= 60) {
+        // 合計60単語に達した場合
+        judgeRaceResult();
+        return true;
+    }
+    return false;
+}
+
+// (追加) 最終的な勝敗を判定してゲームを終了する関数
+function judgeRaceResult() {
+    let msg = "";
+    if (myWordsCleared > opponentWordsCleared) {
+        msg = `勝利！ (${myWordsCleared} vs ${opponentWordsCleared})`;
+    } else if (myWordsCleared < opponentWordsCleared) {
+        msg = `敗北... (${myWordsCleared} vs ${opponentWordsCleared})`;
+    } else {
+        msg = `引き分け！ (${myWordsCleared} vs ${opponentWordsCleared})`;
+    }
+    stopGame(msg);
+}
+
 
 async function initialize() {
     const settings = await window.electronAPI.getSettings();
@@ -780,6 +841,11 @@ async function initialize() {
         questionTextWrapper.style.display = 'block';
         questionText.style.display = 'block';
         keyboardLayoutDiv.style.display = 'none';
+
+        const raceWordList = await window.electronAPI.getRaceWordList();
+        if (raceWordList && raceWordList.length > 0) {
+            currentConfig.wordList = raceWordList;
+        }
         listenToOpponent();
     }else if (currentConfig.gameMode === 'wordAsteroid') {
         document.body.classList.add('night-sky-bg');

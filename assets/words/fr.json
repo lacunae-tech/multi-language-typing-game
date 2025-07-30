@@ -1,7 +1,33 @@
 {
-  "stage5_words": [
-      "pomme", "banane", "orange", "raisin", "citron", "melon", "pêche", "fraise"
-  ],
+"stage5_words": [
+  "pomme", "banane", "orange", "raisin", "citron", "melon", "pêche", "fraise",
+  "abricot", "mangue", "ananas", "kiwi", "cerise", "prune", "figue", "datte",
+  "poire", "framboise", "myrtille", "groseille", "pastèque", "noix", "coco", "avocat",
+  "carotte", "tomate", "oignon", "ail", "poivron", "concombre", "salade", "courgette",
+  "aubergine", "brocoli", "chou", "épinard", "persil", "coriandre", "basilic", "menthe",
+  "patate", "radis", "champignon", "navet", "céleri", "lentille", "pois", "haricot",
+  "riz", "pain", "fromage", "beurre", "lait", "œuf", "viande", "poisson",
+  "poulet", "bœuf", "porc", "agneau", "thon", "saumon", "crevette", "crabe",
+  "homard", "huître", "moule", "calmar", "escargot", "pâte", "pizza", "sandwich",
+  "gâteau", "tarte", "biscuit", "chocolat", "bonbon", "sucre", "sel", "poivre",
+  "huile", "vinaigre", "miel", "café", "thé", "eau", "jus", "soda",
+  "vin", "bière", "champagne", "cocktail", "boisson", "glace", "soupe", "salade",
+  "arbre", "fleur", "herbe", "forêt", "plante", "feuille", "racine", "branche",
+  "chien", "chat", "cheval", "vache", "mouton", "chèvre", "cochon", "lapin",
+  "souris", "rat", "oiseau", "poule", "coq", "canard", "dinde", "pigeon",
+  "poisson", "dauphin", "requin", "baleine", "phoque", "grenouille", "serpent", "lézard",
+  "tortue", "insecte", "abeille", "fourmi", "araignée", "mouche", "papillon", "coccinelle",
+  "train", "voiture", "bus", "vélo", "moto", "camion", "bateau", "avion",
+  "fusée", "métro", "tram", "taxi", "route", "pont", "gare", "aéroport",
+  "maison", "appartement", "chambre", "salon", "cuisine", "salle", "porte", "fenêtre",
+  "toit", "jardin", "garage", "mur", "escalier", "ascenseur", "chaise", "table",
+  "lit", "armoire", "lampe", "tapis", "rideau", "tableau", "miroir", "coussin",
+  "livre", "stylo", "crayon", "papier", "cahier", "ordinateur", "téléphone", "horloge",
+  "montre", "radio", "télévision", "photo", "caméra", "musique", "chanson", "film",
+  "école", "classe", "professeur", "élève", "bureau", "tableau", "carte", "stylo",
+  "sport", "jeu", "ballon", "raquette", "vélo", "ski", "natation", "course",
+  "soleil", "lune", "étoile", "ciel", "nuage", "pluie", "neige", "vent"
+],
   "stage6_sentences": [
       "Le ê ê rapide renard brun saute par-dessus le chien paresseux.",
       "Ne ê ê remets jamais à demain ce que tu peux faire aujourd'hui."
