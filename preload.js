@@ -33,5 +33,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
     connectToServer: (ip) => ipcRenderer.invoke('connect-to-server', ip),
     sendMessage: (message) => ipcRenderer.invoke('send-message', message),
     onNetworkEvent: (callback) => ipcRenderer.on('network-event', (event, ...args) => callback(...args)),
+    onNetworkData: (callback) => ipcRenderer.on('network-data', (event, data) => callback(data)), // この行を追加
     closeConnection: () => ipcRenderer.send('close-connection'),
 });

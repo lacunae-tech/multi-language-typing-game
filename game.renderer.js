@@ -23,6 +23,12 @@ const countdownText = document.getElementById('countdown-text');
 const asteroidContainer = document.getElementById('asteroid-container');
 const comboDisplay = document.getElementById('combo-display');
 
+
+const opponentInfoContainer = document.querySelector('.opponent-info-container');
+const opponentProgressBar = document.getElementById('opponent-progress-bar');
+const opponentScoreDisplay = document.getElementById('opponent-score-display');
+
+
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
 // --- ステージごとの設定 ---
@@ -74,7 +80,20 @@ const STAGE_CONFIG = {
         questionLimit: 20, // 文章数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',
-    }
+    },
+        // ここから追加
+        7: {
+            title: "対戦：進捗レース",
+            gameMode: 'race', // 新しいゲームモードとして 'race' を定義
+            wordList: [],     // 文章リストを使用 (ステージ6のものを流用)
+            questionLimit: 1, // 1つの文章の早さを競う
+        },
+        8: {
+            title: "対戦：早食いチャレンジ",
+            gameMode: 'scoreAttack', // 新しいゲームモードとして 'scoreAttack' を定義
+            wordList: [],         // 単語リストを使用 (ステージ5のものを流用)
+            timeLimit: 120,       // 仕様書に基づき制限時間を設定
+        }
 };
 
 // --- ゲーム状態を管理する変数 ---
@@ -316,7 +335,20 @@ function handleKeyPress(event) {
     if (event.key === 'Escape') { stopGame(null); return; }
     if (!isPlaying) return;
 
-    if (currentConfig.gameMode === 'wordAsteroid') {
+    if (currentConfig.gameMode === 'race') {
+        // 現在の進捗を計算して送信
+        const progress = word_typedWord.length / word_currentWord.length;
+        window.electronAPI.sendMessage({ type: 'progress_update', value: progress });
+        
+        // 自分が100%になったら勝利処理＆相手に通知
+        if (progress >= 1) {
+            window.electronAPI.sendMessage({ type: 'game_clear' });
+            gameClear();
+        }
+    } else if (currentConfig.gameMode === 'scoreAttack') {
+        // 現在のスコアを送信
+        window.electronAPI.sendMessage({ type: 'score_update', value: score });
+    } else if (currentConfig.gameMode === 'wordAsteroid') {
         if (event.key.length > 1) return;
 
         const correctNextChar = word_currentWord[word_typedWord.length];
@@ -514,7 +546,19 @@ function gameClear() {
     stopGame(message);
 }
 
-function gameOver() {
+function gameOver(customMessage) { // customMessageを受け取れるように変更
+    // (追加) 早食いチャレンジの勝敗判定
+    if (currentConfig.gameMode === 'scoreAttack' && timeLeft <= 0) {
+        const myScore = score;
+        const opponentScore = parseInt(opponentScoreDisplay.textContent, 10);
+        if (myScore > opponentScore) {
+            customMessage = `勝利！ (${myScore} vs ${opponentScore})`;
+        } else if (myScore < opponentScore) {
+            customMessage = `敗北... (${myScore} vs ${opponentScore})`;
+        } else {
+            customMessage = `引き分け！ (${myScore} vs ${opponentScore})`;
+        }
+    }
     const message = customMessage || `${currentTranslation.alertTimeUp} ${currentTranslation.alertScore}: ${score}`;
     stopGame(message);
 }
@@ -579,6 +623,30 @@ function startCountdown() {
     }, 1000);
 }
 
+function listenToOpponent() {
+    window.electronAPI.onNetworkData(data => {
+        if (data.type === 'opponent_quit') {
+            // (追加) 相手が退出したら、勝利としてゲームを終了する
+            gameOver("対戦相手が退出しました。あなたの勝利です！");
+            return; // 以降の処理は不要
+        }
+        if (data.type === 'progress_update' && currentConfig.gameMode === 'race') {
+            // 相手の進捗バーを更新
+            opponentProgressBar.style.width = `${data.value * 100}%`;
+            // 相手が100%になったら敗北処理
+            if (data.value >= 1) {
+                gameOver("対戦相手がゴールしました！");
+            }
+        } else if (data.type === 'score_update' && currentConfig.gameMode === 'scoreAttack') {
+            // 相手のスコアを更新
+            opponentScoreDisplay.textContent = data.value;
+        } else if (data.type === 'game_clear') {
+            // 相手がクリアした場合（進捗レース用）
+            gameOver("対戦相手がゴールしました！");
+        }
+    });
+}
+
 async function initialize() {
     const settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
@@ -617,13 +685,32 @@ async function initialize() {
     currentConfig = STAGE_CONFIG[stageId] || STAGE_CONFIG[1];
     createKeyboard();
     window.addEventListener('keydown', handleKeyPress);
-    quitButton.addEventListener('click', () => stopGame(null));
-    
+    quitButton.addEventListener('click', () => {
+        // (追加) 対戦モードの場合、相手に退出を通知する
+        if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
+            window.electronAPI.sendMessage({ type: 'opponent_quit' });
+        }
+        stopGame(null);
+    });
+    window.electronAPI.onNetworkEvent((event, data) => {
+        if (event === 'opponent_disconnected') {
+            gameOver("ネットワーク接続が切れました。あなたの勝利です！");
+        }
+    });
     questionDisplay.className = 'question-display';
     asteroidContainer.style.display = 'none';
     questionTextWrapper.style.display = 'none';
     questionText.style.display = 'none';
-    if (currentConfig.gameMode === 'wordAsteroid') {
+    if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
+        opponentInfoContainer.style.display = 'block';
+        if (currentConfig.gameMode === 'race') {
+            document.getElementById('opponent-progress-bar-container').style.display = 'block';
+        } else {
+            document.getElementById('opponent-score-container').style.display = 'block';
+        }
+        // 相手からのデータ受信を開始
+        listenToOpponent();
+    }else if (currentConfig.gameMode === 'wordAsteroid') {
         document.body.classList.add('night-sky-bg');
         questionDisplay.classList.add('mode-word-asteroid');
         keyboardLayoutDiv.style.display = 'none';

@@ -213,63 +213,76 @@ ipcMain.on('navigate-to-lobby', (event, stageId) => {
 
 // --- ネットワークAPI ---
 ipcMain.handle('start-server', () => {
-    isHost = true; // (FIX 1) Set isHost flag
+    isHost = true;
     server = net.createServer((socket) => {
         hostSocket = socket;
         mainWindow.webContents.send('network-event', 'client_connected', { userName: 'Opponent' });
 
+        // (修正) クライアントからのゲーム中データを受信し、ホストのレンダラへ転送
         socket.on('data', (data) => {
-            // This is where the host receives data from the client (not used in this logic)
+            try {
+                mainWindow.webContents.send('network-data', JSON.parse(data.toString()));
+            } catch (e) { console.error(e); }
         });
+        // (追加) クライアントとの接続が切れた場合の処理
+        const handleDisconnect = () => {
+            if (hostSocket) { // ソケットが存在する場合のみ処理
+                hostSocket = null; // ソケットをクリア
+                mainWindow.webContents.send('network-event', 'opponent_disconnected');
+            }
+        };
+        socket.on('error', handleDisconnect);
+        socket.on('close', handleDisconnect);
     });
     server.listen(8080);
     return getLocalIpAddress();
 });
 
 ipcMain.handle('connect-to-server', (event, ip) => {
-    isHost = false; // (FIX 1) Set isHost flag
+    isHost = false;
     clientSocket = new net.Socket();
     clientSocket.connect(8080, ip, () => {
         mainWindow.webContents.send('network-event', 'connected_to_host', { hostName: 'Host' });
     });
 
-    // (FIX 2) Add a listener for the client to receive the 'start_game' command
     clientSocket.on('data', (data) => {
         try {
             const message = JSON.parse(data.toString());
+            // ゲーム開始コマンドとゲーム中データを区別
             if (message.type === 'start_game') {
-                // Forward the start_game event to the client's renderer process
                 mainWindow.webContents.send('network-event', 'start_game', { stageId: message.stageId });
+            } else {
+                // (修正) ホストからのゲーム中データをクライアントのレンダラへ転送
+                mainWindow.webContents.send('network-data', message);
             }
-        } catch (error) {
-            console.error('Error parsing data from host:', error);
+        } catch (e) { console.error(e); }
+    });
+    const handleDisconnect = () => {
+        if (clientSocket) { // ソケットが存在する場合のみ処理
+            clientSocket = null; // ソケットをクリア
+            mainWindow.webContents.send('network-event', 'opponent_disconnected');
         }
-    });
-
-    clientSocket.on('error', (err) => {
-        console.error('Client socket error:', err);
-        // Optionally, inform the renderer process about the connection error
-        mainWindow.webContents.send('network-event', 'connection_error');
-    });
+    };
+    clientSocket.on('error', handleDisconnect);
+    clientSocket.on('close', handleDisconnect);
 });
 
-// (FIX 3) This handler now correctly starts the game for both players
 ipcMain.handle('send-message', (event, message) => {
+    // ゲーム開始リクエストはホストのみ
     if (isHost && message.type === 'start_game_request') {
-        const startGameMessage = JSON.stringify({
-            type: 'start_game',
-            stageId: currentStageId
-        });
-
-        // Tell the connected client to start
+        const startGameMessage = JSON.stringify({ type: 'start_game', stageId: currentStageId });
         if (hostSocket) {
             hostSocket.write(startGameMessage);
         }
-
-        // Tell the host's own window to start
         mainWindow.webContents.send('network-event', 'start_game', { stageId: currentStageId });
+        return;
     }
-    // Other message types could be handled here in the future
+
+    // ゲーム中のデータ送信
+    const socket = isHost ? hostSocket : clientSocket;
+    if (socket) {
+        socket.write(JSON.stringify(message));
+    }
 });
 
 
