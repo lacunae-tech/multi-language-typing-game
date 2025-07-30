@@ -212,6 +212,12 @@ ipcMain.handle('get-current-stage-id', () => {
     return currentStageId;
 });
 
+ipcMain.on('navigate-to-lobby', (event, stageId) => {
+    currentStageId = stageId;
+    if (mainWindow) {
+        mainWindow.loadFile('lobby.html');
+    }
+});
 
 // --- ネットワークAPI ---
 ipcMain.handle('start-server', () => {

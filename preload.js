@@ -18,6 +18,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     navigateToSettings: () => ipcRenderer.send('navigate-to-settings'),
     navigateToStageSelect: () => ipcRenderer.send('navigate-to-stage-select'), // (New!)
     navigateToGame: (stageId) => ipcRenderer.send('navigate-to-game', stageId), // (Updated!)
+    navigateToLobby: (stageId) => ipcRenderer.send('navigate-to-lobby', stageId),
 
     // メインメニュー画面で使うAPI
     onSetUser: (callback) => ipcRenderer.on('set-user', (event, userName) => callback(userName)),
