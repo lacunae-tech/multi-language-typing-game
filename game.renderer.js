@@ -108,6 +108,7 @@ let totalCorrectTyped = 0; // 正解した総数（文字 or 単語）
 let currentConfig = {};
 let gameLoopId = null;
 
+let keyMistakeStats = {}; // (追加) このゲーム中のキーごとのミスを記録するオブジェクト
 
 // --- wordAsteroidモード用の変数 ---
 let word_currentWord = '';
@@ -371,6 +372,13 @@ function handleKeyPress(event) {
         } else {
             // --- ミスした場合 ---
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+
+            // (追加) どのキーでミスしたかを記録
+            const expectedKey = word_currentWord[word_typedWord.length];
+            if (expectedKey) {
+                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
+            }
+            
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
         // --- ここからステージ8 (scoreAttack) 専用の新しい処理 ---
@@ -406,6 +414,12 @@ function handleKeyPress(event) {
         } else {
             // ミスした場合
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+
+            // (追加) どのキーでミスしたかを記録
+            const expectedKey = word_currentWord[word_typedWord.length];
+            if (expectedKey) {
+                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
+            }
             word_consecutiveCorrect = 0; // コンボをリセット
         }
         updateWordAsteroidDisplay(); // 画面表示を更新
@@ -444,6 +458,12 @@ function handleKeyPress(event) {
         } else {
             // --- ミスした場合の処理 ---
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+
+            // (追加) どのキーでミスしたかを記録
+            const expectedKey = word_currentWord[word_typedWord.length];
+            if (expectedKey) {
+                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
+            }
             word_consecutiveCorrect = 0;
             word_asteroidScale += 0.25;
             asteroidContainer.style.setProperty('transform', `scale(${word_asteroidScale})`, 'important');
@@ -529,6 +549,12 @@ function handleKeyPress(event) {
             }
         } else {
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+
+            // (追加) どのキーでミスしたかを記録
+            const expectedKey = word_currentWord[word_typedWord.length];
+            if (expectedKey) {
+                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
+            }
             timeLeft -= currentConfig.mistakePenalty;
             timerDisplay.textContent = timeLeft;
             consecutiveCorrect = 0;
@@ -575,6 +601,12 @@ function handleKeyPress(event) {
             singleChar_setNextQuestion();
         } else {
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+
+            // (追加) どのキーでミスしたかを記録
+            const expectedKey = word_currentWord[word_typedWord.length];
+            if (expectedKey) {
+                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
+            }
             singleChar_consecutiveCorrectAnswers = 0;
             singleChar_isKeyboardVisible = true;
             singleChar_updateKeyboardVisibility();
@@ -608,7 +640,13 @@ function gameClear() {
                   `${currentTranslation.alertScore}: ${score}\n` +
                   `${currentTranslation.alertTimeBonus}: ${timeBonus}\n` +
                   `${currentTranslation.alertTotalScore}: ${finalScore}`;
-    stopGame(message);
+
+    window.electronAPI.saveGameResult({
+        stageId: currentConfig.id, // STAGE_CONFIGにidを追加する必要があります
+        score: finalScore,
+        mistakes: keyMistakeStats
+    });
+    stopGame(message || customMessage);
 }
 
 function gameOver(customMessage) { // customMessageを受け取れるように変更
@@ -645,6 +683,7 @@ function startGame() {
     scoreDisplay.textContent = score;
     timerDisplay.textContent = timeLeft;
     remainingCountDisplay.textContent = currentConfig.questionLimit;
+    keyMistakeStats = {}; // (追加) ゲーム開始時にミス統計をリセット
     
     if (settings.bgm) { bgmAudio.volume = 0.3; bgmAudio.currentTime = 0; bgmAudio.play(); }
 

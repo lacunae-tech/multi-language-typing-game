@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
-    "start": "electron .", 
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,5 +12,8 @@
   "description": "",
   "devDependencies": {
     "electron": "^37.2.4"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.0"
   }
 }

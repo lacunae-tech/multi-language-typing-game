@@ -11,7 +11,7 @@ document.getElementById('start-button').addEventListener('click', () => {
 });
 
 document.getElementById('stats-button').addEventListener('click', () => {
-    console.log('統計データ画面へ');
+    window.electronAPI.navigateToStats();
 });
 
 document.getElementById('settings-button').addEventListener('click', () => {

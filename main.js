@@ -66,6 +66,20 @@ function getLocalIpAddress() {
     }
     return '127.0.0.1';
 }
+// ユーザーデータを読み込むヘルパー関数
+function loadUserData(userName) {
+    const filePath = path.join(saveDir, `${userName}.json`);
+    if (fs.existsSync(filePath)) {
+        return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    }
+    return null;
+}
+
+// ユーザーデータを保存するヘルパー関数
+function saveUserData(userName, data) {
+    const filePath = path.join(saveDir, `${userName}.json`);
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+}
 
 const createWindow = () => {
     mainWindow = new BrowserWindow({
@@ -80,6 +94,41 @@ const createWindow = () => {
     mainWindow.loadFile('index.html');
     mainWindow.webContents.openDevTools();
 };
+
+
+// ゲーム結果を保存するIPCハンドラ
+ipcMain.on('save-game-result', (event, result) => {
+    if (!currentUser) return;
+
+    const userData = loadUserData(currentUser);
+    if (!userData) return;
+
+    // スコア履歴の初期化
+    if (!userData.scoreHistory) userData.scoreHistory = {};
+    const stageKey = `stage${result.stageId}`;
+    if (!userData.scoreHistory[stageKey]) userData.scoreHistory[stageKey] = [];
+
+    // 新しいスコアを追加
+    userData.scoreHistory[stageKey].push({
+        score: result.score,
+        date: new Date().toISOString()
+    });
+
+    // キーごとのミス統計をマージ
+    if (!userData.keyStats) userData.keyStats = {};
+    for (const key in result.mistakes) {
+        if (!userData.keyStats[key]) userData.keyStats[key] = { mistakes: 0 };
+        userData.keyStats[key].mistakes += result.mistakes[key];
+    }
+
+    saveUserData(currentUser, userData);
+});
+
+// 統計データを取得するIPCハンドラ
+ipcMain.handle('get-stats-data', () => {
+    if (!currentUser) return null;
+    return loadUserData(currentUser);
+});
 
 app.whenReady().then(() => {
     createWindow();
@@ -121,7 +170,7 @@ ipcMain.handle('get-translation', (event, lang) => {
         return {};
     }
 });
-
+ipcMain.on('navigate-to-stats', () => { mainWindow.loadFile('stats.html'); });
 ipcMain.handle('get-layout', (event, layoutName) => {
     try {
         const filePath = path.join(__dirname, `assets/layouts/${layoutName}.json`);
