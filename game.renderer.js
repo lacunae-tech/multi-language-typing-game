@@ -346,8 +346,42 @@ function handleKeyPress(event) {
             gameClear();
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
-        // 現在のスコアを送信
-        window.electronAPI.sendMessage({ type: 'score_update', value: score });
+        // --- ここからステージ8 (scoreAttack) 専用の新しい処理 ---
+        if (event.key.length > 1) return;
+
+        const correctNextChar = word_currentWord[word_typedWord.length];
+
+        if (event.key === correctNextChar) {
+            // 正解の場合
+            if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
+            word_typedWord += event.key;
+
+            // 単語全体を正解した場合
+            if (word_typedWord === word_currentWord) {
+                createExplosionParticles();
+                word_consecutiveCorrect++;
+                
+                // スコア計算
+                let scoreMultiplier = 1.0;
+                if (word_consecutiveCorrect >= 5) {
+                    if (word_consecutiveCorrect % 5 === 0) showCombo();
+                    scoreMultiplier = 1.2;
+                }
+                score += Math.floor(word_currentWord.length * 50 * scoreMultiplier);
+                scoreDisplay.textContent = score;
+                
+                // 対戦相手にスコアを送信
+                window.electronAPI.sendMessage({ type: 'score_update', value: score });
+
+                totalCorrectTyped++;
+                setTimeout(setNextWordAsteroidQuestion, 300); // 次の単語へ
+            }
+        } else {
+            // ミスした場合
+            if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+            word_consecutiveCorrect = 0; // コンボをリセット
+        }
+        updateWordAsteroidDisplay(); // 画面表示を更新
     } else if (currentConfig.gameMode === 'wordAsteroid') {
         if (event.key.length > 1) return;
 
@@ -594,6 +628,10 @@ function startGame() {
         consecutiveCorrect = 0;
         lastSpawnTime = 0;
         fallingStars_gameLoop();
+    } else if (currentConfig.gameMode === 'scoreAttack') { // このelse ifブロックを追加
+        word_consecutiveCorrect = 0;
+        setNextWordAsteroidQuestion(); // 最初の単語を表示
+        // wordAsteroid_gameLoop() は呼び出さない
     } else {
         questionText.style.display = 'inline-block';
         ['kpm-box', 'bonus-box'].forEach(id => document.getElementById(id).style.display = 'block');
@@ -676,10 +714,13 @@ async function initialize() {
     if (wordListData) {
         if (wordListData.stage5_words) {
             STAGE_CONFIG[5].wordList = wordListData.stage5_words;
+            STAGE_CONFIG[7].wordList = wordListData.stage5_words;
+            STAGE_CONFIG[8].wordList = wordListData.stage5_words;
         }
         if (wordListData.stage6_sentences) {
             STAGE_CONFIG[6].wordList = wordListData.stage6_sentences;
         }
+
     }
     const stageId = await window.electronAPI.getCurrentStageId();
     currentConfig = STAGE_CONFIG[stageId] || STAGE_CONFIG[1];
