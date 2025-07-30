@@ -24,9 +24,9 @@ const asteroidContainer = document.getElementById('asteroid-container');
 const comboDisplay = document.getElementById('combo-display');
 
 
-const opponentInfoContainer = document.querySelector('.opponent-info-container');
+const opponentInfoContainer = document.getElementById('opponent-info-container');
+const opponentProgressContainer = document.getElementById('opponent-progress-container');
 const opponentProgressBar = document.getElementById('opponent-progress-bar');
-const opponentScoreDisplay = document.getElementById('opponent-score-display');
 
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
@@ -336,14 +336,31 @@ function handleKeyPress(event) {
     if (!isPlaying) return;
 
     if (currentConfig.gameMode === 'race') {
-        // 現在の進捗を計算して送信
-        const progress = word_typedWord.length / word_currentWord.length;
-        window.electronAPI.sendMessage({ type: 'progress_update', value: progress });
-        
-        // 自分が100%になったら勝利処理＆相手に通知
-        if (progress >= 1) {
-            window.electronAPI.sendMessage({ type: 'game_clear' });
-            gameClear();
+        if (event.key.length > 1) return;
+
+        const correctNextChar = word_currentWord[word_typedWord.length];
+
+        if (event.key === correctNextChar) {
+            // --- 正解の場合 ---
+            if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
+            word_typedWord += event.key;
+            updateWordAsteroidDisplay();
+
+            // 進捗率を計算して相手に送信
+            const progress = word_typedWord.length / word_currentWord.length;
+            window.electronAPI.sendMessage({ type: 'progress_update', value: progress });
+
+            // 進捗率が100%になったら勝利処理
+            if (progress >= 1) {
+                // 相手に自分がクリアしたことを通知
+                window.electronAPI.sendMessage({ type: 'game_clear' });
+                // 自身のゲームを勝利として終了
+                gameClear("勝利！");
+                return; // 処理を終了
+            }
+        } else {
+            // --- ミスした場合 ---
+            if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
         // --- ここからステージ8 (scoreAttack) 専用の新しい処理 ---
@@ -571,6 +588,10 @@ function stopGame(message) {
 }
 
 function gameClear() {
+    if (customMessage) {
+        stopGame(customMessage);
+        return;
+    }
     const timeBonus = timeLeft * 100;
     const finalScore = score + timeBonus;
     const message = `${currentTranslation.alertClearTitle}\n` +
@@ -628,6 +649,12 @@ function startGame() {
         consecutiveCorrect = 0;
         lastSpawnTime = 0;
         fallingStars_gameLoop();
+    } else if (currentConfig.gameMode === 'race') { // この else if を追加
+        word_typedWord = '';
+        setNextWordAsteroidQuestion(); // 課題となる文章をセット
+        questionText.style.display = 'inline-block';
+        opponentInfoContainer.style.display = 'block';
+        opponentProgressContainer.style.display = 'block';
     } else if (currentConfig.gameMode === 'scoreAttack') { // このelse ifブロックを追加
         word_consecutiveCorrect = 0;
         setNextWordAsteroidQuestion(); // 最初の単語を表示
@@ -745,11 +772,14 @@ async function initialize() {
     if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
         opponentInfoContainer.style.display = 'block';
         if (currentConfig.gameMode === 'race') {
-            document.getElementById('opponent-progress-bar-container').style.display = 'block';
+            opponentProgressBar.style.display = 'block';
         } else {
             document.getElementById('opponent-score-container').style.display = 'block';
         }
-        // 相手からのデータ受信を開始
+        asteroidContainer.style.display = 'block';
+        questionTextWrapper.style.display = 'block';
+        questionText.style.display = 'block';
+        keyboardLayoutDiv.style.display = 'none';
         listenToOpponent();
     }else if (currentConfig.gameMode === 'wordAsteroid') {
         document.body.classList.add('night-sky-bg');

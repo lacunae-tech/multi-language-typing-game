@@ -34,6 +34,14 @@
                 <span class="info-label" data-translate-key="gameLabelBonus">BONUS</span>
                 <span id="bonus-display" class="info-value">x1.0</span>
             </div>
+
+            <div id="opponent-info-container" class="opponent-info-container" style="display: none;">
+                <h2 class="opponent-label" data-translate-key="opponentStatus">対戦相手の進捗</h2>
+                <div id="opponent-progress-container" class="progress-container">
+                    <div id="opponent-progress-bar" class="progress-bar"></div>
+                </div>
+            </div>
+            
         </div>
 
         <!-- 問題表示エリア -->
@@ -64,17 +72,8 @@
     </div>
 
 
-    <div class="opponent-info-container" style="display: none;">
-        <h2 data-translate-key="opponentStatus">対戦相手の状況</h2>
-        <div id="opponent-progress-bar-container" style="display: none;">
-            <div id="opponent-progress-bar"></div>
-        </div>
-        <div id="opponent-score-container" style="display: none;">
-            <span data-translate-key="opponentScore">SCORE</span>
-            <span id="opponent-score-display">0</span>
-        </div>
-    </div>
-    
+
+
     <!-- オーディオ要素 -->
     <audio id="bgm-audio" src="./assets/audio/bgm.mp3" loop></audio>
     <audio id="type-audio" src="./assets/audio/type.mp3"></audio>
