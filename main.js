@@ -13,19 +13,20 @@ const settingsFilePath = path.join(app.getPath('userData'), 'settings.json');
 const defaultSettings = {
     bgm: true,
     sfx: true,
-    language: 'ja', // (New!)
-    layout: 'qwerty', // (New!)
+    language: 'ja',
+    layout: 'qwerty',
 };
 
 let mainWindow;
 let currentUser = null;
-let currentStageId = null; // (New!) 現在選択されているステージID
+let currentStageId = null;
 
 
 // --- ネットワーク関連の変数 ---
 let server = null;
 let clientSocket = null;
 let hostSocket = null;
+let isHost = false; // (FIX 1) Declare isHost variable
 
 function loadSettings() {
     try {
@@ -54,7 +55,6 @@ function saveSettings(settings) {
     }
 }
 
-// --- IPアドレスを取得する関数 ---
 function getLocalIpAddress() {
     const interfaces = os.networkInterfaces();
     for (const name of Object.keys(interfaces)) {
@@ -105,11 +105,9 @@ ipcMain.handle('get-users', async () => {
         .map(file => path.parse(file).name);
 });
 
-// (New!) 設定保存のAPI
 ipcMain.handle('save-settings', (event, settings) => {
     return saveSettings(settings);
 });
-// (New!) 翻訳ファイルを読み込むAPI
 ipcMain.handle('get-translation', (event, lang) => {
     try {
         const filePath = path.join(__dirname, `assets/lang/${lang}.json`);
@@ -124,7 +122,6 @@ ipcMain.handle('get-translation', (event, lang) => {
     }
 });
 
-// (New!) レイアウトファイルを読み込むAPI
 ipcMain.handle('get-layout', (event, layoutName) => {
     try {
         const filePath = path.join(__dirname, `assets/layouts/${layoutName}.json`);
@@ -132,14 +129,13 @@ ipcMain.handle('get-layout', (event, layoutName) => {
             const data = fs.readFileSync(filePath, 'utf-8');
             return JSON.parse(data);
         }
-        return []; // 見つからない場合は空の配列
+        return [];
     } catch (error) {
         console.error(`レイアウトファイル(${layoutName}.json)の読み込みに失敗:`, error);
         return [];
     }
 });
 
-// (New!) 単語リストファイルを読み込むAPI
 ipcMain.handle('get-word-list', (event, lang) => {
     try {
         const filePath = path.join(__dirname, `assets/words/${lang}.json`);
@@ -191,23 +187,19 @@ ipcMain.on('navigate-to-settings', () => {
     }
 });
 
-// ゲーム画面への遷移処理 (New!)
-
 ipcMain.on('navigate-to-stage-select', () => {
     if (mainWindow) {
         mainWindow.loadFile('stageSelect.html');
     }
 });
 
-// ゲーム画面への遷移 (ステージIDを受け取るように変更)
 ipcMain.on('navigate-to-game', (event, stageId) => {
-    currentStageId = stageId; // ステージIDを保持
+    currentStageId = stageId;
     if (mainWindow) {
         mainWindow.loadFile('game.html');
     }
 });
 
-// (New!) ゲーム画面から現在のステージIDを要求されたときの処理
 ipcMain.handle('get-current-stage-id', () => {
     return currentStageId;
 });
@@ -221,16 +213,13 @@ ipcMain.on('navigate-to-lobby', (event, stageId) => {
 
 // --- ネットワークAPI ---
 ipcMain.handle('start-server', () => {
+    isHost = true; // (FIX 1) Set isHost flag
     server = net.createServer((socket) => {
         hostSocket = socket;
-        mainWindow.webContents.send('network-event', 'client_connected', { userName: 'Opponent' }); // 仮
-        
+        mainWindow.webContents.send('network-event', 'client_connected', { userName: 'Opponent' });
+
         socket.on('data', (data) => {
-            // クライアントからのデータ受信処理
-            const message = JSON.parse(data.toString());
-            if (message.type === 'start_game_request') {
-                 // ゲーム開始処理
-            }
+            // This is where the host receives data from the client (not used in this logic)
         });
     });
     server.listen(8080);
@@ -238,21 +227,55 @@ ipcMain.handle('start-server', () => {
 });
 
 ipcMain.handle('connect-to-server', (event, ip) => {
+    isHost = false; // (FIX 1) Set isHost flag
     clientSocket = new net.Socket();
     clientSocket.connect(8080, ip, () => {
-        mainWindow.webContents.send('network-event', 'connected_to_host', { hostName: 'Host' }); // 仮
+        mainWindow.webContents.send('network-event', 'connected_to_host', { hostName: 'Host' });
+    });
+
+    // (FIX 2) Add a listener for the client to receive the 'start_game' command
+    clientSocket.on('data', (data) => {
+        try {
+            const message = JSON.parse(data.toString());
+            if (message.type === 'start_game') {
+                // Forward the start_game event to the client's renderer process
+                mainWindow.webContents.send('network-event', 'start_game', { stageId: message.stageId });
+            }
+        } catch (error) {
+            console.error('Error parsing data from host:', error);
+        }
+    });
+
+    clientSocket.on('error', (err) => {
+        console.error('Client socket error:', err);
+        // Optionally, inform the renderer process about the connection error
+        mainWindow.webContents.send('network-event', 'connection_error');
     });
 });
 
+// (FIX 3) This handler now correctly starts the game for both players
 ipcMain.handle('send-message', (event, message) => {
-    const socket = isHost ? hostSocket : clientSocket;
-    if (socket) {
-        socket.write(JSON.stringify(message));
+    if (isHost && message.type === 'start_game_request') {
+        const startGameMessage = JSON.stringify({
+            type: 'start_game',
+            stageId: currentStageId
+        });
+
+        // Tell the connected client to start
+        if (hostSocket) {
+            hostSocket.write(startGameMessage);
+        }
+
+        // Tell the host's own window to start
+        mainWindow.webContents.send('network-event', 'start_game', { stageId: currentStageId });
     }
+    // Other message types could be handled here in the future
 });
+
 
 ipcMain.on('close-connection', () => {
     if (server) server.close();
     if (clientSocket) clientSocket.destroy();
     if (hostSocket) hostSocket.destroy();
+    isHost = false; // Reset flag
 });
