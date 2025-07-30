@@ -1,0 +1,40 @@
+{
+    "userSelectTitle": "Select User",
+    "userSelectDescription": "Enter your name or select from below",
+    "namePlaceholder": "Enter name...",
+    "confirmButton": "Confirm",
+    "foundUsers": "Found Users",
+    "noUsersFound": "(No users yet)",
+    "feedbackNameEmpty": "Please enter a name!",
+    "feedbackWelcome": "Welcome, {userName}!",
+
+    "mainMenuWelcome": "Welcome, {userName}!",
+    "menuStart": "Start Game",
+    "menuStats": "Statistics",
+    "menuSettings": "Settings",
+
+    "stageSelectTitle": "Select a Stage",
+
+    "gameLabelTime": "TIME",
+    "gameLabelScore": "SCORE",
+    "gameLabelRemaining": "LEFT",
+    "gameLabelStarCount": "STARS",
+    "gameLabelKPM": "KPM",
+    "gameLabelBonus": "BONUS",
+    "gameButtonQuit": "Quit",
+
+    "alertClearTitle": "CLEAR!",
+    "alertGameOverTitle": "GAME OVER!",
+    "alertScore": "Score",
+    "alertTimeBonus": "Time Bonus",
+    "alertTotalScore": "Total Score",
+    "alertTimeUp": "Time's Up!",
+    "alertAsteroidCollision": "Asteroid collided!",
+
+    "settingsTitle": "Settings",
+    "settingBGM": "BGM",
+    "settingSFX": "Sound FX",
+    "settingLanguage": "Language",
+    "settingLayout": "Keyboard Layout",
+    "backButton": "Back"
+}

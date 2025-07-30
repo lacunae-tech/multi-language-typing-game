@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>設定</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>設 定</h1>
+        
+        <div class="settings-container">
+            <!-- BGM設定 -->
+            <div class="setting-item">
+                <label for="bgm-toggle" data-translate-key="settingBGM">BGM</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="bgm-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <!-- 効果音(SFX)設定 -->
+            <div class="setting-item">
+                <label for="sfx-toggle" data-translate-key="settingSFX">効果音 (SFX)</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="sfx-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <!-- 言語設定 -->
+            <div class="setting-item">
+                <label for="language-select" data-translate-key="settingLanguage">言語</label>
+                <select id="language-select" class="custom-select">
+                    <option value="ja">日本語</option>
+                    <option value="en">English</option>
+                    <option value="fr">Français</option>
+                </select>
+            </div>
+            <!-- キーボードレイアウト設定 -->
+            <div class="setting-item">
+                <label for="layout-select" data-translate-key="settingLayout">キーボードレイアウト</label>
+                <select id="layout-select" class="custom-select">
+                    <option value="qwerty">QWERTY</option>
+                    <option value="azerty">AZERTY</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- メインメニューに戻るボタン -->
+        <button class="menu-button" id="back-button" data-translate-key="backButton">もどる</button>
+    </div>
+
+    <script src="settings.renderer.js"></script>
+</body>
+</html>

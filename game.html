@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ゲームプレイ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- ゲーム情報表示エリア -->
+        <div class="game-info">
+            <div class="info-box">
+                <span class="info-label" data-translate-key="gameLabelTime">TIME</span>
+                <span id="timer-display" class="info-value">0</span>
+            </div>
+            <div class="info-box">
+                <span class="info-label" data-translate-key="gameLabelScore">SCORE</span>
+                <span id="score-display" class="info-value">0</span>
+            </div>
+            <div class="info-box">
+                <span class="info-label" data-translate-key="gameLabelRemaining">のこり</span>
+                <span id="remaining-count-display" class="info-value">0</span>
+            </div>
+            <!-- 「ほしの数」表示を追加 -->
+            <div class="info-box" id="star-count-box">
+                <span class="info-label" data-translate-key="gameLabelStarCount">ほしの数</span>
+                <span id="star-count-display" class="info-value">0</span>
+            </div>
+            <div class="info-box" id="kpm-box">
+                <span class="info-label" data-translate-key="gameLabelKPM">KPM</span>
+                <span id="kpm-display" class="info-value">0</span>
+            </div>
+            <div class="info-box" id="bonus-box">
+                <span class="info-label" data-translate-key="gameLabelBonus">BONUS</span>
+                <span id="bonus-display" class="info-value">x1.0</span>
+            </div>
+        </div>
+
+        <!-- 問題表示エリア -->
+        <div class="question-display">
+            <!-- 隕石のコンテナ (ステージ5,6用) -->
+            <div id="asteroid-container">
+                <img id="asteroid-image" src="./assets/img/meteorite.png" alt="隕石" onerror="this.onerror=null; this.src='https://placehold.co/400x400/663300/FFFFFF?text=隕石';">
+            </div>
+            <!-- 問題テキスト -->
+            <div id="question-text-wrapper">
+                <span id="question-text"></span>
+            </div>
+        </div>
+
+        <!-- キーボードレイアウト表示エリア -->
+        <div id="keyboard-layout"></div>
+
+        <!-- コンボ表示エリア (ステージ5,6用) -->
+        <div id="combo-display" class="combo-hidden">COMBO!</div>
+
+        <!-- 中断ボタン -->
+        <button id="quit-button" class="quit-button" data-translate-key="gameButtonQuit">もどる</button>
+
+        <!-- カウントダウン表示エリア -->
+        <div id="countdown-overlay">
+            <span id="countdown-text">3</span>
+        </div>
+    </div>
+
+    <!-- オーディオ要素 -->
+    <audio id="bgm-audio" src="./assets/audio/bgm.mp3" loop></audio>
+    <audio id="type-audio" src="./assets/audio/type.mp3"></audio>
+    <audio id="error-audio" src="./assets/audio/error.mp3"></audio>
+    <audio id="combo-audio" src="./assets/audio/combo.wav"></audio> <!-- コンボ用ジングル -->
+    <audio id="explosion-audio" src="./assets/audio/explosion.wav"></audio> <!-- 爆発音 -->
+
+    <script src="romaji.js"></script>
+    <script src="game.renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+    "settingsTitle": "Paramètres",
+    "settingBGM": "Musique de fond",
+    "settingSFX": "Effets sonores",
+    "settingLanguage": "Langue",
+    "settingLayout": "Disposition du clavier",
+    "backButton": "Retour",
+    "title_user_selection": "Sélection d’utilisateur",
+    "description_enter_or_select": "Entrez un nom ou sélectionnez ci-dessous",
+    "placeholder_name_input": "Entrez votre nom",
+    "button_confirm": "Confirmer",
+    "feedback_text": "",
+    "title_found_users": "Utilisateurs trouvés"
+}

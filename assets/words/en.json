@@ -1,0 +1,9 @@
+{
+  "stage5_words": [
+      "apple", "banana", "orange", "grape", "lemon", "melon", "peach", "strawberry"
+  ],
+  "stage6_sentences": [
+      "The quick brown fox jumps over the lazy dog.",
+      "Never put off till tomorrow what you can do today."
+  ]
+}

@@ -1,0 +1,223 @@
+/* style.css */
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap');
+
+body {
+    background-color: #f0f8ff;
+    font-family: 'Mochiy Pop One', sans-serif;
+    color: #5d4037;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    transition: background-color 0.5s ease;
+}
+
+/* --- ステージ3用の夜空の背景 --- */
+body.night-sky-bg {
+    background: linear-gradient(to bottom, #000428, #004e92);
+}
+body.night-sky-bg .info-box {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+body.night-sky-bg .info-label { color: #c5cae9; }
+body.night-sky-bg .info-value { color: #fff; }
+
+/* --- 汎用コンポーネント --- */
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+}
+h1 { color: #ff8a65; font-size: 2.5em; }
+h2 { color: #8d6e63; border-bottom: 2px dashed #ffccbc; padding-bottom: 5px; }
+
+/* --- ユーザー選択画面 --- */
+.input-form { margin: 20px 0; display: flex; justify-content: center; gap: 10px; }
+#name-input { font-family: 'Mochiy Pop One', sans-serif; padding: 10px 15px; border: 2px solid #ffccbc; border-radius: 10px; font-size: 1.2em; width: 60%; }
+#name-input:focus { outline: none; border-color: #ff8a65; }
+#confirm-button { font-family: 'Mochiy Pop One', sans-serif; background-color: #ff8a65; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-size: 1.2em; cursor: pointer; transition: background-color 0.3s; }
+#confirm-button:hover { background-color: #f4511e; }
+#feedback-text { height: 20px; color: #e53935; }
+#user-list { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.user-button { font-family: 'Mochiy Pop One', sans-serif; background-color: #a1887f; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; }
+.user-button:hover { background-color: #5d4037; }
+
+/* --- メインメニュー / ステージ選択画面 --- */
+.menu-buttons { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }
+.menu-button { font-family: 'Mochiy Pop One', sans-serif; background-color: #81d4fa; color: white; border: none; padding: 15px 20px; border-radius: 15px; font-size: 1.5em; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px #29b6f6; }
+.menu-button:hover { background-color: #4fc3f7; }
+.menu-button:active { box-shadow: none; transform: translateY(4px); }
+.stage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 40px 0; }
+.stage-button { background-color: #fff; border: 2px solid #ffccbc; border-radius: 15px; padding: 20px; text-align: left; cursor: pointer; transition: all 0.3s; display: flex; flex-direction: column; font-family: 'Mochiy Pop One', sans-serif; }
+.stage-button:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-color: #ff8a65; }
+.stage-id { font-size: 1.5em; font-weight: bold; color: #ff8a65; }
+.stage-name { font-size: 1.2em; color: #5d4037; margin-top: 10px; }
+.stage-description { font-size: 0.9em; color: #a1887f; margin-top: auto; padding-top: 10px; }
+.stage-button.disabled { background-color: #f5f5f5; cursor: not-allowed; color: #bdbdbd; }
+.stage-button.disabled:hover { transform: none; box-shadow: none; border-color: #eeeeee; }
+.stage-button.disabled .stage-id, .stage-button.disabled .stage-name, .stage-button.disabled .stage-description { color: #bdbdbd; }
+
+/* --- 設定画面 --- */
+.settings-container { margin-top: 30px; margin-bottom: 40px; text-align: left; display: flex; flex-direction: column; gap: 25px; }
+.setting-item { display: flex; justify-content: space-between; align-items: center; font-size: 1.2em; padding: 10px; background-color: #fafafa; border-radius: 10px; }
+.setting-item label { font-weight: bold; color: #8d6e63; }
+.setting-item span { color: #a1887f; }
+
+/* --- ゲーム画面 --- */
+.game-container { width: 95%; height: 95%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
+.game-info { display: flex; justify-content: center; gap: 20px; width: 100%; max-width: 1000px; flex-wrap: wrap; }
+.info-box { background-color: #fff; padding: 10px 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); text-align: center; transition: background-color 0.5s ease, border 0.5s ease; }
+.info-label { display: block; font-size: 1.2em; color: #a1887f; transition: color 0.5s ease; }
+.info-value { display: block; font-size: 2.5em; color: #ff8a65; font-weight: bold; transition: color 0.5s ease; }
+#countdown-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+#countdown-text { font-size: 15em; color: white; font-weight: bold; }
+#keyboard-layout { display: flex; flex-direction: column; gap: 8px; padding: 10px; background-color: #e0e0e0; border-radius: 10px; margin-bottom: 20px; }
+.key-row { display: flex; justify-content: center; gap: 8px; }
+.key { width: 60px; height: 60px; background-color: #fafafa; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 1.5em; font-weight: bold; color: #5d4037; border-bottom: 4px solid #bdbdbd; transition: all 0.05s; }
+.key.pressed { transform: translateY(2px); border-bottom-width: 2px; background-color: #ff8a65; }
+.quit-button { position: absolute; bottom: 20px; right: 20px; font-family: 'Mochiy Pop One', sans-serif; background-color: #9e9e9e; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-size: 1em; cursor: pointer; transition: background-color 0.3s; }
+.quit-button:hover { background-color: #616161; }
+
+/* --- ゲームモードごとのスタイル --- */
+.question-display.mode-single-char { background-color: #fff; padding: 40px 80px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); color: #5d4037; font-size: 8em; }
+.question-display.mode-falling-stars { position: relative; height: 100%; width: 100%; border: none; background: none; box-shadow: none; padding: 0; overflow: hidden; }
+.question-display.mode-word-asteroid { position: relative; height: 100%; width: 100%; border: none; background: none; box-shadow: none; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden; /* (New!) はみ出しをクリップ */ }
+
+/* --- ステージ3 星のスタイル --- */
+.star { position: absolute; width: 80px; height: 80px; display: flex; justify-content: center; align-items: center; font-size: 2em; color: #5d4037; will-change: transform; transition: top 0.2s ease-out; }
+.star::before { content: '★'; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 5em; color: #FFD700; text-shadow: 0 0 10px #fff, 0 0 20px #ffc107; z-index: -1; animation: rotate-star var(--rotation-duration, 15s) linear infinite; }
+
+/* --- ステージ5,6 隕石のスタイル --- */
+#asteroid-container { position: absolute; transition: transform 0.3s ease-out; }
+#asteroid-image { width: 250px; height: 250px; }
+#question-text-wrapper { position: relative; z-index: 10; font-size: 2.5em; padding: 10px 20px; background-color: rgba(0,0,0,0.5); border-radius: 10px; color: #fff; }
+#question-text .char.correct { color: #a5d6a7; }
+#question-text .char.incorrect { color: #ef9a9a; }
+#question-text .char.current { border-bottom: 3px solid #fff; }
+
+/* --- アニメーション --- */
+.question-display.perspective-3d { perspective: 1000px; }
+#question-text { display: inline-block; transform-style: preserve-3d; }
+@keyframes flip { from { transform: rotateY(0deg); } to { transform: rotateY(360deg); } }
+#question-text.flipping { animation: flip 0.4s ease-in-out; }
+@keyframes blink { 0%, 49% { background-color: #ffccbc; border-bottom-color: #ff8a65; } 50%, 100% { background-color: #fafafa; border-bottom-color: #bdbdbd; } }
+.key.blinking { animation: blink 1s infinite; }
+@keyframes rotate-star { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes fade-in-scale-up { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.fade-in { animation: fade-in-scale-up 0.5s forwards; }
+.particle { position: absolute; width: 10px; height: 10px; background: #ffcc80; border-radius: 50%; z-index: 20; opacity: 1; transition: transform 0.3s ease-out, opacity 0.3s ease-out; }
+#combo-display { position: absolute; bottom: 20%; left: 50%; transform: translateX(-50%) scale(0); font-size: 6em; color: #ffd700; text-shadow: 0 0 10px #000, 0 0 20px #ffc107; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; }
+#combo-display.combo-show { transform: translateX(-50%) scale(1); opacity: 1; }
+
+/* style.css の一番下に追記 */
+
+/* --- 設定画面 トグルスイッチ --- */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #81d4fa; /* Light Blue */
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* style.css の一番下に追記 */
+
+/* --- 設定画面 ドロップダウン --- */
+.custom-select {
+    font-family: 'Mochiy Pop One', sans-serif;
+    padding: 8px 12px;
+    border: 2px solid #ffccbc;
+    border-radius: 10px;
+    background-color: white;
+    font-size: 1em;
+    color: #5d4037;
+    cursor: pointer;
+}
+.custom-select:focus {
+    outline: none;
+    border-color: #ff8a65;
+}
+
+/* --- 設定画面 トグルスイッチ --- */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #81d4fa; /* Light Blue */
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}

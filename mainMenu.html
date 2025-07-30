@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>メインメニュー</title>
+    <!-- ユーザー選択画面と同じスタイルシートを再利用 -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ユーザー名が表示されるエリア -->
+        <h1 id="welcome-message">ようこそ！</h1>
+        
+        <div class="menu-buttons">
+            <button class="menu-button" id="start-button" data-translate-key="menuStart">ゲームスタート</button>
+            <button class="menu-button" id="stats-button" data-translate-key="menuStats">統計データ</button>
+            <button class="menu-button" id="settings-button" data-translate-key="menuSettings">設 定</button>
+            
+        </div>
+    </div>
+
+    <script src="mainMenu.renderer.js"></script>
+</body>
+</html>

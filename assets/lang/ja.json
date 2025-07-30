@@ -1,0 +1,40 @@
+{
+    "userSelectTitle": "ユーザーをえらんでね",
+    "userSelectDescription": "なまえをいれるか、したからえらんでね",
+    "namePlaceholder": "なまえをいれてね",
+    "confirmButton": "けってい",
+    "foundUsers": "みつかったユーザー",
+    "noUsersFound": "（まだ誰もいないよ）",
+    "feedbackNameEmpty": "なまえをいれてね！",
+    "feedbackWelcome": "ようこそ、{userName}さん！",
+    
+    "mainMenuWelcome": "{userName}さん、ようこそ！",
+    "menuStart": "ゲームスタート",
+    "menuStats": "統計データ",
+    "menuSettings": "設 定",
+
+    "stageSelectTitle": "ステージをえらんでね",
+    
+    "gameLabelTime": "TIME",
+    "gameLabelScore": "SCORE",
+    "gameLabelRemaining": "のこり",
+    "gameLabelStarCount": "ほしの数",
+    "gameLabelKPM": "KPM",
+    "gameLabelBonus": "BONUS",
+    "gameButtonQuit": "もどる",
+
+    "alertClearTitle": "クリア！",
+    "alertGameOverTitle": "ゲームオーバー！",
+    "alertScore": "スコア",
+    "alertTimeBonus": "タイムボーナス",
+    "alertTotalScore": "合計スコア",
+    "alertTimeUp": "タイムアップ！",
+    "alertAsteroidCollision": "隕石が衝突しました！",
+
+    "settingsTitle": "設 定",
+    "settingBGM": "BGM",
+    "settingSFX": "効果音 (SFX)",
+    "settingLanguage": "言語",
+    "settingLayout": "キーボードレイアウト",
+    "backButton": "もどる"
+}
