@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ゲーム結果</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="end-message">クリア！</h1>
+        
+        <div class="result-summary">
+            <p>今回のスコア</p>
+            <h2 id="final-score">0</h2>
+        </div>
+
+        <div class="chart-container" style="width: 100%; height: 300px; margin-top: 20px;">
+            <canvas id="score-chart"></canvas>
+        </div>
+
+        <div class="menu-buttons" style="margin-top: 30px; flex-direction: row; justify-content: center; gap: 20px;">
+            <button class="menu-button" id="retry-button">もういちど</button>
+            <button class="menu-button" id="back-button">メニューへ</button>
+        </div>
+    </div>
+
+    <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="result.renderer.js"></script>
+</body>
+</html>

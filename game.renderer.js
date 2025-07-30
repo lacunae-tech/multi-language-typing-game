@@ -36,6 +36,7 @@ let currentTranslation = {};
 // --- ステージごとの設定 ---
 const STAGE_CONFIG = {
     1: {
+        id:1,
         title: "ホームキー・ならし",
         timeLimit: 90,
         questionLimit: 80,
@@ -45,6 +46,7 @@ const STAGE_CONFIG = {
         showKeyboard: true,
     },
     2: {
+        id:2,
         title: "全キー・ならし",
         timeLimit: 90,
         questionLimit: 80,
@@ -54,6 +56,7 @@ const STAGE_CONFIG = {
         showKeyboard: true,
     },
     3: {
+        id:3,
         title: "星降るホームキー",
         timeLimit: 120,
         questionLimit: 80,
@@ -62,6 +65,7 @@ const STAGE_CONFIG = {
         mistakePenalty: 1,
     },
     4: {
+        id:4,
         title: "星降る全キー",
         timeLimit: 120,
         questionLimit: 80,
@@ -70,6 +74,7 @@ const STAGE_CONFIG = {
         mistakePenalty: 1,
     },
     5: {
+        id:5,
         title: "単語れんしゅう",
         timeLimit: 120,
         questionLimit: 30, // 単語数
@@ -77,6 +82,7 @@ const STAGE_CONFIG = {
         gameMode: 'wordAsteroid',
     },
     6: {
+        id:6,
         title: "文章れんしゅう",
         timeLimit: 120,
         questionLimit: 20, // 文章数
@@ -85,19 +91,24 @@ const STAGE_CONFIG = {
     },
         // ここから追加
         7: {
+            id: 7,
             title: "対戦：進捗レース",
             gameMode: 'race', // 新しいゲームモードとして 'race' を定義
             wordList: [],     // 文章リストを使用 (ステージ6のものを流用)
             questionLimit: 1, // 1つの文章の早さを競う
         },
         8: {
+            id: 8,
             title: "対戦：早食いチャレンジ",
             gameMode: 'scoreAttack', // 新しいゲームモードとして 'scoreAttack' を定義
             wordList: [],         // 単語リストを使用 (ステージ5のものを流用)
             timeLimit: 120,       // 仕様書に基づき制限時間を設定
         }
 };
-
+/**
+ * 結果を保存してゲームを終了する共通関数
+ * @param {string} message - 終了時に表示するメッセージ
+ */
 // --- ゲーム状態を管理する変数 ---
 let settings = { bgm: true, sfx: true };
 let score = 0;
@@ -163,6 +174,20 @@ function singleChar_clearHighlight() {
         singleChar_highlightedKeyElement.classList.remove('blinking');
         singleChar_highlightedKeyElement = null;
     }
+}
+
+function saveResultAndExit(message) {
+    const finalScore = score + (timeLeft > 0 ? timeLeft * 100 : 0);
+
+    const resultData = {
+        stageId: currentConfig.id,
+        score: finalScore,
+        mistakes: keyMistakeStats,
+        endMessage: message // 終了メッセージも結果画面に渡す
+    };
+
+    window.electronAPI.saveGameResult(resultData);
+    window.electronAPI.navigateToResult(resultData);
 }
 
 function singleChar_setNextQuestion() {
@@ -641,11 +666,7 @@ function gameClear() {
                   `${currentTranslation.alertTimeBonus}: ${timeBonus}\n` +
                   `${currentTranslation.alertTotalScore}: ${finalScore}`;
 
-    window.electronAPI.saveGameResult({
-        stageId: currentConfig.id, // STAGE_CONFIGにidを追加する必要があります
-        score: finalScore,
-        mistakes: keyMistakeStats
-    });
+    saveResultAndExit(message); // 新しい共通関数を呼び出す
     stopGame(message || customMessage);
 }
 
@@ -666,7 +687,8 @@ function gameOver(customMessage) { // customMessageを受け取れるように�
         return;
     }
     const message = customMessage || `${currentTranslation.alertTimeUp} ${currentTranslation.alertScore}: ${score}`;
-    stopGame(message);
+    saveResultAndExit(message); // 新しい共通関数を呼び出す
+
 }
 
 function updateTimer() {

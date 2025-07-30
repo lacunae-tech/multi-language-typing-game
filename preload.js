@@ -21,7 +21,9 @@ contextBridge.exposeInMainWorld('electronAPI', {
     navigateToGame: (stageId) => ipcRenderer.send('navigate-to-game', stageId), // (Updated!)
     navigateToLobby: (stageId) => ipcRenderer.send('navigate-to-lobby', stageId),
     navigateToStats: () => ipcRenderer.send('navigate-to-stats'),
-
+    navigateToResult: (result) => ipcRenderer.send('navigate-to-result', result),
+    getLastGameResult: () => ipcRenderer.invoke('get-last-game-result'),
+    
     // ゲーム画面で使うAPI (New!)
     getCurrentStageId: () => ipcRenderer.invoke('get-current-stage-id'),
     getRaceWordList: () => ipcRenderer.invoke('get-race-word-list'), 

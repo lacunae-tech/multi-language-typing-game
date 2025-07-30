@@ -27,6 +27,7 @@ let server = null;
 let clientSocket = null;
 let hostSocket = null;
 let isHost = false; // (FIX 1) Declare isHost variable
+let lastGameResult = null;
 
 function loadSettings() {
     try {
@@ -98,6 +99,8 @@ const createWindow = () => {
 
 // ゲーム結果を保存するIPCハンドラ
 ipcMain.on('save-game-result', (event, result) => {
+    console.log('レンダラーからゲーム結果を受信しました:', result);
+    console.log('現在のユーザー:', currentUser);
     if (!currentUser) return;
 
     const userData = loadUserData(currentUser);
@@ -262,6 +265,15 @@ ipcMain.on('navigate-to-lobby', (event, stageId) => {
     if (mainWindow) {
         mainWindow.loadFile('lobby.html');
     }
+});
+
+ipcMain.on('navigate-to-result', (event, result) => {
+    lastGameResult = result;
+    mainWindow.loadFile('result.html');
+});
+
+ipcMain.handle('get-last-game-result', () => {
+    return lastGameResult;
 });
 
 // --- ネットワークAPI ---
