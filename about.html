@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title data-translate-key="aboutTitle">このアプリについて</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .about-container { text-align: left; line-height: 1.8; }
+        .about-container p { margin-bottom: 10px; }
+        .about-container span { font-weight: bold; color: #5d4037; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 data-translate-key="aboutTitle">このアプリについて</h1>
+        
+        <div class="about-container">
+            <p><span data-translate-key="aboutAppNameLabel">アプリ名</span>: <span id="app-name"></span></p>
+            <p><span data-translate-key="aboutVersionLabel">バージョン</span>: <span id="app-version"></span></p>
+            <p><span data-translate-key="aboutAuthorLabel">作者</span>: <span id="app-author"></span></p>
+            <p><span data-translate-key="aboutDescriptionLabel">説明</span>: <span id="app-description"></span></p>
+            <p><span data-translate-key="aboutAuthorURL">URL</span>: <span id="app-author-url"></span></p>
+            <p><span data-translate-key="aboutCopyrightLabel">著作権</span>: <span id="app-copyright"></span></p>
+
+            <div class="about-container" style="margin-top: 30px;">
+                <h2 data-translate-key="aboutCreditsTitle">アセット（素材）・使用技術について</h2>
+                <textarea id="credits-textarea" readonly rows="5" style="width: 95%; font-size: 0.8em;"></textarea>
+            </div>
+
+        </div>
+
+        <button class="menu-button" id="back-button" style="margin-top: 30px;" data-translate-key="backButton">もどる</button>
+    </div>
+    <script src="about.renderer.js"></script>
+</body>
+</html>

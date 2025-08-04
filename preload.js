@@ -8,7 +8,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     getTranslation: (lang) => ipcRenderer.invoke('get-translation', lang), 
     getLayout: (layoutName) => ipcRenderer.invoke('get-layout', layoutName), 
     getWordList: (lang) => ipcRenderer.invoke('get-word-list', lang), 
-
+    getAppInfo: () => ipcRenderer.invoke('get-app-info'),
+    openExternalLink: (url) => ipcRenderer.send('open-external-link', url),
+    getCreditsData: () => ipcRenderer.invoke('get-credits-data'),
+    
     // ユーザー選択画面で使うAPI
     getUsers: () => ipcRenderer.invoke('get-users'),
     loginOrCreateUser: (userName) => ipcRenderer.invoke('login-or-create-user', userName),
@@ -23,7 +26,8 @@ contextBridge.exposeInMainWorld('electronAPI', {
     navigateToStats: () => ipcRenderer.send('navigate-to-stats'),
     navigateToResult: (result) => ipcRenderer.send('navigate-to-result', result),
     getLastGameResult: () => ipcRenderer.invoke('get-last-game-result'),
-    
+    navigateToAbout: () => ipcRenderer.send('navigate-to-about'),
+
     // ゲーム画面で使うAPI (New!)
     getCurrentStageId: () => ipcRenderer.invoke('get-current-stage-id'),
     getRaceWordList: () => ipcRenderer.invoke('get-race-word-list'), 

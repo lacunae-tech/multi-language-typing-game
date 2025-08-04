@@ -1,0 +1,34 @@
+{
+    "bgm": {
+      "title": {
+        "ja": "BGM",
+        "en": "BGM"
+      },
+      "source": "魔王魂",
+      "url": "https://maou.audio/"
+    },
+    "sfx": {
+      "title": {
+        "ja": "効果音",
+        "en": "Sound Effects"
+      },
+      "source": "効果音ラボ",
+      "url": "https://soundeffect-lab.info/"
+    },
+    "font": {
+      "title": {
+        "ja": "フォント",
+        "en": "Font"
+      },
+      "source": "Google Fonts (Mochiy Pop One)",
+      "url": "https://fonts.google.com/specimen/Mochiy+Pop+One"
+    },
+    "icon": {
+      "title": {
+        "ja": "アイコン",
+        "en": "Icons"
+      },
+      "source": "Gemini (Google)",
+      "url": ""
+    }
+  }

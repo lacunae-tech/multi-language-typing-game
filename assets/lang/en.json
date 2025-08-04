@@ -90,6 +90,15 @@
     "stageOptionPrefix": "Stage ",
     "mistakeUnit": " times",
     "attemptLabel": "Attempt {n}",
-    "scoreLabel": "Score"
+    "scoreLabel": "Score",
+
+    "aboutTitle": "About this App",
+    "menuAbout": "About this App",
+    "aboutAppNameLabel": "App Name",
+    "aboutCreditsTitle": "About Assets",
+    "aboutVersionLabel": "Version",
+    "aboutAuthorLabel": "Author",
+    "aboutDescriptionLabel": "Description",
+    "aboutCopyrightLabel": "Copyright"
 
 }

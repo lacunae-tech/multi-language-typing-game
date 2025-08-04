@@ -1,5 +1,5 @@
 // main.js
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const net = require('net'); // Node.jsのnetモジュールをインポート
@@ -300,6 +300,10 @@ ipcMain.handle('get-last-game-result', () => {
     return lastGameResult;
 });
 
+ipcMain.on('navigate-to-about', () => {
+    mainWindow.loadFile('about.html');
+});
+
 // --- ネットワークAPI ---
 ipcMain.handle('start-server', () => {
     isHost = true;
@@ -354,6 +358,37 @@ ipcMain.handle('connect-to-server', (event, ip) => {
     };
     clientSocket.on('error', handleDisconnect);
     clientSocket.on('close', handleDisconnect);
+});
+
+ipcMain.handle('get-app-info', () => {
+    // package.jsonを動的に読み込む
+    const packageJson = require('./package.json');
+    return {
+        name: app.getName(), // アプリ名
+        version: app.getVersion(), // バージョン
+        author: packageJson.author, // 作者
+        description: packageJson.description, // 説明
+        copyright: packageJson.build.copyright, // 著作権情報
+        dependencies: packageJson.dependencies, // (追加) 使用ライブラリ
+        devDependencies: packageJson.devDependencies // (追加) 開発用ライブラリ
+    };
+});
+ipcMain.on('open-external-link', (event, url) => {
+    shell.openExternal(url);
+});
+
+ipcMain.handle('get-credits-data', () => {
+    try {
+        const filePath = path.join(__dirname, 'assets/credits.json');
+        if (fs.existsSync(filePath)) {
+            const data = fs.readFileSync(filePath, 'utf-8');
+            return JSON.parse(data);
+        }
+        return null;
+    } catch (error) {
+        console.error('クレジットファイルの読み込みに失敗:', error);
+        return null;
+    }
 });
 
 ipcMain.handle('send-message', (event, message) => {

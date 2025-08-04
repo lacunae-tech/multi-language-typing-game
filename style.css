@@ -297,3 +297,31 @@ input:checked + .slider:before {
     background: linear-gradient(90deg, #f48fb1, #f06292); /* ピンク系 */
     box-shadow: 0 0 10px #f48fb1;
 }
+
+/* about.html の textarea (ゆるふわスタイル) */
+textarea#credits-textarea {
+    background-color: rgba(245, 224, 205, 0.5); /* 淡いベージュ系の背景色 (半透明) */
+    color: #5d4037; /* 少し落ち着いた茶系の文字色 */
+    border: 1px solid rgba(189, 147, 120, 0.7); /* 柔らかい印象のボーダー */
+    border-radius: 10px; /* 少し丸みをつける */
+    padding: 15px; /* 少し余白を持たせる */
+    font-family: 'Mochiy Pop One', sans-serif; /* 全体で使っているフォントに合わせる (もしあれば) */
+    line-height: 1.6; /* 行間を少し広げて読みやすく */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* ほんのり影をつけて立体感を */
+    outline: none; /* フォーカス時のデフォルトの輪郭線を消す */
+}
+
+/* スクロールバーのカスタマイズ (必要であれば) */
+textarea#credits-textarea::-webkit-scrollbar {
+    width: 10px; /* スクロールバーの幅 */
+}
+
+textarea#credits-textarea::-webkit-scrollbar-thumb {
+    background-color: rgba(189, 147, 120, 0.7); /* スクロールバーのつまみの色 */
+    border-radius: 5px;
+}
+
+textarea#credits-textarea::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1); /* スクロールバーの背景色 */
+    border-radius: 5px;
+}

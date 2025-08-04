@@ -91,6 +91,15 @@
     "stageOptionPrefix": "ステージ",
     "mistakeUnit": "回",
     "attemptLabel": "{n}回目",
-    "scoreLabel": "スコア"
+    "scoreLabel": "スコア",
+
+    "aboutTitle": "このアプリについて",
+    "menuAbout": "アプリについて",
+    "aboutCreditsTitle": "アセット（素材）について",
+    "aboutAppNameLabel": "アプリ名",
+    "aboutVersionLabel": "バージョン",
+    "aboutAuthorLabel": "作者",
+    "aboutDescriptionLabel": "説明",
+    "aboutCopyrightLabel": "著作権"
   }
   

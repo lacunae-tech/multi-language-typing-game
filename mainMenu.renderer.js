@@ -40,6 +40,10 @@ document.getElementById('settings-button').addEventListener('click', () => {
     window.electronAPI.navigateToSettings();
 });
 
+document.getElementById('about-button').addEventListener('click', () => {
+    window.electronAPI.navigateToAbout();
+});
+
 // --- 初期化処理 ---
 async function initialize() {
     const settings = await window.electronAPI.getSettings();
