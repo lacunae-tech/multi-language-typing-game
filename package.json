@@ -16,7 +16,6 @@
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
-    "chart.js": "^4.4.2",
     "electron": "^31.0.1",
     "electron-builder": "^24.13.3"
   },
@@ -45,5 +44,8 @@
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
     }
+  },
+  "dependencies": {
+    "chart.js": "^4.4.2"
   }
 }
