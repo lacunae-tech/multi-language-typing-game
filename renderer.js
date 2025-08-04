@@ -5,6 +5,8 @@ const nameInput = document.getElementById('name-input');
 const confirmButton = document.getElementById('confirm-button');
 const feedbackText = document.getElementById('feedback-text');
 const userListDiv = document.getElementById('user-list');
+const languageSelectContainer = document.getElementById('language-select-container');
+const languageSelect = document.getElementById('language-select');
 
 let currentTranslation = {};
 
@@ -38,6 +40,15 @@ nameInput.addEventListener('keydown', (event) => {
     }
 });
 
+// 言語選択が変更されたときの処理
+languageSelect.addEventListener('change', async () => {
+    const newLang = languageSelect.value;
+    await window.electronAPI.saveSettings({ language: newLang });
+    currentTranslation = await window.electronAPI.getTranslation(newLang);
+    translateUI();
+    displayUsers();
+});
+
 
 // --- 関数の定義 ---
 
@@ -59,11 +70,13 @@ async function handleLogin(userName) {
 async function displayUsers() {
     // preload.js経由でmain.jsの処理を呼び出す
     const users = await window.electronAPI.getUsers();
-    
+
     userListDiv.innerHTML = ''; // 一旦リストを空にする
+    languageSelectContainer.style.display = 'none';
 
     if (users.length === 0) {
         userListDiv.textContent = currentTranslation.noUsersFound;
+        languageSelectContainer.style.display = 'flex';
         return;
     }
 
@@ -83,6 +96,7 @@ async function displayUsers() {
 async function initialize() {
     const settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
+    languageSelect.value = settings.language;
     translateUI();
     displayUsers();
 }

@@ -13,7 +13,7 @@ const settingsFilePath = path.join(app.getPath('userData'), 'settings.json');
 const defaultSettings = {
     bgm: true,
     sfx: true,
-    language: 'ja',
+    language: 'en',
     layout: 'qwerty',
 };
 
