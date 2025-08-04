@@ -66,6 +66,8 @@
   "lobbyConnectButton": "Unganisha",
   "lobbyStatusWaiting": "Inasubiri mpinzani...",
   "lobbyStatusConnected": "Umeunganishwa! Subiri mwenyeji aanze mchezo.",
+  "lobbyClientConnected": "{{clientName}} ameunganishwa",
+  "lobbyConnectedToHost": "Imeunganishwa na mwenyeji {{hostName}}",
   "lobbyStartButton": "Anza Mechi",
 
   "statsTitle": "Takwimu",

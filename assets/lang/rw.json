@@ -66,6 +66,8 @@
   "lobbyConnectButton": "Huzaho",
   "lobbyStatusWaiting": "Gutegereje uwo muhanganye...",
   "lobbyStatusConnected": "Bihujwe! Tegereza ko umuyobozi atangiza umukino.",
+  "lobbyClientConnected": "{{clientName}} yahujwe",
+  "lobbyConnectedToHost": "Yahujwe n'umuyobozi {{hostName}}",
   "lobbyStartButton": "Tangiza Irushanwa",
 
   "statsTitle": "Imibare",
