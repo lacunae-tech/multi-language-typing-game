@@ -27,6 +27,7 @@
     "gameButtonQuit": "Quit",
     "OpponentProgress": "Opponent's Progress",
     "YourProgress": "Your Progress",
+    "comingSoon": "(Coming soon)",
     "stages": {
         "1": { "name": "Home Row Practice", "description": "Basic training" },
         "2": { "name": "All Keys Practice", "description": "Practice all keys" },
