@@ -19,6 +19,12 @@
     "menuSettings": "設定",
   
     "stageSelectTitle": "ステージ選択",
+
+    "titleStageSelect": "ステージ選択",
+    "titleGame": "ゲームプレイ",
+    "titleResult": "ゲーム結果",
+    "titleLobby": "対戦ロビー",
+    "titleStats": "統計データ",
   
     "gameLabelTime": "時間",
     "gameLabelScore": "スコア",

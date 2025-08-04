@@ -20,6 +20,12 @@
 
     "stageSelectTitle": "Select a Stage",
 
+    "titleStageSelect": "Stage Select",
+    "titleGame": "Game",
+    "titleResult": "Game Result",
+    "titleLobby": "Versus Lobby",
+    "titleStats": "Statistics",
+
     "gameLabelTime": "TIME",
     "gameLabelScore": "SCORE",
     "gameLabelRemaining": "LEFT",
