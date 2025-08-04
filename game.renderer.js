@@ -38,8 +38,8 @@ const STAGE_CONFIG = {
     1: {
         id:1,
         title: "ホームキー・ならし",
-        timeLimit: 10,
-        questionLimit: 5,
+        timeLimit: 60,
+        questionLimit: 60,
         questionKeys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':'],
         gameMode: 'singleChar',
         kpmThreshold: 60,
@@ -48,8 +48,8 @@ const STAGE_CONFIG = {
     2: {
         id:2,
         title: "全キー・ならし",
-        timeLimit: 10,
-        questionLimit: 5,
+        timeLimit: 60,
+        questionLimit: 60,
         questionKeys: [], // 動的に設定
         gameMode: 'singleChar',
         kpmThreshold: 60,
@@ -58,8 +58,8 @@ const STAGE_CONFIG = {
     3: {
         id:3,
         title: "星降るホームキー",
-        timeLimit: 10,
-        questionLimit: 5,
+        timeLimit: 90,
+        questionLimit: 60,
         questionKeys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':'],
         gameMode: 'fallingStars',
         mistakePenalty: 1,
@@ -67,8 +67,8 @@ const STAGE_CONFIG = {
     4: {
         id:4,
         title: "星降る全キー",
-        timeLimit: 10,
-        questionLimit: 5,
+        timeLimit: 90,
+        questionLimit: 60,
         questionKeys: [], // 動的に設定
         gameMode: 'fallingStars',
         mistakePenalty: 1,
@@ -76,16 +76,16 @@ const STAGE_CONFIG = {
     5: {
         id:5,
         title: "単語れんしゅう",
-        timeLimit: 10,
-        questionLimit: 5, // 単語数
+        timeLimit: 90,
+        questionLimit: 60, // 単語数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',
     },
     6: {
         id:6,
         title: "文章れんしゅう",
-        timeLimit: 10,
-        questionLimit: 5, // 文章数
+        timeLimit: 120,
+        questionLimit: 60, // 文章数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',
     },
