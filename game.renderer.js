@@ -102,6 +102,16 @@ const STAGE_CONFIG = {
         gameMode: 'scoreAttack', // 新しいゲームモードとして 'scoreAttack' を定義
         wordList: [],         // 単語リストを使用 (ステージ5のものを流用)
         timeLimit: 120,       // 仕様書に基づき制限時間を設定
+    },
+    9: {
+        id: 9,
+        title: "苦手キーれんしゅう",
+        timeLimit: 60,
+        questionLimit: 60,
+        questionKeys: [], // 動的に設定
+        gameMode: 'singleChar',
+        kpmThreshold: 60,
+        showKeyboard: true,
     }
 };
 /**
@@ -872,6 +882,18 @@ async function initialize() {
 
     }
     const stageId = await window.electronAPI.getCurrentStageId();
+    if (stageId === 9) {
+        const statsData = await window.electronAPI.getStatsData();
+        if (statsData && statsData.keyStats) {
+            const topKeys = Object.entries(statsData.keyStats)
+                .sort((a, b) => b[1].mistakes - a[1].mistakes)
+                .slice(0, 10)
+                .map(([key]) => key);
+            STAGE_CONFIG[9].questionKeys = topKeys.length > 0 ? topKeys : STAGE_CONFIG[2].questionKeys;
+        } else {
+            STAGE_CONFIG[9].questionKeys = STAGE_CONFIG[2].questionKeys;
+        }
+    }
     currentConfig = STAGE_CONFIG[stageId] || STAGE_CONFIG[1];
     createKeyboard();
     window.addEventListener('keydown', handleKeyPress);
