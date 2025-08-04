@@ -18,6 +18,12 @@
 
   "stageSelectTitle": "Seleccionar nivel",
 
+  "titleStageSelect": "Seleccionar nivel",
+  "titleGame": "Juego",
+  "titleResult": "Resultado del juego",
+  "titleLobby": "Sala de Versus",
+  "titleStats": "Estadísticas",
+
   "gameLabelTime": "TIEMPO",
   "gameLabelScore": "PUNTOS",
   "gameLabelRemaining": "RESTANTE",

@@ -18,6 +18,12 @@
 
   "stageSelectTitle": "Chagua Hatua",
 
+  "titleStageSelect": "Chagua Hatua",
+  "titleGame": "Mchezo",
+  "titleResult": "Matokeo ya Mchezo",
+  "titleLobby": "Chumba cha Mchezo wa Versus",
+  "titleStats": "Takwimu",
+
   "gameLabelTime": "MUDA",
   "gameLabelScore": "ALAMA",
   "gameLabelRemaining": "ZILIZOBAKI",

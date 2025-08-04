@@ -18,6 +18,12 @@
 
   "stageSelectTitle": "Selecionar Fase",
 
+  "titleStageSelect": "Selecionar Fase",
+  "titleGame": "Jogo",
+  "titleResult": "Resultado do Jogo",
+  "titleLobby": "Sala de Versus",
+  "titleStats": "Estatísticas",
+
   "gameLabelTime": "TEMPO",
   "gameLabelScore": "PONTUAÇÃO",
   "gameLabelRemaining": "RESTANTES",

@@ -17,6 +17,12 @@
     "menuSettings": "Paramètres",
   
     "stageSelectTitle": "Sélectionner un niveau",
+
+    "titleStageSelect": "Sélectionner un niveau",
+    "titleGame": "Jeu",
+    "titleResult": "Résultat du jeu",
+    "titleLobby": "Salon multijoueur",
+    "titleStats": "Statistiques",
   
     "gameLabelTime": "TEMPS",
     "gameLabelScore": "SCORE",

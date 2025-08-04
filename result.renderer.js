@@ -7,6 +7,18 @@ const backButton = document.getElementById('back-button');
 const chartCanvas = document.getElementById('score-chart');
 
 let lastResult = null;
+let currentTranslation = {};
+
+function translateUI() {
+    document.querySelectorAll('[data-translate-key]').forEach(el => {
+        const key = el.getAttribute('data-translate-key');
+        if (currentTranslation[key]) el.textContent = currentTranslation[key];
+    });
+    document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-translate-key-placeholder');
+        if (currentTranslation[key]) el.placeholder = currentTranslation[key];
+    });
+}
 
 // グラフと結果を表示するメインの関数
 async function displayResults() {
@@ -74,5 +86,10 @@ backButton.addEventListener('click', () => {
     window.electronAPI.navigateToMainMenu();
 });
 
-// 初期化
-displayResults();
+async function initialize() {
+    const settings = await window.electronAPI.getSettings();
+    currentTranslation = await window.electronAPI.getTranslation(settings.language);
+    translateUI();
+    await displayResults();
+}
+initialize();
