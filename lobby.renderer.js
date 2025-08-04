@@ -47,11 +47,15 @@ window.electronAPI.onNetworkEvent((event, data) => {
 
     switch (event) {
         case 'client_connected':
-            hostStatus.textContent = `${data.userName} が接続しました！`;
+            hostStatus.textContent = currentTranslation.lobbyClientConnected
+                ? currentTranslation.lobbyClientConnected.replace('{clientName}', data.userName)
+                : `${data.userName} が接続しました！`;
             document.getElementById('start-match-button').disabled = false;
             break;
         case 'connected_to_host':
-            clientStatus.textContent = `${data.hostName} に接続しました。開始を待っています...`;
+            clientStatus.textContent = currentTranslation.lobbyConnectedToHost
+                ? currentTranslation.lobbyConnectedToHost.replace('{hostName}', data.hostName)
+                : `${data.hostName} に接続しました。開始を待っています...`;
             break;
         case 'start_game':
             window.electronAPI.navigateToGame(data.stageId);
