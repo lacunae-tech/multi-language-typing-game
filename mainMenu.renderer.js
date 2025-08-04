@@ -2,6 +2,7 @@
 const welcomeMessage = document.getElementById('welcome-message');
 
 let currentTranslation = {};
+let currentUserName = '';
 
 function translateUI() {
     document.querySelectorAll('[data-translate-key]').forEach(el => {
@@ -12,18 +13,18 @@ function translateUI() {
         const key = el.getAttribute('data-translate-key-placeholder');
         if (currentTranslation[key]) el.placeholder = currentTranslation[key];
     });
+    updateWelcomeMessage();
+}
+
+function updateWelcomeMessage() {
+    const messageTemplate = currentTranslation.mainMenuWelcome || "{userName}さん、ようこそ！";
+    const formattedMessage = messageTemplate.replace('{userName}', currentUserName);
+    welcomeMessage.textContent = formattedMessage;
 }
 
 window.electronAPI.onSetUser((userName) => {
-    // welcomeMessage.textContent = `${userName}さん、ようこそ！`;
-
-    // 翻訳データからテンプレート文字列を取得
-    const messageTemplate = currentTranslation.mainMenuWelcome || "{userName}さん、ようこそ！";
-    console.log(messageTemplate)
-    // プレースホルダーを実際のユーザー名に置き換え
-    const formattedMessage = messageTemplate.replace('{userName}', userName);
-    welcomeMessage.textContent = formattedMessage;
-    
+    currentUserName = userName;
+    updateWelcomeMessage();
 });
 
 // ゲームスタートボタンの処理をステージ選択画面への遷移に変更
