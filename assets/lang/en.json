@@ -11,6 +11,7 @@
     "title_found_users": "Found Users",
     "button_confirm": "Confirm",
 
+    "mainMenuTitle": "Main Menu",
     "mainMenuWelcome": "Welcome, {userName}!",
     "menuStart": "Start Game",
     "menuStats": "Statistics",

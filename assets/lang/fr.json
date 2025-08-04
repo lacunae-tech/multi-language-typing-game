@@ -10,7 +10,8 @@
     "feedbackError": "Une erreur s'est produite : {error}",
     "title_found_users": "Utilisateurs trouvés",
     "button_confirm": "Confirmer",
-  
+
+    "mainMenuTitle": "Menu Principal",
     "mainMenuWelcome": "Bienvenue, {userName} !",
     "menuStart": "Commencer le jeu",
     "menuStats": "Statistiques",
