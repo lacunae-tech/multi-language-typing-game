@@ -85,7 +85,7 @@ h2 { color: #8d6e63; border-bottom: 2px dashed #ffccbc; padding-bottom: 5px; }
 .quit-button:hover { background-color: #616161; }
 
 /* --- ゲームモードごとのスタイル --- */
-.question-display.mode-single-char { background-color: #fff; padding: 40px 80px; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); color: #5d4037; font-size: 8em; }
+.question-display.mode-single-char { background-color: #fff; padding: 0; border-radius: 30px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); color: #5d4037; font-size: 2em; }
 .question-display.mode-falling-stars { position: relative; height: 100%; width: 100%; border: none; background: none; box-shadow: none; padding: 0; overflow: hidden; }
 .question-display.mode-word-asteroid { position: relative; height: 100%; width: 100%; border: none; background: none; box-shadow: none; padding: 0; display: flex; justify-content: center; align-items: center; overflow: hidden; /* (New!) はみ出しをクリップ */ }
 
