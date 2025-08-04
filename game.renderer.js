@@ -38,8 +38,8 @@ const STAGE_CONFIG = {
     1: {
         id:1,
         title: "ホームキー・ならし",
-        timeLimit: 90,
-        questionLimit: 80,
+        timeLimit: 10,
+        questionLimit: 5,
         questionKeys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':'],
         gameMode: 'singleChar',
         kpmThreshold: 60,
@@ -48,8 +48,8 @@ const STAGE_CONFIG = {
     2: {
         id:2,
         title: "全キー・ならし",
-        timeLimit: 90,
-        questionLimit: 80,
+        timeLimit: 10,
+        questionLimit: 5,
         questionKeys: [], // 動的に設定
         gameMode: 'singleChar',
         kpmThreshold: 60,
@@ -58,8 +58,8 @@ const STAGE_CONFIG = {
     3: {
         id:3,
         title: "星降るホームキー",
-        timeLimit: 120,
-        questionLimit: 80,
+        timeLimit: 10,
+        questionLimit: 5,
         questionKeys: ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', ':'],
         gameMode: 'fallingStars',
         mistakePenalty: 1,
@@ -67,8 +67,8 @@ const STAGE_CONFIG = {
     4: {
         id:4,
         title: "星降る全キー",
-        timeLimit: 120,
-        questionLimit: 80,
+        timeLimit: 10,
+        questionLimit: 5,
         questionKeys: [], // 動的に設定
         gameMode: 'fallingStars',
         mistakePenalty: 1,
@@ -76,34 +76,33 @@ const STAGE_CONFIG = {
     5: {
         id:5,
         title: "単語れんしゅう",
-        timeLimit: 120,
-        questionLimit: 30, // 単語数
+        timeLimit: 10,
+        questionLimit: 5, // 単語数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',
     },
     6: {
         id:6,
         title: "文章れんしゅう",
-        timeLimit: 120,
-        questionLimit: 20, // 文章数
+        timeLimit: 10,
+        questionLimit: 5, // 文章数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',
     },
-        // ここから追加
-        7: {
-            id: 7,
-            title: "対戦：進捗レース",
-            gameMode: 'race', // 新しいゲームモードとして 'race' を定義
-            wordList: [],     // 文章リストを使用 (ステージ6のものを流用)
-            questionLimit: 1, // 1つの文章の早さを競う
-        },
-        8: {
-            id: 8,
-            title: "対戦：早食いチャレンジ",
-            gameMode: 'scoreAttack', // 新しいゲームモードとして 'scoreAttack' を定義
-            wordList: [],         // 単語リストを使用 (ステージ5のものを流用)
-            timeLimit: 120,       // 仕様書に基づき制限時間を設定
-        }
+    7: {
+        id: 7,
+        title: "対戦：進捗レース",
+        gameMode: 'race', // 新しいゲームモードとして 'race' を定義
+        wordList: [],     // 文章リストを使用 (ステージ6のものを流用)
+        questionLimit: 1, // 1つの文章の早さを競う
+    },
+    8: {
+        id: 8,
+        title: "対戦：早食いチャレンジ",
+        gameMode: 'scoreAttack', // 新しいゲームモードとして 'scoreAttack' を定義
+        wordList: [],         // 単語リストを使用 (ステージ5のものを流用)
+        timeLimit: 120,       // 仕様書に基づき制限時間を設定
+    }
 };
 /**
  * 結果を保存してゲームを終了する共通関数
@@ -654,11 +653,11 @@ function stopGame(message) {
     window.electronAPI.navigateToMainMenu();
 }
 
-function gameClear() {
-    if (customMessage) {
-        stopGame(customMessage);
-        return;
-    }
+function gameClear(customMessage) {
+    // if (customMessage) {
+    //     stopGame(customMessage);
+    //     return;
+    // }
     const timeBonus = timeLeft * 100;
     const finalScore = score + timeBonus;
     const message = `${currentTranslation.alertClearTitle}\n` +
@@ -667,7 +666,6 @@ function gameClear() {
                   `${currentTranslation.alertTotalScore}: ${finalScore}`;
 
     saveResultAndExit(message); // 新しい共通関数を呼び出す
-    stopGame(message || customMessage);
 }
 
 function gameOver(customMessage) { // customMessageを受け取れるように変更

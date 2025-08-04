@@ -4,12 +4,24 @@ const keyStatsGrid = document.getElementById('key-stats-grid');
 const chartCanvas = document.getElementById('score-chart');
 let scoreChart = null;
 let statsData = null;
+let currentTranslation = {};
+
+function translateUI() {
+    document.querySelectorAll('[data-translate-key]').forEach(el => {
+        const key = el.getAttribute('data-translate-key');
+        if (currentTranslation[key]) el.textContent = currentTranslation[key];
+    });
+    document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-translate-key-placeholder');
+        if (currentTranslation[key]) el.placeholder = currentTranslation[key];
+    });
+}
 
 // ステージの選択肢を生成
 for (let i = 1; i <= 9; i++) {
     const option = document.createElement('option');
     option.value = `stage${i}`;
-    option.textContent = `ステージ ${i}`;
+    option.textContent = `Stage ${i}`;
     stageSelect.appendChild(option);
 }
 
@@ -67,6 +79,9 @@ async function initialize() {
     statsData = await window.electronAPI.getStatsData();
     renderKeyStats();
     renderChart(stageSelect.value);
+    const settings = await window.electronAPI.getSettings();
+    currentTranslation = await window.electronAPI.getTranslation(settings.language);
+    translateUI();
 }
 
 stageSelect.addEventListener('change', () => {

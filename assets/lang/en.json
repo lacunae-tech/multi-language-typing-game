@@ -7,6 +7,8 @@
     "noUsersFound": "(No users yet)",
     "feedbackNameEmpty": "Please enter a name!",
     "feedbackWelcome": "Welcome, {userName}!",
+    "title_found_users": "Found Users",
+    "button_confirm": "Confirm",
 
     "mainMenuWelcome": "Welcome, {userName}!",
     "menuStart": "Start Game",
@@ -22,7 +24,19 @@
     "gameLabelKPM": "KPM",
     "gameLabelBonus": "BONUS",
     "gameButtonQuit": "Quit",
-
+    "OpponentProgress": "Opponent's Progress",
+    "YourProgress": "Your Progress",
+    "stages": {
+        "1": { "name": "Home Row Practice", "description": "Basic training" },
+        "2": { "name": "All Keys Practice", "description": "Practice all keys" },
+        "3": { "name": "Falling Stars: Home Row", "description": "Home row training" },
+        "4": { "name": "Falling Stars: All Keys", "description": "All keys training" },
+        "5": { "name": "Word Practice", "description": "Destroy the meteorites!" },
+        "6": { "name": "Sentence Practice", "description": "Destroy with long sentences!" },
+        "7": { "name": "VS: Progress Race", "description": "Race to the finish!" },
+        "8": { "name": "VS: Score Attack", "description": "Compete for score!" },
+        "9": { "name": "Weak Key Review", "description": "(Coming soon)" }
+      },
     "alertClearTitle": "CLEAR!",
     "alertGameOverTitle": "GAME OVER!",
     "alertScore": "Score",
@@ -30,6 +44,8 @@
     "alertTotalScore": "Total Score",
     "alertTimeUp": "Time's Up!",
     "alertAsteroidCollision": "Asteroid collided!",
+    "retry": "Retry",
+    "backToMenu": "Back to Menu",
 
     "settingsTitle": "Settings",
     "settingBGM": "BGM",
@@ -47,5 +63,10 @@
     "lobbyConnectButton": "Connect",
     "lobbyStatusWaiting": "Waiting for opponent...",
     "lobbyStatusConnected": "Connected! Waiting for the host to start the game.",
-    "lobbyStartButton": "Start Match"
+    "lobbyStartButton": "Start Match",
+
+    "statsTitle": "Statistics",
+    "scoreTransition": "Score Transition",
+    "keyStatsTitle": "Key Stats (Missed Keys)"
+
 }

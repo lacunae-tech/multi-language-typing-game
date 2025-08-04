@@ -5,7 +5,14 @@ const backButton = document.getElementById('back-button');
 let currentTranslation = {};
 
 function translateUI() {
-    // ... 翻訳処理 ...
+    document.querySelectorAll('[data-translate-key]').forEach(el => {
+        const key = el.getAttribute('data-translate-key');
+        if (currentTranslation[key]) el.textContent = currentTranslation[key];
+    });
+    document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-translate-key-placeholder');
+        if (currentTranslation[key]) el.placeholder = currentTranslation[key];
+    });
 }
 
 // ホストになるボタンの処理
