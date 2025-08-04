@@ -8,6 +8,8 @@
   "feedbackNameEmpty": "Nylyamubwire izina!",
   "feedbackWelcome": "Ikaze, {userName}!",
   "feedbackError": "Habaye ikosa: {error}",
+  "errorTitle": "Ikosa",
+  "userDataError": "Habaye ikosa mu gutunganya amakuru y'umukoresha.",
   "title_found_users": "Abakoresha Babonetse",
   "button_confirm": "Emeza",
 

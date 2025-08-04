@@ -17,6 +17,25 @@ const defaultSettings = {
     layout: 'qwerty',
 };
 
+let translations = {};
+function loadTranslations(lang) {
+    try {
+        const filePath = path.join(__dirname, `assets/lang/${lang}.json`);
+        if (fs.existsSync(filePath)) {
+            const data = fs.readFileSync(filePath, 'utf-8');
+            translations = JSON.parse(data);
+        } else {
+            translations = {};
+        }
+    } catch (error) {
+        console.error('翻訳ファイルの読み込みに失敗しました:', error);
+        translations = {};
+    }
+}
+
+// 初期翻訳の読み込み
+loadTranslations(loadSettings().language);
+
 let mainWindow;
 let currentUser = null;
 let currentStageId = null;
@@ -49,6 +68,9 @@ function saveSettings(settings) {
         const currentSettings = loadSettings();
         const newSettings = { ...currentSettings, ...settings };
         fs.writeFileSync(settingsFilePath, JSON.stringify(newSettings, null, 2));
+        if (settings.language && settings.language !== currentSettings.language) {
+            loadTranslations(settings.language);
+        }
         return { success: true };
     } catch (error) {
         console.error('設定ファイルの保存に失敗しました:', error);
@@ -223,7 +245,9 @@ ipcMain.handle('login-or-create-user', async (event, userName) => {
         return { success: true, userName: userName };
     } catch (error) {
         console.error('ユーザーの作成/ログインに失敗しました:', error);
-        dialog.showErrorBox('エラー', 'ユーザーデータの処理中にエラーが発生しました。');
+        const title = translations.errorTitle || 'Error';
+        const message = translations.userDataError || 'An error occurred while processing user data.';
+        dialog.showErrorBox(title, message);
         return { success: false, error: error.message };
     }
 });

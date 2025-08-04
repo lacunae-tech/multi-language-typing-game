@@ -8,6 +8,8 @@
     "feedbackNameEmpty": "Please enter a name!",
     "feedbackWelcome": "Welcome, {userName}!",
     "feedbackError": "An error occurred: {error}",
+    "errorTitle": "Error",
+    "userDataError": "An error occurred while processing user data.",
     "title_found_users": "Found Users",
     "button_confirm": "Confirm",
 
