@@ -7,6 +7,7 @@
     "noUsersFound": "（ユーザーがまだいません）",
     "feedbackNameEmpty": "名前を入力してください！",
     "feedbackWelcome": "ようこそ、{userName}さん！",
+    "feedbackError": "エラーが発生しました: {error}",
     "title_found_users": "見つかったユーザー",
     "button_confirm": "確認",
   
