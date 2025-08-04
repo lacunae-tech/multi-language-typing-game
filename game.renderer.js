@@ -356,7 +356,7 @@ function wordAsteroid_gameLoop() {
     word_asteroidScale += growthRate;
     asteroidContainer.style.setProperty('transform', `scale(${word_asteroidScale})`, 'important');
     if (word_asteroidScale >= 4.0) {
-        gameOver("隕石が衝突しました！");
+        gameOver(currentTranslation.gameOverAsteroidCollision);
         return;
     }
     gameLoopId = requestAnimationFrame(wordAsteroid_gameLoop);
@@ -492,7 +492,7 @@ function handleKeyPress(event) {
             word_asteroidScale += 0.25;
             asteroidContainer.style.setProperty('transform', `scale(${word_asteroidScale})`, 'important');
             if (word_asteroidScale >= 4.0) {
-                gameOver("隕石が衝突しました！");
+                gameOver(currentTranslation.gameOverAsteroidCollision);
             }
                 // 何もせず、正しいキーの入力を待つ
         }
@@ -780,7 +780,7 @@ function listenToOpponent() {
         }
         if (data.type === 'opponent_quit') {
             // (追加) 相手が退出したら、勝利としてゲームを終了する
-            gameOver("対戦相手が退出しました。あなたの勝利です！");
+            gameOver(currentTranslation.gameOverOpponentDisconnected);
             return; // 以降の処理は不要
         }
         if (data.type === 'progress_update' && currentConfig.gameMode === 'race') {
@@ -788,14 +788,14 @@ function listenToOpponent() {
             opponentProgressBar.style.width = `${data.value * 100}%`;
             // 相手が100%になったら敗北処理
             if (data.value >= 1) {
-                gameOver("対戦相手がゴールしました！");
+                gameOver(currentTranslation.gameOverOpponentFinished);
             }
         } else if (data.type === 'score_update' && currentConfig.gameMode === 'scoreAttack') {
             // 相手のスコアを更新
             opponentScoreDisplay.textContent = data.value;
         } else if (data.type === 'game_clear') {
             // 相手がクリアした場合（進捗レース用）
-            gameOver("対戦相手がゴールしました！");
+            gameOver(currentTranslation.gameOverOpponentFinished);
         }
     });
 }
@@ -826,7 +826,9 @@ function judgeRaceResult() {
     } else if (myWordsCleared < opponentWordsCleared) {
         msg = `敗北... (${myWordsCleared} vs ${opponentWordsCleared})`;
     } else {
-        msg = `引き分け！ (${myWordsCleared} vs ${opponentWordsCleared})`;
+        msg = currentTranslation.gameOverTie
+            .replace('{myCount}', myWordsCleared)
+            .replace('{opponentCount}', opponentWordsCleared);
     }
     stopGame(msg);
 }
@@ -882,7 +884,7 @@ async function initialize() {
     });
     window.electronAPI.onNetworkEvent((event, data) => {
         if (event === 'opponent_disconnected') {
-            gameOver("ネットワーク接続が切れました。あなたの勝利です！");
+            gameOver(currentTranslation.gameOverNetworkError);
         }
     });
     questionDisplay.className = 'question-display';
@@ -914,18 +916,18 @@ async function initialize() {
         asteroidContainer.style.display = 'block';
         questionTextWrapper.style.display = 'block';
         questionText.style.display = 'block';
-        remainingCountLabel.textContent = 'のこり';
+        remainingCountLabel.textContent = currentTranslation.remainingCounter;
     }else if (currentConfig.gameMode === 'fallingStars') {
         document.body.classList.add('night-sky-bg');
         questionDisplay.classList.add('mode-falling-stars');
         keyboardLayoutDiv.style.display = 'none';
-        remainingCountLabel.textContent = 'のこり';
+        remainingCountLabel.textContent = currentTranslation.remainingCounter;
     } else {
         document.body.classList.remove('night-sky-bg');
         questionDisplay.classList.add('mode-single-char', 'perspective-3d');
         keyboardLayoutDiv.style.display = 'block';
         questionTextWrapper.style.display = 'block';
-        remainingCountLabel.textContent = 'のこり';
+        remainingCountLabel.textContent = currentTranslation.remainingCounter;
     }
     
     startCountdown();
