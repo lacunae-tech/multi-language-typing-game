@@ -27,6 +27,7 @@
   "gameButtonQuit": "Sohoka",
   "OpponentProgress": "Iterambere ry'Uwo Mwahanganye",
   "YourProgress": "Iterambere Ryawe",
+  "comingSoon": "(Biraje vuba)",
 
   "stages": {
     "1": { "name": "Imyitozo ya Laini Y’Inyuma", "description": "Amahugurwa y’ibanze" },

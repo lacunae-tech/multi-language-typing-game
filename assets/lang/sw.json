@@ -27,6 +27,7 @@
   "gameButtonQuit": "Toka",
   "OpponentProgress": "Maendeleo ya Mpinzani",
   "YourProgress": "Maendeleo Yako",
+  "comingSoon": "(Hivi karibuni)",
 
   "stages": {
     "1": { "name": "Mazoezi ya Safu ya Kati", "description": "Mafunzo ya msingi" },

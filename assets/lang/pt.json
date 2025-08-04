@@ -27,6 +27,7 @@
   "gameButtonQuit": "Sair",
   "OpponentProgress": "Progresso do Oponente",
   "YourProgress": "Seu Progresso",
+  "comingSoon": "(Em breve)",
 
   "stages": {
     "1": { "name": "Treino da Linha Base", "description": "Treinamento básico" },

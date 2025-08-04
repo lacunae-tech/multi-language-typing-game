@@ -27,7 +27,8 @@
     "gameButtonQuit": "終了",
     "OpponentProgress": "相手の進行状況",
     "YourProgress": "あなたの進行状況",
-  
+    "comingSoon": "（近日公開）",
+
     "stages": {
       "1": { "name": "ホームポジション練習", "description": "基本トレーニング" },
       "2": { "name": "全キー練習", "description": "すべてのキーを練習" },

@@ -27,6 +27,7 @@
   "gameButtonQuit": "Salir",
   "OpponentProgress": "Progreso del oponente",
   "YourProgress": "Tu progreso",
+  "comingSoon": "(Próximamente)",
 
   "stages": {
     "1": { "name": "Práctica fila base", "description": "Entrenamiento básico" },

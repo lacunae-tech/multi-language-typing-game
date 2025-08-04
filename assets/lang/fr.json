@@ -27,7 +27,8 @@
     "gameButtonQuit": "Quitter",
     "OpponentProgress": "Progression de l'adversaire",
     "YourProgress": "Votre progression",
-  
+    "comingSoon": "(Bientôt disponible)",
+
     "stages": {
       "1": { "name": "Entraînement rangée de base", "description": "Entraînement de base" },
       "2": { "name": "Entraînement toutes les touches", "description": "Pratiquer toutes les touches" },
