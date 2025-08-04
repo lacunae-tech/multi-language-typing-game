@@ -8,6 +8,8 @@
   "feedbackNameEmpty": "Tafadhali weka jina!",
   "feedbackWelcome": "Karibu, {userName}!",
   "feedbackError": "Hitilafu imetokea: {error}",
+  "errorTitle": "Hitilafu",
+  "userDataError": "Hitilafu imetokea wakati wa kuchakata data ya mtumiaji.",
   "title_found_users": "Watumiaji Waliopatikana",
   "button_confirm": "Thibitisha",
 

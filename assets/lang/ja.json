@@ -8,6 +8,8 @@
     "feedbackNameEmpty": "名前を入力してください！",
     "feedbackWelcome": "ようこそ、{userName}さん！",
     "feedbackError": "エラーが発生しました: {error}",
+    "errorTitle": "エラー",
+    "userDataError": "ユーザーデータの処理中にエラーが発生しました。",
     "title_found_users": "見つかったユーザー",
     "button_confirm": "確認",
   
