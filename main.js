@@ -115,7 +115,7 @@ const createWindow = () => {
         }
     });
     mainWindow.loadFile('index.html');
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 };
 
 
@@ -362,7 +362,8 @@ ipcMain.handle('connect-to-server', (event, ip) => {
 
 ipcMain.handle('get-app-info', () => {
     // package.jsonを動的に読み込む
-    const packageJson = require('./package.json');
+    const packageJsonPath = path.join(app.getAppPath(), 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
     return {
         name: app.getName(), // アプリ名
         version: app.getVersion(), // バージョン
