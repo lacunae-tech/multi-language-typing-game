@@ -65,6 +65,8 @@
     "lobbyConnectButton": "接続",
     "lobbyStatusWaiting": "対戦相手を待っています...",
     "lobbyStatusConnected": "接続完了！ホストの開始を待っています。",
+    "lobbyClientConnected": "{{clientName}} が接続しました",
+    "lobbyConnectedToHost": "ホスト {{hostName}} に接続しました",
     "lobbyStartButton": "試合開始",
   
     "statsTitle": "統計",

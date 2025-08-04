@@ -64,6 +64,8 @@
     "lobbyConnectButton": "Connect",
     "lobbyStatusWaiting": "Waiting for opponent...",
     "lobbyStatusConnected": "Connected! Waiting for the host to start the game.",
+    "lobbyClientConnected": "{{clientName}} connected",
+    "lobbyConnectedToHost": "Connected to host {{hostName}}",
     "lobbyStartButton": "Start Match",
 
     "statsTitle": "Statistics",
