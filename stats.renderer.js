@@ -18,11 +18,15 @@ function translateUI() {
 }
 
 // ステージの選択肢を生成
-for (let i = 1; i <= 9; i++) {
-    const option = document.createElement('option');
-    option.value = `stage${i}`;
-    option.textContent = `Stage ${i}`;
-    stageSelect.appendChild(option);
+function populateStageOptions() {
+    stageSelect.innerHTML = '';
+    for (let i = 1; i <= 9; i++) {
+        const option = document.createElement('option');
+        option.value = `stage${i}`;
+        const prefix = currentTranslation.stageOptionPrefix || 'Stage ';
+        option.textContent = `${prefix}${i}`;
+        stageSelect.appendChild(option);
+    }
 }
 
 // 苦手キーを表示
@@ -42,7 +46,8 @@ function renderKeyStats() {
         if (stat.mistakes >= 5) {
             div.classList.add('weak');
         }
-        div.innerHTML = `<div class="key-char">${key}</div><div class="mistake-rate">${stat.mistakes}回</div>`;
+        const unit = currentTranslation.mistakeUnit || '回';
+        div.innerHTML = `<div class="key-char">${key}</div><div class="mistake-rate">${stat.mistakes}${unit}</div>`;
         keyStatsGrid.appendChild(div);
     });
 }
@@ -57,7 +62,10 @@ function renderChart(stageKey) {
     }
 
     const history = statsData.scoreHistory[stageKey];
-    const labels = history.map((_, i) => `${i + 1}回目`);
+    const labels = history.map((_, i) => {
+        const template = currentTranslation.attemptLabel || '{n}回目';
+        return template.replace('{n}', i + 1);
+    });
     const data = history.map(h => h.score);
 
     scoreChart = new Chart(chartCanvas, {
@@ -65,7 +73,7 @@ function renderChart(stageKey) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'スコア',
+                label: currentTranslation.scoreLabel || 'スコア',
                 data: data,
                 borderColor: '#81d4fa',
                 tension: 0.1
@@ -77,11 +85,12 @@ function renderChart(stageKey) {
 // 初期化処理
 async function initialize() {
     statsData = await window.electronAPI.getStatsData();
-    renderKeyStats();
-    renderChart(stageSelect.value);
     const settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     translateUI();
+    populateStageOptions();
+    renderKeyStats();
+    renderChart(stageSelect.value);
 }
 
 stageSelect.addEventListener('change', () => {

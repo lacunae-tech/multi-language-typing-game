@@ -69,5 +69,9 @@
 
   "statsTitle": "Takwimu",
   "scoreTransition": "Mabadiliko ya Alama",
-  "keyStatsTitle": "Takwimu za Vifunguo (Vilivyokosewa)"
+  "keyStatsTitle": "Takwimu za Vifunguo (Vilivyokosewa)",
+  "stageOptionPrefix": "Hatua ",
+  "mistakeUnit": " mara",
+  "attemptLabel": "Jaribio {n}",
+  "scoreLabel": "Alama"
 }

@@ -69,5 +69,9 @@
 
   "statsTitle": "Imibare",
   "scoreTransition": "Imihindagurikire y’Amanota",
-  "keyStatsTitle": "Imibare y’Imfunguzo (Zibuze)"
+  "keyStatsTitle": "Imibare y’Imfunguzo (Zibuze)",
+  "stageOptionPrefix": "Urwego ",
+  "mistakeUnit": " inshuro",
+  "attemptLabel": "Igerageza {n}",
+  "scoreLabel": "Amanota"
 }
