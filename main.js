@@ -1,5 +1,5 @@
 // main.js
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell, session } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const net = require('net'); // Node.jsのnetモジュールをインポート
@@ -156,6 +156,13 @@ ipcMain.handle('get-stats-data', () => {
 });
 
 app.whenReady().then(() => {
+    session.defaultSession.setPermissionRequestHandler((webContents, permission, callback) => {
+        if (["media", "geolocation", "notifications"].includes(permission)) {
+            return callback(false);
+        }
+        callback(true);
+    });
+
     createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
