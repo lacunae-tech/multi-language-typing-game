@@ -7,6 +7,7 @@
     "noUsersFound": "(Aucun utilisateur pour le moment)",
     "feedbackNameEmpty": "Veuillez entrer un nom !",
     "feedbackWelcome": "Bienvenue, {userName} !",
+    "feedbackError": "Une erreur s'est produite : {error}",
     "title_found_users": "Utilisateurs trouvés",
     "button_confirm": "Confirmer",
   

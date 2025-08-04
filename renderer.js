@@ -25,7 +25,7 @@ function translateUI() {
 confirmButton.addEventListener('click', async () => {
     const userName = nameInput.value;
     if (!userName) {
-        feedbackText.textContent = 'なまえをいれてね！';
+        feedbackText.textContent = currentTranslation.feedbackNameEmpty;
         return;
     }
     handleLogin(userName);
@@ -47,11 +47,11 @@ async function handleLogin(userName) {
     const result = await window.electronAPI.loginOrCreateUser(userName);
 
     if (result.success) {
-        feedbackText.textContent = `ようこそ、${result.userName}さん！`;
+        feedbackText.textContent = currentTranslation.feedbackWelcome.replace('{userName}', result.userName);
         // ログイン成功後、メインメニューへ遷移
         window.electronAPI.navigateToMainMenu(result.userName);
     } else {
-        feedbackText.textContent = `エラーが発生しました: ${result.error}`;
+        feedbackText.textContent = currentTranslation.feedbackError.replace('{error}', result.error);
     }
 }
 
@@ -63,7 +63,7 @@ async function displayUsers() {
     userListDiv.innerHTML = ''; // 一旦リストを空にする
 
     if (users.length === 0) {
-        userListDiv.textContent = '（まだ誰もいないよ）';
+        userListDiv.textContent = currentTranslation.noUsersFound;
         return;
     }
 
