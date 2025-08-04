@@ -68,6 +68,10 @@
 
     "statsTitle": "Statistics",
     "scoreTransition": "Score Transition",
-    "keyStatsTitle": "Key Stats (Missed Keys)"
+    "keyStatsTitle": "Key Stats (Missed Keys)",
+    "stageOptionPrefix": "Stage ",
+    "mistakeUnit": " times",
+    "attemptLabel": "Attempt {n}",
+    "scoreLabel": "Score"
 
 }

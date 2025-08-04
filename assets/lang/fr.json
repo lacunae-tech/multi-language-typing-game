@@ -69,6 +69,10 @@
   
     "statsTitle": "Statistiques",
     "scoreTransition": "Évolution du score",
-    "keyStatsTitle": "Statistiques des touches (touches ratées)"
+    "keyStatsTitle": "Statistiques des touches (touches ratées)",
+    "stageOptionPrefix": "Niveau ",
+    "mistakeUnit": " fois",
+    "attemptLabel": "Tentative {n}",
+    "scoreLabel": "Score"
   }
   

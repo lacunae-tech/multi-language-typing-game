@@ -69,5 +69,9 @@
 
   "statsTitle": "Estadísticas",
   "scoreTransition": "Transición de puntuación",
-  "keyStatsTitle": "Estadísticas de teclas (teclas falladas)"
+  "keyStatsTitle": "Estadísticas de teclas (teclas falladas)",
+  "stageOptionPrefix": "Nivel ",
+  "mistakeUnit": " veces",
+  "attemptLabel": "Intento {n}",
+  "scoreLabel": "Puntuación"
 }

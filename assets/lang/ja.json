@@ -69,6 +69,10 @@
   
     "statsTitle": "統計",
     "scoreTransition": "スコア推移",
-    "keyStatsTitle": "キー統計（ミスタイプ）"
+    "keyStatsTitle": "キー統計（ミスタイプ）",
+    "stageOptionPrefix": "ステージ",
+    "mistakeUnit": "回",
+    "attemptLabel": "{n}回目",
+    "scoreLabel": "スコア"
   }
   
