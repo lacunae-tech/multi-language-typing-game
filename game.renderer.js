@@ -835,7 +835,7 @@ function judgeRaceResult() {
 
 
 async function initialize() {
-    const settings = await window.electronAPI.getSettings();
+    settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     document.querySelectorAll('[data-translate-key]').forEach(el => {
         const key = el.getAttribute('data-translate-key');
