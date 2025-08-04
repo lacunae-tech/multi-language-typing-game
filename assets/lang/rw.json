@@ -1,0 +1,72 @@
+{
+  "userSelectTitle": "Hitamo Umukoresha",
+  "userSelectDescription": "Andika izina ryawe cyangwa uhitemo hasi",
+  "namePlaceholder": "Andika izina...",
+  "confirmButton": "Emeza",
+  "foundUsers": "Abakoresha Babonetse",
+  "noUsersFound": "(Nta bakoresha baraboneka)",
+  "feedbackNameEmpty": "Nylyamubwire izina!",
+  "feedbackWelcome": "Ikaze, {userName}!",
+  "title_found_users": "Abakoresha Babonetse",
+  "button_confirm": "Emeza",
+
+  "mainMenuWelcome": "Ikaze, {userName}!",
+  "menuStart": "Tangiza Umukino",
+  "menuStats": "Imibare",
+  "menuSettings": "Ibipimo",
+
+  "stageSelectTitle": "Hitamo Urwego",
+
+  "gameLabelTime": "IGIHE",
+  "gameLabelScore": "AMANOTA",
+  "gameLabelRemaining": "HASIGAYE",
+  "gameLabelStarCount": "INYENYERI",
+  "gameLabelKPM": "Amapfundo/min",
+  "gameLabelBonus": "BONI",
+  "gameButtonQuit": "Sohoka",
+  "OpponentProgress": "Iterambere ry'Uwo Mwahanganye",
+  "YourProgress": "Iterambere Ryawe",
+
+  "stages": {
+    "1": { "name": "Imyitozo ya Laini Y’Inyuma", "description": "Amahugurwa y’ibanze" },
+    "2": { "name": "Imyitozo y’Imfunguzo Zose", "description": "Imyitozo kuri buri mfunguzo" },
+    "3": { "name": "Amasohoro Amanuka: Laini Y’Inyuma", "description": "Imyitozo ya laini y’inyuma" },
+    "4": { "name": "Amasohoro Amanuka: Imfunguzo Zose", "description": "Imyitozo kuri zose" },
+    "5": { "name": "Imyitozo y’Amagambo", "description": "Senyera udutare!" },
+    "6": { "name": "Imyitozo y’Ibyo Kuvuga", "description": "Senyera interuro ndende!" },
+    "7": { "name": "VS: Isiganwa ry’Iterambere", "description": "Irushanwa kugeza ku iherezo!" },
+    "8": { "name": "VS: Kurushanwa ku Manota", "description": "Kurushanwa ku manota!" },
+    "9": { "name": "Gusubiramo Imfunguzo Ziciriritse", "description": "(Biraje vuba)" }
+  },
+
+  "alertClearTitle": "BIRARANGIYE!",
+  "alertGameOverTitle": "UMUKINO URARANGIYE!",
+  "alertScore": "Amanota",
+  "alertTimeBonus": "Boni y’Igihe",
+  "alertTotalScore": "Amanota Rusange",
+  "alertTimeUp": "Igihe kirarangiye!",
+  "alertAsteroidCollision": "Wagonganye n’igitare cy’ikirere!",
+  "retry": "Gerageza Nanone",
+  "backToMenu": "Subira kuri Menu",
+
+  "settingsTitle": "Ibipimo",
+  "settingBGM": "Umuziki w’Inyuma",
+  "settingSFX": "Ijwi ry’Ibikorwa",
+  "settingLanguage": "Ururimi",
+  "settingLayout": "Imiterere y’Ububiko",
+  "backButton": "Subira Inyuma",
+
+  "lobbyTitle": "Icyumba cya Versus",
+  "lobbyHostButton": "Ba Umuyobozi",
+  "lobbyJoinButton": "Jya mu Mukino",
+  "lobbyYourIP": "Aderesi yawe ya IP:",
+  "lobbyHostIPLabel": "Aderesi ya IP y’Umuyobozi:",
+  "lobbyConnectButton": "Huzaho",
+  "lobbyStatusWaiting": "Gutegereje uwo muhanganye...",
+  "lobbyStatusConnected": "Bihujwe! Tegereza ko umuyobozi atangiza umukino.",
+  "lobbyStartButton": "Tangiza Irushanwa",
+
+  "statsTitle": "Imibare",
+  "scoreTransition": "Imihindagurikire y’Amanota",
+  "keyStatsTitle": "Imibare y’Imfunguzo (Zibuze)"
+}

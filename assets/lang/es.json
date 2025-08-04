@@ -1,0 +1,72 @@
+{
+  "userSelectTitle": "Seleccionar usuario",
+  "userSelectDescription": "Ingresa tu nombre o selecciona uno de abajo",
+  "namePlaceholder": "Ingresa nombre...",
+  "confirmButton": "Confirmar",
+  "foundUsers": "Usuarios encontrados",
+  "noUsersFound": "(Aún no hay usuarios)",
+  "feedbackNameEmpty": "¡Por favor, ingresa un nombre!",
+  "feedbackWelcome": "¡Bienvenido, {userName}!",
+  "title_found_users": "Usuarios encontrados",
+  "button_confirm": "Confirmar",
+
+  "mainMenuWelcome": "¡Bienvenido, {userName}!",
+  "menuStart": "Iniciar juego",
+  "menuStats": "Estadísticas",
+  "menuSettings": "Configuración",
+
+  "stageSelectTitle": "Seleccionar nivel",
+
+  "gameLabelTime": "TIEMPO",
+  "gameLabelScore": "PUNTOS",
+  "gameLabelRemaining": "RESTANTE",
+  "gameLabelStarCount": "ESTRELLAS",
+  "gameLabelKPM": "KPM",
+  "gameLabelBonus": "BONO",
+  "gameButtonQuit": "Salir",
+  "OpponentProgress": "Progreso del oponente",
+  "YourProgress": "Tu progreso",
+
+  "stages": {
+    "1": { "name": "Práctica fila base", "description": "Entrenamiento básico" },
+    "2": { "name": "Práctica todas las teclas", "description": "Practica todas las teclas" },
+    "3": { "name": "Estrellas fugaces: fila base", "description": "Entrenamiento fila base" },
+    "4": { "name": "Estrellas fugaces: todas las teclas", "description": "Entrenamiento completo" },
+    "5": { "name": "Práctica de palabras", "description": "¡Destruye los meteoritos!" },
+    "6": { "name": "Práctica de frases", "description": "¡Destruye con frases largas!" },
+    "7": { "name": "VS: Carrera de progreso", "description": "¡Corre hasta la meta!" },
+    "8": { "name": "VS: Ataque de puntuación", "description": "¡Compite por puntos!" },
+    "9": { "name": "Revisión de teclas débiles", "description": "(Próximamente)" }
+  },
+
+  "alertClearTitle": "¡COMPLETADO!",
+  "alertGameOverTitle": "¡FIN DEL JUEGO!",
+  "alertScore": "Puntuación",
+  "alertTimeBonus": "Bono de tiempo",
+  "alertTotalScore": "Puntuación total",
+  "alertTimeUp": "¡Tiempo agotado!",
+  "alertAsteroidCollision": "¡Colisión con asteroide!",
+  "retry": "Reintentar",
+  "backToMenu": "Volver al menú",
+
+  "settingsTitle": "Configuración",
+  "settingBGM": "Música de fondo",
+  "settingSFX": "Efectos de sonido",
+  "settingLanguage": "Idioma",
+  "settingLayout": "Distribución del teclado",
+  "backButton": "Atrás",
+
+  "lobbyTitle": "Sala de Versus",
+  "lobbyHostButton": "Ser anfitrión",
+  "lobbyJoinButton": "Unirse al juego",
+  "lobbyYourIP": "Tu dirección IP:",
+  "lobbyHostIPLabel": "Dirección IP del anfitrión:",
+  "lobbyConnectButton": "Conectar",
+  "lobbyStatusWaiting": "Esperando al oponente...",
+  "lobbyStatusConnected": "¡Conectado! Esperando a que el anfitrión inicie el juego.",
+  "lobbyStartButton": "Iniciar partida",
+
+  "statsTitle": "Estadísticas",
+  "scoreTransition": "Transición de puntuación",
+  "keyStatsTitle": "Estadísticas de teclas (teclas falladas)"
+}

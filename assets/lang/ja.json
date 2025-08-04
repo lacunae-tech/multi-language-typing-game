@@ -1,51 +1,73 @@
 {
-    "userSelectTitle": "ユーザーをえらんでね",
-    "userSelectDescription": "なまえをいれるか、したからえらんでね",
-    "namePlaceholder": "なまえをいれてね",
-    "confirmButton": "けってい",
-    "foundUsers": "みつかったユーザー",
-    "noUsersFound": "（まだ誰もいないよ）",
-    "feedbackNameEmpty": "なまえをいれてね！",
+    "userSelectTitle": "ユーザー選択",
+    "userSelectDescription": "名前を入力するか、以下から選んでください",
+    "namePlaceholder": "名前を入力...",
+    "confirmButton": "確認",
+    "foundUsers": "見つかったユーザー",
+    "noUsersFound": "（ユーザーがまだいません）",
+    "feedbackNameEmpty": "名前を入力してください！",
     "feedbackWelcome": "ようこそ、{userName}さん！",
-    
-    "mainMenuWelcome": "{userName}さん、ようこそ！",
-    "menuStart": "ゲームスタート",
-    "menuStats": "統計データ",
-    "menuSettings": "設 定",
-
-    "stageSelectTitle": "ステージをえらんでね",
-    
-    "gameLabelTime": "TIME",
-    "gameLabelScore": "SCORE",
-    "gameLabelRemaining": "のこり",
-    "gameLabelStarCount": "ほしの数",
-    "gameLabelKPM": "KPM",
-    "gameLabelBonus": "BONUS",
-    "gameButtonQuit": "もどる",
-
+    "title_found_users": "見つかったユーザー",
+    "button_confirm": "確認",
+  
+    "mainMenuWelcome": "ようこそ、{userName}さん！",
+    "menuStart": "ゲーム開始",
+    "menuStats": "統計",
+    "menuSettings": "設定",
+  
+    "stageSelectTitle": "ステージ選択",
+  
+    "gameLabelTime": "時間",
+    "gameLabelScore": "スコア",
+    "gameLabelRemaining": "残り",
+    "gameLabelStarCount": "スター数",
+    "gameLabelKPM": "KPM（キー／分）",
+    "gameLabelBonus": "ボーナス",
+    "gameButtonQuit": "終了",
+    "OpponentProgress": "相手の進行状況",
+    "YourProgress": "あなたの進行状況",
+  
+    "stages": {
+      "1": { "name": "ホームポジション練習", "description": "基本トレーニング" },
+      "2": { "name": "全キー練習", "description": "すべてのキーを練習" },
+      "3": { "name": "流れ星：ホームポジション", "description": "ホームポジション練習" },
+      "4": { "name": "流れ星：全キー", "description": "すべてのキー練習" },
+      "5": { "name": "単語練習", "description": "隕石を破壊せよ！" },
+      "6": { "name": "文章練習", "description": "長い文章で破壊せよ！" },
+      "7": { "name": "対戦：進行レース", "description": "ゴールまで競争！" },
+      "8": { "name": "対戦：スコアアタック", "description": "スコアを競え！" },
+      "9": { "name": "弱点キー復習", "description": "（近日公開）" }
+    },
+  
     "alertClearTitle": "クリア！",
     "alertGameOverTitle": "ゲームオーバー！",
     "alertScore": "スコア",
     "alertTimeBonus": "タイムボーナス",
     "alertTotalScore": "合計スコア",
-    "alertTimeUp": "タイムアップ！",
-    "alertAsteroidCollision": "隕石が衝突しました！",
-
-    "settingsTitle": "設 定",
+    "alertTimeUp": "時間切れ！",
+    "alertAsteroidCollision": "隕石に衝突！",
+    "retry": "リトライ",
+    "backToMenu": "メニューに戻る",
+  
+    "settingsTitle": "設定",
     "settingBGM": "BGM",
-    "settingSFX": "効果音 (SFX)",
+    "settingSFX": "効果音",
     "settingLanguage": "言語",
-    "settingLayout": "キーボードレイアウト",
-    "backButton": "もどる",
-
+    "settingLayout": "キーボード配列",
+    "backButton": "戻る",
+  
     "lobbyTitle": "対戦ロビー",
     "lobbyHostButton": "ホストになる",
-    "lobbyJoinButton": "参加する",
-    "lobbyYourIP": "あなたのIPアドレス:",
-    "lobbyHostIPLabel": "ホストのIPアドレス:",
+    "lobbyJoinButton": "ゲームに参加",
+    "lobbyYourIP": "あなたのIPアドレス：",
+    "lobbyHostIPLabel": "ホストのIPアドレス：",
     "lobbyConnectButton": "接続",
     "lobbyStatusWaiting": "対戦相手を待っています...",
-    "lobbyStatusConnected": "接続完了！ホストがゲームを開始するのを待っています。",
-    "lobbyStartButton": "対戦開始"
-
-}
+    "lobbyStatusConnected": "接続完了！ホストの開始を待っています。",
+    "lobbyStartButton": "試合開始",
+  
+    "statsTitle": "統計",
+    "scoreTransition": "スコア推移",
+    "keyStatsTitle": "キー統計（ミスタイプ）"
+  }
+  

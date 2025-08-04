@@ -1,0 +1,72 @@
+{
+  "userSelectTitle": "Chagua Mtumiaji",
+  "userSelectDescription": "Weka jina lako au chagua kutoka hapa chini",
+  "namePlaceholder": "Weka jina...",
+  "confirmButton": "Thibitisha",
+  "foundUsers": "Watumiaji Waliopatikana",
+  "noUsersFound": "(Hakuna watumiaji bado)",
+  "feedbackNameEmpty": "Tafadhali weka jina!",
+  "feedbackWelcome": "Karibu, {userName}!",
+  "title_found_users": "Watumiaji Waliopatikana",
+  "button_confirm": "Thibitisha",
+
+  "mainMenuWelcome": "Karibu, {userName}!",
+  "menuStart": "Anza Mchezo",
+  "menuStats": "Takwimu",
+  "menuSettings": "Mipangilio",
+
+  "stageSelectTitle": "Chagua Hatua",
+
+  "gameLabelTime": "MUDA",
+  "gameLabelScore": "ALAMA",
+  "gameLabelRemaining": "ZILIZOBAKI",
+  "gameLabelStarCount": "NYOTA",
+  "gameLabelKPM": "VPM",
+  "gameLabelBonus": "BONASI",
+  "gameButtonQuit": "Toka",
+  "OpponentProgress": "Maendeleo ya Mpinzani",
+  "YourProgress": "Maendeleo Yako",
+
+  "stages": {
+    "1": { "name": "Mazoezi ya Safu ya Kati", "description": "Mafunzo ya msingi" },
+    "2": { "name": "Mazoezi ya Vifunguo Vyote", "description": "Fanya mazoezi ya funguo zote" },
+    "3": { "name": "Nyota Zinazoanguka: Safu ya Kati", "description": "Mazoezi ya safu ya kati" },
+    "4": { "name": "Nyota Zinazoanguka: Vifunguo Vyote", "description": "Mazoezi kamili ya funguo" },
+    "5": { "name": "Mazoezi ya Maneno", "description": "Haribu vimondo!" },
+    "6": { "name": "Mazoezi ya Sentensi", "description": "Haribu kwa sentensi ndefu!" },
+    "7": { "name": "VS: Mbio za Maendeleo", "description": "Kimbia hadi mwisho!" },
+    "8": { "name": "VS: Mashindano ya Alama", "description": "Shindana kwa alama!" },
+    "9": { "name": "Mapitio ya Vifunguo Dhaifu", "description": "(Hivi karibuni)" }
+  },
+
+  "alertClearTitle": "IMEKAMILIKA!",
+  "alertGameOverTitle": "MCHEZO UMEELEKEA MWISHO!",
+  "alertScore": "Alama",
+  "alertTimeBonus": "Bonasi ya Muda",
+  "alertTotalScore": "Alama Jumla",
+  "alertTimeUp": "Muda Umekwisha!",
+  "alertAsteroidCollision": "Kimegongana na Kimondo!",
+  "retry": "Jaribu Tena",
+  "backToMenu": "Rudi kwenye Menyu",
+
+  "settingsTitle": "Mipangilio",
+  "settingBGM": "Muziki wa Nyuma",
+  "settingSFX": "Sauti Maalum",
+  "settingLanguage": "Lugha",
+  "settingLayout": "Mpangilio wa Kibodi",
+  "backButton": "Rudi",
+
+  "lobbyTitle": "Chumba cha Mchezo wa Versus",
+  "lobbyHostButton": "Kuwa Mwenyeji",
+  "lobbyJoinButton": "Jiunge na Mchezo",
+  "lobbyYourIP": "Anwani Yako ya IP:",
+  "lobbyHostIPLabel": "Anwani ya IP ya Mwenyeji:",
+  "lobbyConnectButton": "Unganisha",
+  "lobbyStatusWaiting": "Inasubiri mpinzani...",
+  "lobbyStatusConnected": "Umeunganishwa! Subiri mwenyeji aanze mchezo.",
+  "lobbyStartButton": "Anza Mechi",
+
+  "statsTitle": "Takwimu",
+  "scoreTransition": "Mabadiliko ya Alama",
+  "keyStatsTitle": "Takwimu za Vifunguo (Vilivyokosewa)"
+}

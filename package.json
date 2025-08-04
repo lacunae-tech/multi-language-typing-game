@@ -1,20 +1,46 @@
 {
-  "name": "electron",
+  "name": "typing-game",
   "version": "1.0.0",
+  "description": "Multilingual Typing Practice Game",
+  "author": {
+    "name": "Lacunae.tech",
+    "url": "https://lacunae.tech"
+  },
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "electron-builder"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
-  "description": "",
   "devDependencies": {
-    "electron": "^37.2.4",
-    "electron-builder": "^26.0.12"
+    "chart.js": "^4.4.2",
+    "electron": "^31.0.1",
+    "electron-builder": "^24.13.3"
   },
-  "dependencies": {
-    "chart.js": "^4.5.0"
+  "build": {
+    "appId": "tech.lacunae.typinggame",
+    "productName": "Typing Game",
+    "copyright": "Copyright © 2024 Lacunae.tech",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "**/*",
+      "!*.md",
+      "!release/*",
+      "!.gitignore",
+      "!.git/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
   }
 }

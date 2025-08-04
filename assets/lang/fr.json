@@ -1,14 +1,73 @@
 {
+    "userSelectTitle": "Sélectionner un utilisateur",
+    "userSelectDescription": "Entrez votre nom ou sélectionnez ci-dessous",
+    "namePlaceholder": "Entrez le nom...",
+    "confirmButton": "Confirmer",
+    "foundUsers": "Utilisateurs trouvés",
+    "noUsersFound": "(Aucun utilisateur pour le moment)",
+    "feedbackNameEmpty": "Veuillez entrer un nom !",
+    "feedbackWelcome": "Bienvenue, {userName} !",
+    "title_found_users": "Utilisateurs trouvés",
+    "button_confirm": "Confirmer",
+  
+    "mainMenuWelcome": "Bienvenue, {userName} !",
+    "menuStart": "Commencer le jeu",
+    "menuStats": "Statistiques",
+    "menuSettings": "Paramètres",
+  
+    "stageSelectTitle": "Sélectionner un niveau",
+  
+    "gameLabelTime": "TEMPS",
+    "gameLabelScore": "SCORE",
+    "gameLabelRemaining": "RESTANT",
+    "gameLabelStarCount": "ÉTOILES",
+    "gameLabelKPM": "FPM",
+    "gameLabelBonus": "BONUS",
+    "gameButtonQuit": "Quitter",
+    "OpponentProgress": "Progression de l'adversaire",
+    "YourProgress": "Votre progression",
+  
+    "stages": {
+      "1": { "name": "Entraînement rangée de base", "description": "Entraînement de base" },
+      "2": { "name": "Entraînement toutes les touches", "description": "Pratiquer toutes les touches" },
+      "3": { "name": "Étoiles filantes : Rangée de base", "description": "Entraînement rangée de base" },
+      "4": { "name": "Étoiles filantes : Toutes les touches", "description": "Entraînement complet" },
+      "5": { "name": "Pratique des mots", "description": "Détruisez les météorites !" },
+      "6": { "name": "Pratique des phrases", "description": "Détruisez avec des phrases !" },
+      "7": { "name": "VS : Course de progression", "description": "Faites la course jusqu’à la fin !" },
+      "8": { "name": "VS : Attaque de score", "description": "Faites le meilleur score !" },
+      "9": { "name": "Révision des touches faibles", "description": "(Bientôt disponible)" }
+    },
+  
+    "alertClearTitle": "RÉUSSI !",
+    "alertGameOverTitle": "FIN DE PARTIE !",
+    "alertScore": "Score",
+    "alertTimeBonus": "Bonus de temps",
+    "alertTotalScore": "Score total",
+    "alertTimeUp": "Temps écoulé !",
+    "alertAsteroidCollision": "Collision avec un astéroïde !",
+    "retry": "Rejouer",
+    "backToMenu": "Retour au menu",
+  
     "settingsTitle": "Paramètres",
     "settingBGM": "Musique de fond",
     "settingSFX": "Effets sonores",
     "settingLanguage": "Langue",
-    "settingLayout": "Disposition du clavier",
+    "settingLayout": "Disposition clavier",
     "backButton": "Retour",
-    "title_user_selection": "Sélection d’utilisateur",
-    "description_enter_or_select": "Entrez un nom ou sélectionnez ci-dessous",
-    "placeholder_name_input": "Entrez votre nom",
-    "button_confirm": "Confirmer",
-    "feedback_text": "",
-    "title_found_users": "Utilisateurs trouvés"
-}
+  
+    "lobbyTitle": "Salon multijoueur",
+    "lobbyHostButton": "Devenir hôte",
+    "lobbyJoinButton": "Rejoindre une partie",
+    "lobbyYourIP": "Votre adresse IP :",
+    "lobbyHostIPLabel": "Adresse IP de l'hôte :",
+    "lobbyConnectButton": "Connexion",
+    "lobbyStatusWaiting": "En attente d’un adversaire...",
+    "lobbyStatusConnected": "Connecté ! En attente du démarrage de la partie par l’hôte.",
+    "lobbyStartButton": "Lancer la partie",
+  
+    "statsTitle": "Statistiques",
+    "scoreTransition": "Évolution du score",
+    "keyStatsTitle": "Statistiques des touches (touches ratées)"
+  }
+  
