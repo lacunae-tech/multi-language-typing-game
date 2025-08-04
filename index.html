@@ -10,7 +10,21 @@
     <div class="container">
         <h1 data-translate-key="userSelectTitle">ユーザーをえらんでね</h1>
         <p class="description" data-translate-key="userSelectDescription">なまえをいれるか、したからえらんでね</p>
-        
+
+        <!-- Language selection (shown on first launch) -->
+        <div class="input-form" id="language-select-container" style="display: none;">
+            <label for="language-select" data-translate-key="settingLanguage">言語</label>
+            <select id="language-select" class="custom-select">
+                <option value="en">English</option>
+                <option value="ja">日本語</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="pt">Português</option>
+                <option value="sw">Kiswahili</option>
+                <option value="rw">Ikinyarwanda</option>
+            </select>
+        </div>
+
 
         <!-- ユーザー入力フォーム -->
         <div class="input-form">
