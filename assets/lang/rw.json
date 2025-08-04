@@ -48,7 +48,7 @@
     "6": { "name": "Imyitozo y’Ibyo Kuvuga", "description": "Senyera interuro ndende!" },
     "7": { "name": "VS: Isiganwa ry’Iterambere", "description": "Irushanwa kugeza ku iherezo!" },
     "8": { "name": "VS: Kurushanwa ku Manota", "description": "Kurushanwa ku manota!" },
-    "9": { "name": "Gusubiramo Imfunguzo Ziciriritse", "description": "(Biraje vuba)" }
+    "9": { "name": "Gusubiramo Imfunguzo Ziciriritse", "description": "Subiramo imfunguzo zikugora" }
   },
 
   "alertClearTitle": "BIRARANGIYE!",
