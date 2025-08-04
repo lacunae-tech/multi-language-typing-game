@@ -12,7 +12,8 @@
     "userDataError": "Une erreur est survenue lors du traitement des données utilisateur.",
     "title_found_users": "Utilisateurs trouvés",
     "button_confirm": "Confirmer",
-  
+
+    "mainMenuTitle": "Menu Principal",
     "mainMenuWelcome": "Bienvenue, {userName} !",
     "menuStart": "Commencer le jeu",
     "menuStats": "Statistiques",

@@ -12,7 +12,8 @@
     "userDataError": "ユーザーデータの処理中にエラーが発生しました。",
     "title_found_users": "見つかったユーザー",
     "button_confirm": "確認",
-  
+
+    "mainMenuTitle": "メインメニュー",
     "mainMenuWelcome": "ようこそ、{userName}さん！",
     "menuStart": "ゲーム開始",
     "menuStats": "統計",
