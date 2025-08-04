@@ -47,7 +47,7 @@
         "6": { "name": "Sentence Practice", "description": "Destroy with long sentences!" },
         "7": { "name": "VS: Progress Race", "description": "Race to the finish!" },
         "8": { "name": "VS: Score Attack", "description": "Compete for score!" },
-        "9": { "name": "Weak Key Review", "description": "(Coming soon)" }
+        "9": { "name": "Weak Key Review", "description": "Review keys you struggle with" }
       },
     "alertClearTitle": "CLEAR!",
     "alertGameOverTitle": "GAME OVER!",
