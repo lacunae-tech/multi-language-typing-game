@@ -27,21 +27,16 @@ window.electronAPI.onSetUser((userName) => {
     updateWelcomeMessage();
 });
 
-// ゲームスタートボタンの処理をステージ選択画面への遷移に変更
-document.getElementById('start-button').addEventListener('click', () => {
-    window.electronAPI.navigateToStageSelect();
-});
-
-document.getElementById('stats-button').addEventListener('click', () => {
-    window.electronAPI.navigateToStats();
-});
-
-document.getElementById('settings-button').addEventListener('click', () => {
-    window.electronAPI.navigateToSettings();
-});
-
-document.getElementById('about-button').addEventListener('click', () => {
-    window.electronAPI.navigateToAbout();
+// メニュー各ボタンのクリックイベントを簡潔に設定
+[
+    ['start-button', 'navigateToStageSelect'],
+    ['stats-button', 'navigateToStats'],
+    ['settings-button', 'navigateToSettings'],
+    ['about-button', 'navigateToAbout'],
+].forEach(([id, action]) => {
+    document.getElementById(id).addEventListener('click', () => {
+        window.electronAPI[action]();
+    });
 });
 
 // --- 初期化処理 ---

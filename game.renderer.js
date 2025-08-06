@@ -842,7 +842,11 @@ function judgeRaceResult() {
     }
     stopGame(msg);
 }
-
+function showQuestionElements() {
+    [asteroidContainer, questionTextWrapper, questionText].forEach(el => {
+        el.style.display = 'block';
+    });
+}
 
 async function initialize() {
     settings = await window.electronAPI.getSettings();
@@ -920,9 +924,7 @@ async function initialize() {
         } else {
             document.getElementById('opponent-score-container').style.display = 'block';
         }
-        asteroidContainer.style.display = 'block';
-        questionTextWrapper.style.display = 'block';
-        questionText.style.display = 'block';
+        showQuestionElements();
         keyboardLayoutDiv.style.display = 'none';
 
         const raceWordList = await window.electronAPI.getRaceWordList();
@@ -935,9 +937,7 @@ async function initialize() {
         questionDisplay.classList.add('mode-word-asteroid');
         keyboardLayoutDiv.style.display = 'none';
         ['star-count-box', 'kpm-box', 'bonus-box'].forEach(id => document.getElementById(id).style.display = 'none');
-        asteroidContainer.style.display = 'block';
-        questionTextWrapper.style.display = 'block';
-        questionText.style.display = 'block';
+        showQuestionElements();
         remainingCountLabel.textContent = currentTranslation.remainingCounter;
     }else if (currentConfig.gameMode === 'fallingStars') {
         document.body.classList.add('night-sky-bg');
