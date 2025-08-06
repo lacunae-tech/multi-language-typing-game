@@ -30,6 +30,8 @@ const opponentProgressBar = document.getElementById('opponent-progress-bar');
 const myProgressBar = document.getElementById('my-progress-bar');
 const myWordCount = document.getElementById('my-word-count');
 const opponentWordCount = document.getElementById('opponent-word-count');
+const opponentScoreDisplay = document.getElementById('opponent-score-display');
+const opponentScoreContainer = document.getElementById('opponent-score-container');
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
@@ -757,6 +759,8 @@ function startGame() {
 
         // UIの初期化
         opponentInfoContainer.style.display = 'block';
+        opponentScoreContainer.style.display = 'none';
+        opponentInfoContainer.querySelectorAll('h2, .progress-container').forEach(el => el.style.display = 'block');
         myProgressBar.style.width = '0%';
         opponentProgressBar.style.width = '0%';
         myWordCount.textContent = '0';
@@ -765,6 +769,10 @@ function startGame() {
         // 最初の単語をセット
         setNextRaceWord();
     } else if (currentConfig.gameMode === 'scoreAttack') { // このelse ifブロックを追加
+        opponentInfoContainer.style.display = 'block';
+        opponentInfoContainer.querySelectorAll('h2, .progress-container').forEach(el => el.style.display = 'none');
+        opponentScoreContainer.style.display = 'block';
+        opponentScoreDisplay.textContent = '0';
         word_consecutiveCorrect = 0;
         setNextWordAsteroidQuestion(); // 最初の単語を表示
         // wordAsteroid_gameLoop() は呼び出さない
@@ -931,9 +939,12 @@ async function initialize() {
     if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
         opponentInfoContainer.style.display = 'block';
         if (currentConfig.gameMode === 'race') {
-            opponentProgressBar.style.display = 'block';
+            opponentScoreContainer.style.display = 'none';
+            opponentInfoContainer.querySelectorAll('h2, .progress-container').forEach(el => el.style.display = 'block');
         } else {
-            document.getElementById('opponent-score-container').style.display = 'block';
+            opponentInfoContainer.querySelectorAll('h2, .progress-container').forEach(el => el.style.display = 'none');
+            opponentScoreContainer.style.display = 'block';
+            opponentScoreDisplay.textContent = '0';
         }
         showQuestionElements();
         keyboardLayoutDiv.style.display = 'none';
