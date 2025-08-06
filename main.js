@@ -213,7 +213,6 @@ ipcMain.handle('get-layout', (event, layoutName) => {
 ipcMain.handle('get-word-list', (event, lang) => {
     try {
         const filePath = path.join(__dirname, `assets/words/${lang}.json`);
-        console.log(lang);
         if (fs.existsSync(filePath)) {
             const data = fs.readFileSync(filePath, 'utf-8');
             return JSON.parse(data);
@@ -327,6 +326,9 @@ ipcMain.handle('start-server', () => {
         socket.on('error', handleDisconnect);
         socket.on('close', handleDisconnect);
     });
+    server.on('error', (err) => {
+        mainWindow.webContents.send('network-event', 'server_error', err.message);
+    });
     server.listen(8080);
     return getLocalIpAddress();
 });
@@ -423,8 +425,17 @@ ipcMain.handle('send-message', (event, message) => {
 
 
 ipcMain.on('close-connection', () => {
-    if (server) server.close();
-    if (clientSocket) clientSocket.destroy();
-    if (hostSocket) hostSocket.destroy();
+    if (server) {
+        server.close();
+        server = null;
+    }
+    if (clientSocket) {
+        clientSocket.destroy();
+        clientSocket = null;
+    }
+    if (hostSocket) {
+        hostSocket.destroy();
+        hostSocket = null;
+    }
     isHost = false; // Reset flag
 });
