@@ -25,9 +25,6 @@ const comboDisplay = document.getElementById('combo-display');
 
 
 const opponentInfoContainer = document.getElementById('opponent-info-container');
-const opponentProgressContainer = document.getElementById('opponent-progress-container');
-const opponentProgressBar = document.getElementById('opponent-progress-bar');
-const myProgressBar = document.getElementById('my-progress-bar');
 const myWordCount = document.getElementById('my-word-count');
 const opponentWordCount = document.getElementById('opponent-word-count');
 
@@ -405,7 +402,6 @@ function handleKeyPress(event) {
                 }
 
                 // UI更新
-                myProgressBar.style.width = `${(myScore / 40) * 100}%`;
                 myWordCount.textContent = myScore;
 
                 // 相手にスコアを通知
@@ -757,8 +753,6 @@ function startGame() {
 
         // UIの初期化
         opponentInfoContainer.style.display = 'block';
-        myProgressBar.style.width = '0%';
-        opponentProgressBar.style.width = '0%';
         myWordCount.textContent = '0';
         opponentWordCount.textContent = '0';
 
@@ -801,7 +795,6 @@ function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
         if (data.type === 'score_update' && currentConfig.gameMode === 'race') {
             opponentScore = data.value;
-            opponentProgressBar.style.width = `${(opponentScore / 40) * 100}%`;
             opponentWordCount.textContent = opponentScore;
             checkRaceWinCondition();
         }
@@ -930,9 +923,7 @@ async function initialize() {
     questionText.style.display = 'none';
     if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
         opponentInfoContainer.style.display = 'block';
-        if (currentConfig.gameMode === 'race') {
-            opponentProgressBar.style.display = 'block';
-        } else {
+        if (currentConfig.gameMode === 'scoreAttack') {
             document.getElementById('opponent-score-container').style.display = 'block';
         }
         showQuestionElements();
