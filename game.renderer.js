@@ -94,7 +94,7 @@ const STAGE_CONFIG = {
         title: "対戦：進捗レース",
         gameMode: 'race', // 新しいゲームモードとして 'race' を定義
         wordList: [],     // 文章リストを使用 (ステージ6のものを流用)
-        questionLimit: 40, // 40ポイント先取で勝利
+        questionLimit: 60, // 60ポイント先取で勝利
     },
     8: {
         id: 8,
@@ -405,7 +405,7 @@ function handleKeyPress(event) {
                 }
 
                 // UI更新
-                myProgressBar.style.width = `${(myScore / 40) * 100}%`;
+                myProgressBar.style.width = `${(myScore / currentConfig.questionLimit) * 100}%`;
                 myWordCount.textContent = myScore;
 
                 // 相手にスコアを通知
@@ -801,7 +801,7 @@ function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
         if (data.type === 'score_update' && currentConfig.gameMode === 'race') {
             opponentScore = data.value;
-            opponentProgressBar.style.width = `${(opponentScore / 40) * 100}%`;
+            opponentProgressBar.style.width = `${(opponentScore / currentConfig.questionLimit) * 100}%`;
             opponentWordCount.textContent = opponentScore;
             checkRaceWinCondition();
         }
@@ -832,7 +832,7 @@ function setNextRaceWord() {
 
 // (追加) 勝敗判定を行う関数
 function checkRaceWinCondition() {
-    if (myScore >= 40 || opponentScore >= 40) {
+    if (myScore >= currentConfig.questionLimit || opponentScore >= currentConfig.questionLimit) {
         judgeRaceResult();
         return true;
     }
