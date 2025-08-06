@@ -267,6 +267,27 @@ input:checked + .slider:before {
     border-bottom: none; /* h2のデフォルトスタイルを上書き */
 }
 
+/* スコア表示用コンテナ */
+.opponent-score-container {
+    width: 100%;
+    margin-top: 15px;
+    text-align: left;
+}
+
+.opponent-score-display {
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #f48fb1;
+}
+
 /* プログレスバーの背景（トラック） */
 .progress-container {
     width: 100%;
