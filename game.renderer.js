@@ -30,6 +30,8 @@ const opponentProgressBar = document.getElementById('opponent-progress-bar');
 const myProgressBar = document.getElementById('my-progress-bar');
 const myWordCount = document.getElementById('my-word-count');
 const opponentWordCount = document.getElementById('opponent-word-count');
+const raceTrackContainer = document.getElementById('race-track-container');
+const opponentScoreContainer = document.getElementById('opponent-score-container');
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
@@ -929,11 +931,10 @@ async function initialize() {
     questionTextWrapper.style.display = 'none';
     questionText.style.display = 'none';
     if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
-        opponentInfoContainer.style.display = 'block';
         if (currentConfig.gameMode === 'race') {
-            opponentProgressBar.style.display = 'block';
+            if (raceTrackContainer) raceTrackContainer.style.display = 'block';
         } else {
-            document.getElementById('opponent-score-container').style.display = 'block';
+            if (opponentScoreContainer) opponentScoreContainer.style.display = 'block';
         }
         showQuestionElements();
         keyboardLayoutDiv.style.display = 'none';
