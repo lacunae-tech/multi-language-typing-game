@@ -30,6 +30,8 @@ const opponentProgressBar = document.getElementById('opponent-progress-bar');
 const myProgressBar = document.getElementById('my-progress-bar');
 const myWordCount = document.getElementById('my-word-count');
 const opponentWordCount = document.getElementById('opponent-word-count');
+const opponentScoreContainer = document.getElementById('opponent-score-container');
+const opponentScoreDisplay = document.getElementById('opponent-score-display');
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
@@ -697,7 +699,7 @@ function gameOver(customMessage) { // customMessageを受け取れるように�
     // (追加) 早食いチャレンジの勝敗判定
     if (currentConfig.gameMode === 'scoreAttack' && timeLeft <= 0) {
         const myScore = score;
-        const opponentScore = parseInt(opponentScoreDisplay.textContent, 10);
+        const opponentScore = opponentScoreDisplay ? parseInt(opponentScoreDisplay.textContent, 10) : 0;
         if (myScore > opponentScore) {
             customMessage = `勝利！ (${myScore} vs ${opponentScore})`;
         } else if (myScore < opponentScore) {
@@ -812,7 +814,9 @@ function listenToOpponent() {
         }
         if (data.type === 'score_update' && currentConfig.gameMode === 'scoreAttack') {
             // 相手のスコアを更新
-            opponentScoreDisplay.textContent = data.value;
+            if (opponentScoreDisplay) {
+                opponentScoreDisplay.textContent = data.value;
+            }
         } else if (data.type === 'game_clear') {
             // 相手がクリアした場合（進捗レース用）
             gameOver(currentTranslation.gameOverOpponentFinished);
@@ -933,7 +937,9 @@ async function initialize() {
         if (currentConfig.gameMode === 'race') {
             opponentProgressBar.style.display = 'block';
         } else {
-            document.getElementById('opponent-score-container').style.display = 'block';
+            if (opponentScoreContainer) {
+                opponentScoreContainer.style.display = 'block';
+            }
         }
         showQuestionElements();
         keyboardLayoutDiv.style.display = 'none';
