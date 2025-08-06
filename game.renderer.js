@@ -25,11 +25,24 @@ const comboDisplay = document.getElementById('combo-display');
 
 
 const opponentInfoContainer = document.getElementById('opponent-info-container');
-const opponentProgressContainer = document.getElementById('opponent-progress-container');
-const opponentProgressBar = document.getElementById('opponent-progress-bar');
-const myProgressBar = document.getElementById('my-progress-bar');
+const myCharacter = document.getElementById('my-character');
+const opponentCharacter = document.getElementById('opponent-character');
 const myWordCount = document.getElementById('my-word-count');
 const opponentWordCount = document.getElementById('opponent-word-count');
+
+const MY_CHAR_IMAGES = {
+    normal: './assets/img/stage7/player_normal.svg',
+    miss: './assets/img/stage7/player_miss.svg',
+    combo: './assets/img/stage7/player_combo.svg',
+    goal: './assets/img/stage7/player_goal.svg'
+};
+
+const OPP_CHAR_IMAGES = {
+    normal: './assets/img/stage7/opponent_normal.svg',
+    miss: './assets/img/stage7/opponent_miss.svg',
+    combo: './assets/img/stage7/opponent_combo.svg',
+    goal: './assets/img/stage7/opponent_goal.svg'
+};
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
@@ -355,8 +368,14 @@ function createExplosionParticles() {
 function showCombo() {
     if (settings.sfx) { comboAudio.currentTime = 0; comboAudio.play(); }
     comboDisplay.classList.add('combo-show');
+    if (currentConfig.gameMode === 'race') {
+        myCharacter.src = MY_CHAR_IMAGES.combo;
+    }
     setTimeout(() => {
         comboDisplay.classList.remove('combo-show');
+        if (currentConfig.gameMode === 'race' && myWordsCleared < 60) {
+            myCharacter.src = MY_CHAR_IMAGES.normal;
+        }
     }, 1000);
 }
 // (New!) wordAsteroidモード専用のゲームループ
@@ -376,45 +395,56 @@ function handleKeyPress(event) {
     if (event.key === 'Escape') { stopGame(null); return; }
     if (!isPlaying) return;
 
-    if (currentConfig.gameMode === 'race') {
-        if (event.key.length > 1) return;
-        if (!word_currentWord) return; // 単語がなければ何もしない
+      if (currentConfig.gameMode === 'race') {
+          if (event.key.length > 1) return;
+          if (!word_currentWord) return; // 単語がなければ何もしない
 
-        const correctNextChar = word_currentWord[word_typedWord.length];
+          const correctNextChar = word_currentWord[word_typedWord.length];
 
-        if (event.key === correctNextChar) {
-            // --- 正解の場合 ---
-            if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
-            word_typedWord += event.key;
-            updateWordAsteroidDisplay();
+          if (event.key === correctNextChar) {
+              // --- 正解の場合 ---
+              if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
+              word_typedWord += event.key;
+              updateWordAsteroidDisplay();
+              myCharacter.src = MY_CHAR_IMAGES.normal;
 
-            if (word_typedWord === word_currentWord) {
-                myWordsCleared++;
-                myProgressBar.style.width = `${(myWordsCleared / 60) * 100}%`;
-                myWordCount.textContent = myWordsCleared;
-                
-                // 相手にクリアを通知
-                window.electronAPI.sendMessage({ type: 'word_cleared' });
-                
-                // 勝敗判定
-                if (checkRaceWinCondition()) return;
-                
-                // 次の単語へ
-                setNextRaceWord();
-            }
+              if (word_typedWord === word_currentWord) {
+                  myWordsCleared++;
+                  updateRaceCharacterPosition(myCharacter, myWordsCleared / 60);
+                  myWordCount.textContent = myWordsCleared;
+                  if (myWordsCleared >= 60) {
+                      myCharacter.src = MY_CHAR_IMAGES.goal;
+                  }
 
-        } else {
-            // --- ミスした場合 ---
-            if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+                  // 相手にクリアを通知
+                  window.electronAPI.sendMessage({ type: 'word_cleared' });
 
-            // (追加) どのキーでミスしたかを記録
-            const expectedKey = word_currentWord[word_typedWord.length];
-            if (expectedKey) {
-                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
-            }
-            
-        }
-    } else if (currentConfig.gameMode === 'scoreAttack') {
+                  // 勝敗判定
+                  if (checkRaceWinCondition()) return;
+
+                  // 次の単語へ
+                  setNextRaceWord();
+              }
+
+          } else {
+              // --- ミスした場合 ---
+              if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
+
+              // (追加) どのキーでミスしたかを記録
+              const expectedKey = word_currentWord[word_typedWord.length];
+              if (expectedKey) {
+                  keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
+              }
+
+              myCharacter.src = MY_CHAR_IMAGES.miss;
+              setTimeout(() => {
+                  if (currentConfig.gameMode === 'race' && myWordsCleared < 60) {
+                      myCharacter.src = MY_CHAR_IMAGES.normal;
+                  }
+              }, 500);
+
+          }
+      } else if (currentConfig.gameMode === 'scoreAttack') {
         // --- ここからステージ8 (scoreAttack) 専用の新しい処理 ---
         if (event.key.length > 1) return;
 
@@ -740,8 +770,10 @@ function startGame() {
         
         // UIの初期化
         opponentInfoContainer.style.display = 'block';
-        myProgressBar.style.width = '0%';
-        opponentProgressBar.style.width = '0%';
+        myCharacter.src = MY_CHAR_IMAGES.normal;
+        opponentCharacter.src = OPP_CHAR_IMAGES.normal;
+        updateRaceCharacterPosition(myCharacter, 0);
+        updateRaceCharacterPosition(opponentCharacter, 0);
         myWordCount.textContent = '0';
         opponentWordCount.textContent = '0';
 
@@ -784,8 +816,11 @@ function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
         if (data.type === 'word_cleared') {
             opponentWordsCleared++;
-            opponentProgressBar.style.width = `${(opponentWordsCleared / 60) * 100}%`;
+            updateRaceCharacterPosition(opponentCharacter, opponentWordsCleared / 60);
             opponentWordCount.textContent = opponentWordsCleared;
+            if (opponentWordsCleared >= 60) {
+                opponentCharacter.src = OPP_CHAR_IMAGES.goal;
+            }
             checkRaceWinCondition();
         }
         if (data.type === 'opponent_quit') {
@@ -794,10 +829,9 @@ function listenToOpponent() {
             return; // 以降の処理は不要
         }
         if (data.type === 'progress_update' && currentConfig.gameMode === 'race') {
-            // 相手の進捗バーを更新
-            opponentProgressBar.style.width = `${data.value * 100}%`;
-            // 相手が100%になったら敗北処理
+            updateRaceCharacterPosition(opponentCharacter, data.value);
             if (data.value >= 1) {
+                opponentCharacter.src = OPP_CHAR_IMAGES.goal;
                 gameOver(currentTranslation.gameOverOpponentFinished);
             }
         } else if (data.type === 'score_update' && currentConfig.gameMode === 'scoreAttack') {
@@ -805,9 +839,17 @@ function listenToOpponent() {
             opponentScoreDisplay.textContent = data.value;
         } else if (data.type === 'game_clear') {
             // 相手がクリアした場合（進捗レース用）
+            opponentCharacter.src = OPP_CHAR_IMAGES.goal;
             gameOver(currentTranslation.gameOverOpponentFinished);
         }
     });
+}
+
+function updateRaceCharacterPosition(element, progress) {
+    const track = element.parentElement;
+    const trackWidth = track.clientWidth - element.clientWidth;
+    const x = trackWidth * (1 - progress);
+    element.style.left = `${x}px`;
 }
 
 function setNextRaceWord() {
