@@ -26,6 +26,31 @@
 - **その他**: オフラインで全ての機能が動作すること。
 
 
+## Installation
+
+### Requirements
+
+- Node.js
+- npm
+
+### Development Setup
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run in development mode:
+
+```bash
+npm start
+```
+
+### Building
+
+- `npm run build` – create a production build.
+- On Windows use `npm run build:win32` or `npm run build:win64` for 32-bit and 64-bit installers.
 
 ### 4. ゲームモード（ステージ）詳細
 
