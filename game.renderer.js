@@ -136,6 +136,11 @@ let word_typedWord = '';
 let word_consecutiveCorrect = 0;
 let word_asteroidScale = 1.0;
 
+// (New!) 日本語ステージ用ローマ字入力処理のための変数
+let romajiSequence = null; // 現在の単語を構成するかなとローマ字候補の配列
+let romajiIndex = 0;       // 現在入力中のかなインデックス
+let romajiBuffer = '';     // 現在のかなに対して入力済みのローマ字文字列
+
 // --- fallingStarsモード用の変数 ---
 let activeStars = [];
 let maxStarsOnScreen = 1;
@@ -302,7 +307,10 @@ function setNextWordAsteroidQuestion() {
     word_typedWord = '';
     word_asteroidScale = 1.0;
     asteroidContainer.style.setProperty('transform', `scale(${word_asteroidScale})`, 'important');
-    
+
+    // (New!) 日本語の場合はローマ字入力を初期化
+    prepareRomaji(word_currentWord);
+
     updateWordAsteroidDisplay();
 
     // フェードイン演出
@@ -331,6 +339,51 @@ function updateWordAsteroidDisplay() {
             charSpan.classList.add('current');
         }
         questionText.appendChild(charSpan);
+    }
+}
+
+// (New!) 現在の単語に対してローマ字入力処理を初期化
+function prepareRomaji(word) {
+    if (settings.language === 'ja' && /[\u3040-\u30ff]/.test(word)) {
+        romajiSequence = RomanjiConverter.convert(word);
+        romajiIndex = 0;
+        romajiBuffer = '';
+    } else {
+        romajiSequence = null;
+    }
+}
+
+// (New!) 1文字入力を処理し、正誤を判定する
+function processWordInput(key) {
+    key = key.toLowerCase();
+    if (romajiSequence) {
+        if (romajiIndex >= romajiSequence.length) return false;
+        const group = romajiSequence[romajiIndex];
+        const newBuffer = romajiBuffer + key;
+        const matches = group.romanji.filter(r => r.startsWith(newBuffer));
+        if (matches.length === 0) {
+            return false; // 誤入力
+        }
+        romajiBuffer = newBuffer;
+        if (matches.includes(newBuffer)) {
+            // 1文字分のかなを確定
+            let kanaChar = group.kana;
+            // romaji.js の促音処理では次子音がそのまま kana に入るため復元する
+            if (kanaChar.length === 1 && !/^[\u3040-\u309f]$/.test(kanaChar)) {
+                kanaChar = 'っ';
+            }
+            word_typedWord += kanaChar;
+            romajiIndex++;
+            romajiBuffer = '';
+        }
+        return true; // 正しい入力（未確定含む）
+    } else {
+        const expected = word_currentWord[word_typedWord.length];
+        if (expected && key === expected.toLowerCase()) {
+            word_typedWord += expected;
+            return true;
+        }
+        return false;
     }
 }
 
@@ -383,12 +436,9 @@ function handleKeyPress(event) {
         if (event.key.length > 1) return;
         if (!word_currentWord) return; // 単語がなければ何もしない
 
-        const correctNextChar = word_currentWord[word_typedWord.length];
-
-        if (event.key === correctNextChar) {
-            // --- 正解の場合 ---
+        const ok = processWordInput(event.key);
+        if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
-            word_typedWord += event.key;
             updateWordAsteroidDisplay();
 
             if (word_typedWord === word_currentWord) {
@@ -410,43 +460,35 @@ function handleKeyPress(event) {
 
                 // 相手にスコアを通知
                 window.electronAPI.sendMessage({ type: 'score_update', value: myScore });
-                
+
                 // 勝敗判定
                 if (checkRaceWinCondition()) return;
-                
+
                 // 次の単語へ
                 setNextRaceWord();
             }
 
         } else {
-            // --- ミスした場合 ---
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
-
-            // (追加) どのキーでミスしたかを記録
-            const expectedKey = word_currentWord[word_typedWord.length];
+            const expectedKey = romajiSequence && romajiIndex < romajiSequence.length
+                ? (romajiSequence[romajiIndex].romanji[0][romajiBuffer.length] || romajiSequence[romajiIndex].romanji[0])
+                : word_currentWord[word_typedWord.length];
             if (expectedKey) {
                 keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
             }
-            
             raceWordHasMistake = true;
-
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
-        // --- ここからステージ8 (scoreAttack) 専用の新しい処理 ---
         if (event.key.length > 1) return;
 
-        const correctNextChar = word_currentWord[word_typedWord.length];
-
-        if (event.key === correctNextChar) {
-            // 正解の場合
+        const ok = processWordInput(event.key);
+        if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
-            word_typedWord += event.key;
 
-            // 単語全体を正解した場合
             if (word_typedWord === word_currentWord) {
                 createExplosionParticles();
                 word_consecutiveCorrect++;
-                
+
                 // スコア計算
                 let scoreMultiplier = 1.0;
                 if (word_consecutiveCorrect >= 5) {
@@ -455,7 +497,7 @@ function handleKeyPress(event) {
                 }
                 score += Math.floor(word_currentWord.length * 50 * scoreMultiplier);
                 scoreDisplay.textContent = score;
-                
+
                 // 対戦相手にスコアを送信
                 window.electronAPI.sendMessage({ type: 'score_update', value: score });
 
@@ -463,11 +505,10 @@ function handleKeyPress(event) {
                 setTimeout(setNextWordAsteroidQuestion, 300); // 次の単語へ
             }
         } else {
-            // ミスした場合
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
-
-            // (追加) どのキーでミスしたかを記録
-            const expectedKey = word_currentWord[word_typedWord.length];
+            const expectedKey = romajiSequence && romajiIndex < romajiSequence.length
+                ? (romajiSequence[romajiIndex].romanji[0][romajiBuffer.length] || romajiSequence[romajiIndex].romanji[0])
+                : word_currentWord[word_typedWord.length];
             if (expectedKey) {
                 keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
             }
@@ -477,15 +518,10 @@ function handleKeyPress(event) {
     } else if (currentConfig.gameMode === 'wordAsteroid') {
         if (event.key.length > 1) return;
 
-        const correctNextChar = word_currentWord[word_typedWord.length];
-
-        if (event.key === correctNextChar) {
-            // --- 正解（途中）の場合 ---
+        const ok = processWordInput(event.key);
+        if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
-        word_typedWord += event.key;
 
-
-            // --- 単語全体を正解した場合 ---
             if (word_typedWord === word_currentWord) {
                 createExplosionParticles();
                 word_consecutiveCorrect++;
@@ -496,7 +532,7 @@ function handleKeyPress(event) {
                 }
                 score += Math.floor(word_currentWord.length * 50 * scoreMultiplier);
                 scoreDisplay.textContent = score;
-                
+
                 totalCorrectTyped++;
                 remainingCountDisplay.textContent = currentConfig.questionLimit - totalCorrectTyped;
 
@@ -507,11 +543,10 @@ function handleKeyPress(event) {
                 setTimeout(setNextWordAsteroidQuestion, 300);
             }
         } else {
-            // --- ミスした場合の処理 ---
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
-
-            // (追加) どのキーでミスしたかを記録
-            const expectedKey = word_currentWord[word_typedWord.length];
+            const expectedKey = romajiSequence && romajiIndex < romajiSequence.length
+                ? (romajiSequence[romajiIndex].romanji[0][romajiBuffer.length] || romajiSequence[romajiIndex].romanji[0])
+                : word_currentWord[word_typedWord.length];
             if (expectedKey) {
                 keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
             }
@@ -521,7 +556,7 @@ function handleKeyPress(event) {
             if (word_asteroidScale >= 4.0) {
                 gameOver(currentTranslation.gameOverAsteroidCollision);
             }
-                // 何もせず、正しいキーの入力を待つ
+            // 何もせず、正しいキーの入力を待つ
         }
         updateWordAsteroidDisplay();
     } else if (currentConfig.gameMode === 'fallingStars') {
@@ -828,6 +863,8 @@ function setNextRaceWord() {
         raceWordIndex++;
         word_typedWord = '';
         raceWordHasMistake = false;
+        // (New!) 日本語の場合はローマ字入力を初期化
+        prepareRomaji(word_currentWord);
         updateWordAsteroidDisplay(); // 表示更新ロジックは流用
     }
 }
