@@ -36,46 +36,18 @@
 
 ---
 
-## 𝐬 Installation
+## 使い方
+ 1. ZIPファイルをダウンロード
+ 2. 解凍して、[Typing Game.exe]を実行
+ 2. 名前を入力してゲームをプレイ
 
-### 必須環境
-
-* Node.js
-* npm
-
-### 開発環境の構築
-
-```bash
-npm install
-npm start
-```
-
-### ビルド
-
-* `npm run build` … 本番ビルド
-* `npm run build:win32` … Windows 32bit向けのビルド
-* `npm run build:win64` … Windows 64bit向けのビルド
-
-> Windows以外で実行する場合は `wine` や `nsis` などが必要
+### カスタマイズ方法
+**単語・文章の追加**: resources/assets/word にあるjsonファイルを編集
+**レイアウトの編集**: resources/assets/layouts にあるjsonファイルを編集
+**言語の修正**: resources/assets/lang にあるjsonファイルを編集
 
 ---
 
-## 𝐯 Project Structure
-
-### 技術
-
-* **Electron** … デスクトップアプリフレーム
-* **Chart.js** … 成績チャート描画
-* **Node.js** … ランタイム
-
-### 主要ファイル
-
-* `assets/` … 画像や音声のステータス
-* `main.js` … Electron 本体
-* `renderer.js` … UI編集用
-* `preload.js` … Rendererへの安全なAPI提供
-
----
 
 ## 𝐭 ローカルネット対戦
 
@@ -116,7 +88,55 @@ npm start
 ---
 
 
+## 開発環境のセットアップについて
+
+### 必須環境
+
+* Node.js
+* npm
+
+### 開発環境の構築
+
+```bash
+npm install
+npm start
+```
+
+### ビルド
+
+* `npm run build` … 本番ビルド
+* `npm run build:win32` … Windows 32bit向けのビルド
+* `npm run build:win64` … Windows 64bit向けのビルド
+
+> Windows以外で実行する場合は `wine` や `nsis` などが必要
+
+---
+
+## 𝐯 Project Structure
+
+### 技術
+
+* **Electron** … デスクトップアプリフレーム
+* **Chart.js** … 成績チャート描画
+* **Node.js** … ランタイム
+
+### 主要ファイル
+
+* `assets/` … 画像や音声のステータス
+* `main.js` … Electron 本体
+* `renderer.js` … UI編集用
+* `preload.js` … Rendererへの安全なAPI提供
+
+---
+
+
 ## バージョン履歴
+
+### [2.0.1] - 2025-08-08
+#### 追加
+- 言語ファイルの追加と編集機能を実装（`resources/assets/lang`内のJSONファイル）
+
+---
 
 ### [2.0.0] - 2025-08-08
 #### 変更
