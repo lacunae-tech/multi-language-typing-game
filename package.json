@@ -33,7 +33,24 @@
       "!release/*",
       "!.gitignore",
       "!.git/*",
-      "!仕様書.md"
+      "!仕様書.md",
+      "!assets/lang/**",
+      "!assets/layouts/**",
+      "!assets/words/**"
+    ],
+    "extraResources": [
+      {
+        "from": "assets/lang",
+        "to": "assets/lang"
+      },
+      {
+        "from": "assets/layouts",
+        "to": "assets/layouts"
+      },
+      {
+        "from": "assets/words",
+        "to": "assets/words"
+      }
     ],
     "win": {
       "target": [

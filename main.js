@@ -18,9 +18,15 @@ const defaultSettings = {
 };
 
 let translations = {};
+function getAssetPath(...segments) {
+    const base = app.isPackaged
+        ? path.join(process.resourcesPath, 'assets')
+        : path.join(__dirname, 'assets');
+    return path.join(base, ...segments);
+}
 function loadTranslations(lang) {
     try {
-        const filePath = path.join(__dirname, `assets/lang/${lang}.json`);
+        const filePath = getAssetPath('lang', `${lang}.json`);
         if (fs.existsSync(filePath)) {
             const data = fs.readFileSync(filePath, 'utf-8');
             translations = JSON.parse(data);
@@ -184,7 +190,7 @@ ipcMain.handle('save-settings', (event, settings) => {
 });
 ipcMain.handle('get-translation', (event, lang) => {
     try {
-        const filePath = path.join(__dirname, `assets/lang/${lang}.json`);
+        const filePath = getAssetPath('lang', `${lang}.json`);
         if (fs.existsSync(filePath)) {
             const data = fs.readFileSync(filePath, 'utf-8');
             return JSON.parse(data);
@@ -198,7 +204,7 @@ ipcMain.handle('get-translation', (event, lang) => {
 ipcMain.on('navigate-to-stats', () => { mainWindow.loadFile('stats.html'); });
 ipcMain.handle('get-layout', (event, layoutName) => {
     try {
-        const filePath = path.join(__dirname, `assets/layouts/${layoutName}.json`);
+        const filePath = getAssetPath('layouts', `${layoutName}.json`);
         if (fs.existsSync(filePath)) {
             const data = fs.readFileSync(filePath, 'utf-8');
             return JSON.parse(data);
@@ -212,7 +218,7 @@ ipcMain.handle('get-layout', (event, layoutName) => {
 
 ipcMain.handle('get-word-list', (event, lang) => {
     try {
-        const filePath = path.join(__dirname, `assets/words/${lang}.json`);
+        const filePath = getAssetPath('words', `${lang}.json`);
         if (fs.existsSync(filePath)) {
             const data = fs.readFileSync(filePath, 'utf-8');
             return JSON.parse(data);
@@ -398,9 +404,9 @@ ipcMain.handle('send-message', (event, message) => {
     // ゲーム開始リクエストはホストのみ
     if (isHost && message.type === 'start_game_request') {
         // (修正) ステージ7の場合、単語リストを作成・保持する
-        if (currentStageId === 7) {
+            if (currentStageId === 7) {
             const lang = loadSettings().language;
-            const wordsFilePath = path.join(__dirname, `assets/words/${lang}.json`);
+            const wordsFilePath = getAssetPath('words', `${lang}.json`);
             if (fs.existsSync(wordsFilePath)) {
                 const allWords = JSON.parse(fs.readFileSync(wordsFilePath, 'utf-8'));
                 const wordPool = allWords.stage5_words || []; // ステージ5の単語を流用
