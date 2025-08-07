@@ -52,6 +52,19 @@ npm start
 - `npm run build` – create a production build.
 - On Windows use `npm run build:win32` or `npm run build:win64` for 32-bit and 64-bit installers.
 
+## Project Structure
+
+### Technologies
+- **Electron** – desktop application framework.
+- **Chart.js** – renders performance charts.
+- **Node.js** – underlying runtime environment.
+
+### Key Files and Directories
+- `assets/` – images, audio and other static resources.
+- `main.js` – Electron main-process entry point.
+- `renderer.js` – shared renderer script for windows.
+- `preload.js` – exposes safe APIs to renderer processes.
+
 ### 4. ゲームモード（ステージ）詳細
 
 全9ステージ構成。各ステージのクリアデータはユーザープロファイルに紐づけて保存される。
