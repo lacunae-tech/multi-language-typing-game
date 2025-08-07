@@ -50,7 +50,9 @@ npm start
 ### Building
 
 - `npm run build` – create a production build.
-- On Windows use `npm run build:win32` or `npm run build:win64` for 32-bit and 64-bit installers.
+- `npm run build:win32` – build a 32‑bit Windows release. The generated files are placed in the `release/` directory and include an NSIS installer (`Typing Game Setup*.exe`) and a portable `.zip` archive.
+- `npm run build:win64` – build a 64‑bit Windows release with the same `release/` output (NSIS installer and `.zip`).
+- These Windows build scripts require a Windows environment. When running from macOS or Linux, ensure the necessary tools (e.g. `wine`, `mono`, `nsis`) are installed for cross‑compilation.
 
 ## Project Structure
 
