@@ -52,6 +52,24 @@ npm start
 - `npm run build` – create a production build.
 - On Windows use `npm run build:win32` or `npm run build:win64` for 32-bit and 64-bit installers.
 
+## Local Network Play
+
+### Hosting
+
+1. From the main menu, choose **Host game**.
+2. A server starts on port **8080** and your local IP address is displayed.
+3. Share this IP with players on the same network.
+
+### Joining
+
+1. From the main menu, choose **Connect to host**.
+2. Enter the host's IP address to join.
+
+### Network Requirements
+
+- All players must be on the same local area network.
+- Ensure firewalls allow connections on port **8080**.
+
 ### 4. ゲームモード（ステージ）詳細
 
 全9ステージ構成。各ステージのクリアデータはユーザープロファイルに紐づけて保存される。
