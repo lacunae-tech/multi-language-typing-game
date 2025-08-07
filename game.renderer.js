@@ -23,7 +23,7 @@ const countdownText = document.getElementById('countdown-text');
 const asteroidContainer = document.getElementById('asteroid-container');
 const comboDisplay = document.getElementById('combo-display');
 
-
+const infoBarelements = document.querySelectorAll('.info-box');
 const opponentInfoContainer = document.getElementById('opponent-info-container');
 const opponentProgressContainer = document.getElementById('opponent-progress-container');
 const opponentProgressBar = document.getElementById('opponent-progress-bar');
@@ -85,7 +85,7 @@ const STAGE_CONFIG = {
         id:6,
         title: "文章れんしゅう",
         timeLimit: 120,
-        questionLimit: 60, // 文章数
+        questionLimit: 15, // 文章数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',
     },
@@ -94,7 +94,7 @@ const STAGE_CONFIG = {
         title: "対戦：進捗レース",
         gameMode: 'race', // 新しいゲームモードとして 'race' を定義
         wordList: [],     // 文章リストを使用 (ステージ6のものを流用)
-        questionLimit: 1, // 1つの文章の早さを競う
+        questionLimit: 60, // 1つの文章の早さを競う
     },
     8: {
         id: 8,
@@ -149,9 +149,12 @@ let singleChar_highlightedKeyElement = null;
 let singleChar_consecutiveCorrectAnswers = 0;
 let singleChar_isKeyboardVisible = true;
 
-// (追加) レース用の進捗管理変数
-let myWordsCleared = 0;
-let opponentWordsCleared = 0;
+// (更新) レース用の進捗・スコア管理変数
+let raceWordIndex = 0; // 現在の単語インデックス
+let myScore = 0;
+let opponentScore = 0;
+let raceConsecutivePerfect = 0; // 連続ミスなし数
+let raceWordHasMistake = false; // 現在の単語でミスが発生したか
 
 // --- 関数定義 ---
 function createKeyboard() {
@@ -389,12 +392,24 @@ function handleKeyPress(event) {
             updateWordAsteroidDisplay();
 
             if (word_typedWord === word_currentWord) {
-                myWordsCleared++;
-                myProgressBar.style.width = `${(myWordsCleared / 60) * 100}%`;
-                myWordCount.textContent = myWordsCleared;
-                
-                // 相手にクリアを通知
-                window.electronAPI.sendMessage({ type: 'word_cleared' });
+                // ポイント計算
+                let gained = raceWordHasMistake ? 1 : 3;
+                myScore += gained;
+                if (!raceWordHasMistake) {
+                    raceConsecutivePerfect++;
+                    if (raceConsecutivePerfect % 3 === 0) {
+                        myScore += 3; // ボーナス
+                    }
+                } else {
+                    raceConsecutivePerfect = 0;
+                }
+
+                // UI更新
+                myProgressBar.style.width = `${(myScore / 60) * 100}%`;
+                myWordCount.textContent = myScore;
+
+                // 相手にスコアを通知
+                window.electronAPI.sendMessage({ type: 'score_update', value: myScore });
                 
                 // 勝敗判定
                 if (checkRaceWinCondition()) return;
@@ -413,6 +428,8 @@ function handleKeyPress(event) {
                 keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
             }
             
+            raceWordHasMistake = true;
+
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
         // --- ここからステージ8 (scoreAttack) 専用の新しい処理 ---
@@ -732,8 +749,10 @@ function startGame() {
         lastSpawnTime = 0;
         fallingStars_gameLoop();
     } else if (currentConfig.gameMode === 'race') { // この else if を追加
-        myWordsCleared = 0;
-        opponentWordsCleared = 0;
+        raceWordIndex = 0;
+        myScore = 0;
+        opponentScore = 0;
+        raceConsecutivePerfect = 0;
         word_typedWord = '';
         currentConfig.timeLimit = 120; // 制限時間を設定
         timerDisplay.textContent = currentConfig.timeLimit;
@@ -782,10 +801,10 @@ function startCountdown() {
 
 function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
-        if (data.type === 'word_cleared') {
-            opponentWordsCleared++;
-            opponentProgressBar.style.width = `${(opponentWordsCleared / 60) * 100}%`;
-            opponentWordCount.textContent = opponentWordsCleared;
+        if (data.type === 'score_update' && currentConfig.gameMode === 'race') {
+            opponentScore = data.value;
+            opponentProgressBar.style.width = `${(opponentScore / 60) * 100}%`;
+            opponentWordCount.textContent = opponentScore;
             checkRaceWinCondition();
         }
         if (data.type === 'opponent_quit') {
@@ -793,14 +812,7 @@ function listenToOpponent() {
             gameOver(currentTranslation.gameOverOpponentDisconnected);
             return; // 以降の処理は不要
         }
-        if (data.type === 'progress_update' && currentConfig.gameMode === 'race') {
-            // 相手の進捗バーを更新
-            opponentProgressBar.style.width = `${data.value * 100}%`;
-            // 相手が100%になったら敗北処理
-            if (data.value >= 1) {
-                gameOver(currentTranslation.gameOverOpponentFinished);
-            }
-        } else if (data.type === 'score_update' && currentConfig.gameMode === 'scoreAttack') {
+        if (data.type === 'score_update' && currentConfig.gameMode === 'scoreAttack') {
             // 相手のスコアを更新
             opponentScoreDisplay.textContent = data.value;
         } else if (data.type === 'game_clear') {
@@ -811,16 +823,18 @@ function listenToOpponent() {
 }
 
 function setNextRaceWord() {
-    if (myWordsCleared < 60) {
-        word_currentWord = currentConfig.wordList[myWordsCleared];
+    if (raceWordIndex < currentConfig.wordList.length) {
+        word_currentWord = currentConfig.wordList[raceWordIndex];
+        raceWordIndex++;
         word_typedWord = '';
+        raceWordHasMistake = false;
         updateWordAsteroidDisplay(); // 表示更新ロジックは流用
     }
 }
 
 // (追加) 勝敗判定を行う関数
 function checkRaceWinCondition() {
-    if ((myWordsCleared + opponentWordsCleared) >= 60) {
+    if (myScore >= 60 || opponentScore >= 60) {
         // 合計60単語に達した場合
         judgeRaceResult();
         return true;
@@ -831,14 +845,14 @@ function checkRaceWinCondition() {
 // (追加) 最終的な勝敗を判定してゲームを終了する関数
 function judgeRaceResult() {
     let msg = "";
-    if (myWordsCleared > opponentWordsCleared) {
-        msg = `勝利！ (${myWordsCleared} vs ${opponentWordsCleared})`;
-    } else if (myWordsCleared < opponentWordsCleared) {
-        msg = `敗北... (${myWordsCleared} vs ${opponentWordsCleared})`;
+    if (myScore > opponentScore) {
+        msg = `勝利！ (${myScore} vs ${opponentScore})`;
+    } else if (myScore < opponentScore) {
+        msg = `敗北... (${myScore} vs ${opponentScore})`;
     } else {
         msg = currentTranslation.gameOverTie
-            .replace('{myCount}', myWordsCleared)
-            .replace('{opponentCount}', opponentWordsCleared);
+            .replace('{myCount}', myScore)
+            .replace('{opponentCount}', opponentScore);
     }
     stopGame(msg);
 }
@@ -920,10 +934,16 @@ async function initialize() {
         } else {
             document.getElementById('opponent-score-container').style.display = 'block';
         }
-        asteroidContainer.style.display = 'block';
+        asteroidContainer.style.display = 'none';
         questionTextWrapper.style.display = 'block';
         questionText.style.display = 'block';
         keyboardLayoutDiv.style.display = 'none';
+
+
+        infoBarelements.forEach(el => {
+            el.style.display = 'none';
+        });
+
 
         const raceWordList = await window.electronAPI.getRaceWordList();
         if (raceWordList && raceWordList.length > 0) {
