@@ -1,0 +1,35 @@
+{
+"stage5_words": [
+  "manzana", "plátano", "naranja", "uva", "limón", "melón", "durazno", "fresa",
+  "albaricoque", "mango", "piña", "kiwi", "cereza", "ciruela", "higo", "dátil",
+  "pera", "frambuesa", "arándano", "grosella", "sandía", "nuez", "coco", "aguacate",
+  "zanahoria", "tomate", "cebolla", "ajo", "pimiento", "pepino", "lechuga", "calabacín",
+  "berenjena", "brócoli", "repollo", "espinaca", "perejil", "cilantro", "albahaca", "menta",
+  "patata", "rábano", "champiñón", "nabo", "apio", "lenteja", "guisante", "frijol",
+  "arroz", "pan", "queso", "mantequilla", "leche", "huevo", "carne", "pescado",
+  "pollo", "ternera", "cerdo", "cordero", "atún", "salmón", "camarón", "cangrejo",
+  "langosta", "ostra", "mejillón", "calamar", "caracol", "pasta", "pizza", "sándwich",
+  "pastel", "tarta", "galleta", "chocolate", "caramelo", "azúcar", "sal", "pimienta",
+  "aceite", "vinagre", "miel", "café", "té", "agua", "jugo", "refresco",
+  "vino", "cerveza", "champán", "cóctel", "bebida", "helado", "sopa", "ensalada",
+  "árbol", "flor", "hierba", "bosque", "planta", "hoja", "raíz", "rama",
+  "perro", "gato", "caballo", "vaca", "oveja", "cabra", "cerdo", "conejo",
+  "ratón", "rata", "pájaro", "gallina", "gallo", "pato", "pavo", "paloma",
+  "pez", "delfín", "tiburón", "ballena", "foca", "rana", "serpiente", "lagarto",
+  "tortuga", "insecto", "abeja", "hormiga", "araña", "mosca", "mariposa", "mariquita",
+  "tren", "coche", "autobús", "bicicleta", "motocicleta", "camión", "barco", "avión",
+  "cohete", "metro", "tranvía", "taxi", "carretera", "puente", "estación", "aeropuerto",
+  "casa", "apartamento", "habitación", "sala", "cocina", "pasillo", "puerta", "ventana",
+  "techo", "jardín", "garaje", "pared", "escalera", "ascensor", "silla", "mesa",
+  "cama", "armario", "lámpara", "alfombra", "cortina", "cuadro", "espejo", "almohada",
+  "libro", "bolígrafo", "lápiz", "papel", "cuaderno", "computadora", "teléfono", "reloj",
+  "reloj de pulsera", "radio", "televisión", "foto", "cámara", "música", "canción", "película",
+  "escuela", "clase", "maestro", "estudiante", "escritorio", "pizarra", "mapa", "marcador",
+  "deporte", "juego", "pelota", "raqueta", "bicicleta", "esquí", "natación", "correr",
+  "sol", "luna", "estrella", "cielo", "nube", "lluvia", "nieve", "viento"
+],
+  "stage6_sentences": [
+      "El rápido zorro marrón salta sobre el perro perezoso.",
+      "Nunca dejes para mañana lo que puedas hacer hoy."
+  ]
+}
