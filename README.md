@@ -1,103 +1,117 @@
-## 1. 概要
+## ᴼ 概要
 
-本ドキュメントは、ローカルネットワークでの対戦が可能なタイピング練習ゲームの要件を定義するものである。
+本ドキュメントは、ローカルネットワークでの対戦が可能なタイピング練習ゲームの要件を定義するものです。
 
-- **プロジェクト目的**: 楽しみながらタイピングスキルを向上させること。特に、友人や同僚とローカル環境で気軽に対戦できる機能を提供する。
-- **ターゲットユーザー**:
-    - タイピング初心者から中級者
-    - 友人や家族とオフラインでゲームを楽しみたいユーザー
+* **プロジェクト目的**: 楽しみながらタイピングスキルを向上させること。友人や同僚とローカル環境で気軽に対戦できる機能を提供する。
+* **ターゲットユーザー**:
 
+  * タイピング初心者から中級者
+  * 友人や家族とオフラインでゲームを楽しみたい人
+  * 多言語環境でタイピングを学びたい人
 
-## 2. このゲームについて
-フランス語、スペイン語、日本語、英語、ポルトガル語に対応したタイピングゲーム
-タイピング練習で使用する単語は、jsonで自由に追加、編集ができるようになっている
+---
 
-また、ローカルネットワークで対戦をすることも可能。
-ローカルネットワークで対戦をしながら、タイピング能力の向上を図ることが期待される。
+## ⭐ このゲームについて
 
-多言語対応するため、練習用単語やキーボードレイアウトは任意で追加することができる設計となっている。
+* フランス語、スペイン語、日本語、英語、ポルトガル語に対応
+* jsonで単語を自由に追加、編集可能
+* ローカルネット対戦に対応
+* 多言語対応のため、単語やキーボードレイアウトを自由に追加可能
 
-## 3. システム要件
+---
 
-- **動作環境**: Windows 10, Windows 11
-- **配布形式**: ZIPファイル（インストール不要で実行可能）
-- **最小解像度**: 1280 x 800
-- **キーレイアウト**: QWERTY（英語）, JIS（日本語）、AZERTY、ABNT2（ポルトガル語）、QWERTY（スペイン語）
-- **その他**: オフラインで全ての機能が動作すること。
+## 𝑅 システム要件
 
+* **動作環境**: Windows 10 / 11
+* **配布形式**: ZIPファイル (インストール不要)
+* **最小解像度**: 1280 x 800
+* **キーレイアウト**:
 
-## Installation
+  * QWERTY (英語)
+  * JIS (日本語)
+  * AZERTY
+  * ABNT2 (ポルトガル語)
+  * QWERTY (スペイン語)
+* **その他**: オフラインですべての機能が動作
 
-### Requirements
+---
 
-- Node.js
-- npm
+## 𝐬 Installation
 
-### Development Setup
+### 必須環境
 
-Install dependencies:
+* Node.js
+* npm
+
+### 開発環境の構築
 
 ```bash
 npm install
-```
-
-Run in development mode:
-
-```bash
 npm start
 ```
 
-### Building
+### ビルド
 
-- `npm run build` – create a production build.
-- `npm run build:win32` – build a 32‑bit Windows release. The generated files are placed in the `release/` directory and include an NSIS installer (`Typing Game Setup*.exe`) and a portable `.zip` archive.
-- `npm run build:win64` – build a 64‑bit Windows release with the same `release/` output (NSIS installer and `.zip`).
-- These Windows build scripts require a Windows environment. When running from macOS or Linux, ensure the necessary tools (e.g. `wine`, `mono`, `nsis`) are installed for cross‑compilation.
+* `npm run build` … 本番ビルド
+* `npm run build:win32` … Windows 32bit向けのビルド
+* `npm run build:win64` … Windows 64bit向けのビルド
 
-## Project Structure
+> Windows以外で実行する場合は `wine` や `nsis` などが必要
 
-### Technologies
-- **Electron** – desktop application framework.
-- **Chart.js** – renders performance charts.
-- **Node.js** – underlying runtime environment.
+---
 
-### Key Files and Directories
-- `assets/` – images, audio and other static resources.
-- `main.js` – Electron main-process entry point.
-- `renderer.js` – shared renderer script for windows.
-- `preload.js` – exposes safe APIs to renderer processes.
+## 𝐯 Project Structure
 
-## Local Network Play
+### 技術
 
-### Hosting
+* **Electron** … デスクトップアプリフレーム
+* **Chart.js** … 成績チャート描画
+* **Node.js** … ランタイム
 
-1. From the main menu, choose **Host game**.
-2. A server starts on port **8080** and your local IP address is displayed.
-3. Share this IP with players on the same network.
+### 主要ファイル
 
-### Joining
+* `assets/` … 画像や音声のステータス
+* `main.js` … Electron 本体
+* `renderer.js` … UI編集用
+* `preload.js` … Rendererへの安全なAPI提供
 
-1. From the main menu, choose **Connect to host**.
-2. Enter the host's IP address to join.
+---
 
-### Network Requirements
+## 𝐭 ローカルネット対戦
 
-- All players must be on the same local area network.
-- Ensure firewalls allow connections on port **8080**.
+### ホストとして使用
 
-### 4. ゲームモード（ステージ）詳細
+1. メインメニューから「**Host game**」を選択
+2. ローカルIPアドレスが表示される
+3. 同じLAN内のユーザーにIPを共有
 
-全9ステージ構成。各ステージのクリアデータはユーザープロファイルに紐づけて保存される。
+### ゲームに参加
 
-| ステージ番号 | ステージ名 | 課題 | UI表示 | 備考 | 構築状況 | 
-| --- | --- | --- | --- | --- |
-| **1** | ホームキー・ならし | ホームキーポジションのランダムな1文字 | キーレイアウト表示 | 基本の練習 / **制限時間90秒** | ほぼ完成 | 
-| **2** | 全キー・ならし | 全てのキーのランダムな1文字 | キーレイアウト表示 | **制限時間90秒** | ほぼ完成 |
-| **3** | 星降るホームキー | ホームキーポジションのランダムな文字列 | **キーレイアウト非表示** | 80文字クリアで終了 / 残り時間はボーナススコア / 制限時間120秒 | ほぼ完成 |
-| **4** | 星降る全キー | 全てのキーのランダムな文字列 | **キーレイアウト非表示** | 80文字クリアで終了 / 残り時間はボーナススコア / 制限時間120秒  | ほぼ完成 |
-| **5** | 単語れんしゅう | 一般的な単語 |  |  | ほぼ完成 |
-| **6** | 文章れんしゅう | 短めの文章 |  |  | ほぼ完成 |
-| **7** | 対戦：進捗レース | 文章 | 相手の進捗バーを表示 | 先に文章を打ち終えた方の勝利 | 仮実装（ベータ版） |
-| **8** | 対戦：早食いチャレンジ | ランダムな単語（料理に見立てる） | 制限時間、相手のスコアを表示 | 制限時間内に多くの単語をタイピングし、スコアが高い方の勝利 | 仮実装（ベータ版） |
-| **9** | 苦手キー復習 | 統計データから判定された苦手キーを重点的に出題 |  | 苦手キーがない場合はランダムに出題 | 未実装 |
+1. メインメニューから「**Connect to host**」を選択
+2. ホスト側のIPアドレスを入力
+
+### ネット環境の要件
+
+* 各ユーザーが同じLAN内にいること
+* **ポート8080**をファイアウォールで開放
+
+---
+
+## 𝐰 ゲームモード詳細
+
+全9ステージ構成。各ステージのクリア情報はユーザープロファイルに保存される。
+
+| ステージ | 名称           | 内容           | UI       | 特徴                | 構築状況      |
+| ---- | ------------ | ------------ | -------- | ----------------- | --------- |
+| 1    | ホームキーならし     | ホームポジションの1文字 | キー表示あり   | 制限90秒             | ほぼ完成      |
+| 2    | 全キーならし       | 全てのキーから1文字   | キー表示あり   | 制限90秒             | ほぼ完成      |
+| 3    | 星降るホームキー     | ホームポジションの文字列 | 表示なし     | 80文字でクリア / 制限120秒 | ほぼ完成      |
+| 4    | 星降る全キー       | 全キーの文字列      | 表示なし     | 80文字でクリア / 制限120秒 | ほぼ完成      |
+| 5    | 単語練習         | 一般的な単語       |          |                   | ほぼ完成      |
+| 6    | 文章練習         | 短文           |          |                   | ほぼ完成      |
+| 7    | 対戦: 進捗レース    | 文章           | 相手の進捗バー  | 先に打ち切った方が勝利       | 仮実装 (ベータ) |
+| 8    | 対戦: 早食いチャレンジ | 料理に見立てた単語    | 相手のスコア表示 | 制限時間内にスコア勝負       | 仮実装 (ベータ) |
+| 9    | 苦手キー復習       | 統計データに基づく    |          | 苦手キーがない場合はランダム    | ほぼ完成       |
+
+---
 
