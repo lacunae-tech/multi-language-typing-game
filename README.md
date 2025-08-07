@@ -67,6 +67,24 @@ npm start
 - `renderer.js` – shared renderer script for windows.
 - `preload.js` – exposes safe APIs to renderer processes.
 
+## Local Network Play
+
+### Hosting
+
+1. From the main menu, choose **Host game**.
+2. A server starts on port **8080** and your local IP address is displayed.
+3. Share this IP with players on the same network.
+
+### Joining
+
+1. From the main menu, choose **Connect to host**.
+2. Enter the host's IP address to join.
+
+### Network Requirements
+
+- All players must be on the same local area network.
+- Ensure firewalls allow connections on port **8080**.
+
 ### 4. ゲームモード（ステージ）詳細
 
 全9ステージ構成。各ステージのクリアデータはユーザープロファイルに紐づけて保存される。
