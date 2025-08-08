@@ -314,7 +314,8 @@ ipcMain.handle('start-server', () => {
     isHost = true;
     server = net.createServer((socket) => {
         hostSocket = socket;
-        mainWindow.webContents.send('network-event', 'client_connected', { userName: 'Opponent' });
+        const clientName = (socket.remoteAddress || 'Unknown').replace(/^::ffff:/, '');
+        mainWindow.webContents.send('network-event', 'client_connected', { userName: clientName });
 
         // (修正) クライアントからのゲーム中データを受信し、ホストのレンダラへ転送
         socket.on('data', (data) => {
@@ -343,7 +344,8 @@ ipcMain.handle('connect-to-server', (event, ip) => {
     isHost = false;
     clientSocket = new net.Socket();
     clientSocket.connect(8080, ip, () => {
-        mainWindow.webContents.send('network-event', 'connected_to_host', { hostName: 'Host' });
+        const hostName = (clientSocket.remoteAddress || ip || 'Unknown').replace(/^::ffff:/, '');
+        mainWindow.webContents.send('network-event', 'connected_to_host', { hostName });
     });
 
     clientSocket.on('data', (data) => {
