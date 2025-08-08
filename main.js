@@ -404,14 +404,24 @@ ipcMain.handle('send-message', (event, message) => {
     // ゲーム開始リクエストはホストのみ
     if (isHost && message.type === 'start_game_request') {
         // (修正) ステージ7の場合、単語リストを作成・保持する
-            if (currentStageId === 7) {
+        if (currentStageId === 7) {
             const lang = loadSettings().language;
             const wordsFilePath = getAssetPath('words', `${lang}.json`);
             if (fs.existsSync(wordsFilePath)) {
                 const allWords = JSON.parse(fs.readFileSync(wordsFilePath, 'utf-8'));
                 const wordPool = allWords.stage5_words || []; // ステージ5の単語を流用
-                // シャッフルして60単語を抽出
-                currentRaceWordList = wordPool.sort(() => 0.5 - Math.random()).slice(0, 60);
+                const shuffled = [...wordPool].sort(() => 0.5 - Math.random());
+                if (shuffled.length < 60) {
+                    const looped = [];
+                    while (looped.length < 60) {
+                        looped.push(...shuffled);
+                    }
+                    currentRaceWordList = looped.slice(0, 60);
+                } else {
+                    currentRaceWordList = shuffled; // 60語以上なら全て使用
+                }
+            } else {
+                currentRaceWordList = [];
             }
         }
         const startGameMessage = JSON.stringify({ type: 'start_game', stageId: currentStageId });
