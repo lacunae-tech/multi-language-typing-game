@@ -858,15 +858,17 @@ function listenToOpponent() {
 }
 
 function setNextRaceWord() {
-    if (raceWordIndex < currentConfig.wordList.length) {
-        word_currentWord = currentConfig.wordList[raceWordIndex];
-        raceWordIndex++;
-        word_typedWord = '';
-        raceWordHasMistake = false;
-        // (New!) 日本語の場合はローマ字入力を初期化
-        prepareRomaji(word_currentWord);
-        updateWordAsteroidDisplay(); // 表示更新ロジックは流用
+    if (!currentConfig.wordList || currentConfig.wordList.length === 0) return;
+    if (raceWordIndex >= currentConfig.wordList.length) {
+        raceWordIndex = 0; // 単語リストをループ
     }
+    word_currentWord = currentConfig.wordList[raceWordIndex];
+    raceWordIndex++;
+    word_typedWord = '';
+    raceWordHasMistake = false;
+    // (New!) 日本語の場合はローマ字入力を初期化
+    prepareRomaji(word_currentWord);
+    updateWordAsteroidDisplay(); // 表示更新ロジックは流用
 }
 
 // (追加) 勝敗判定を行う関数
