@@ -455,7 +455,7 @@ function handleKeyPress(event) {
                 }
 
                 // UI更新
-                myProgressBar.style.width = `${(myScore / 60) * 100}%`;
+                myProgressBar.style.width = `${(myScore / currentConfig.questionLimit) * 100}%`;
                 myWordCount.textContent = myScore;
 
                 // 相手にスコアを通知
@@ -838,7 +838,7 @@ function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
         if (data.type === 'score_update' && currentConfig.gameMode === 'race') {
             opponentScore = data.value;
-            opponentProgressBar.style.width = `${(opponentScore / 60) * 100}%`;
+            opponentProgressBar.style.width = `${(opponentScore / currentConfig.questionLimit) * 100}%`;
             opponentWordCount.textContent = opponentScore;
             checkRaceWinCondition();
         }
@@ -871,8 +871,8 @@ function setNextRaceWord() {
 
 // (追加) 勝敗判定を行う関数
 function checkRaceWinCondition() {
-    if (myScore >= 60 || opponentScore >= 60) {
-        // 合計60単語に達した場合
+    if (myScore >= currentConfig.questionLimit || opponentScore >= currentConfig.questionLimit) {
+        // 規定スコアに達した場合
         judgeRaceResult();
         return true;
     }
@@ -925,6 +925,7 @@ async function initialize() {
         if (wordListData.stage5_words) {
             STAGE_CONFIG[5].wordList = wordListData.stage5_words;
             STAGE_CONFIG[7].wordList = wordListData.stage5_words;
+            STAGE_CONFIG[7].questionLimit = wordListData.stage5_words.length * 3;
             STAGE_CONFIG[8].wordList = wordListData.stage5_words;
         }
         if (wordListData.stage6_sentences) {
