@@ -333,7 +333,8 @@ dialog.modal-dialog {
     border: none;
     border-radius: 8px;
     padding: 20px;
-    max-width: 400px;
+    max-width: 600px;
+    min-width: 400px;
 }
 
 dialog.modal-dialog::backdrop {
@@ -345,7 +346,5 @@ dialog.modal-dialog::backdrop {
     text-align: center;
 }
 
-.modal-buttons button {
-    margin: 0 5px;
-}
+.modal-buttons button { font-family: 'Mochiy Pop One', sans-serif; background-color: #ff8a65; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-size: 0.8em; margin:10px; cursor: pointer; transition: background-color 0.3s; }
 

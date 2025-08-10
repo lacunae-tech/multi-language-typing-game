@@ -87,13 +87,10 @@ async function displayUsers() {
             if (await showModalConfirm(msg)) {
                 await window.electronAPI.deleteUser(user);
                 setTimeout(() => {
-                    nameInput.value = ''; // 入力欄をクリア
-                    nameInput.disabled = false; // disabled属性を解除
                     nameInput.focus(); // フォーカスを設定
+                    displayUsers();
                 }, 10);
             } else {
-                nameInput.value = ''; // 入力欄をクリア
-                nameInput.disabled = false; // disabled属性を解除
                 nameInput.focus(); // フォーカスを設定
             }
         });
