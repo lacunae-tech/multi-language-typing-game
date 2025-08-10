@@ -185,6 +185,22 @@ ipcMain.handle('get-users', async () => {
         .map(file => path.parse(file).name);
 });
 
+ipcMain.handle('delete-user', async (event, userName) => {
+    try {
+        const filePath = path.join(saveDir, `${userName}.json`);
+        if (fs.existsSync(filePath)) {
+            fs.unlinkSync(filePath);
+        }
+        if (currentUser === userName) {
+            currentUser = null;
+        }
+        return { success: true };
+    } catch (error) {
+        console.error('ユーザーの削除に失敗しました:', error);
+        return { success: false, error: error.message };
+    }
+});
+
 ipcMain.handle('save-settings', (event, settings) => {
     return saveSettings(settings);
 });

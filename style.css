@@ -47,6 +47,9 @@ h2 { color: #8d6e63; border-bottom: 2px dashed #ffccbc; padding-bottom: 5px; }
 #user-list { margin-top: 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
 .user-button { font-family: 'Mochiy Pop One', sans-serif; background-color: #a1887f; color: white; border: none; padding: 8px 15px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s; }
 .user-button:hover { background-color: #5d4037; }
+.user-entry { display: flex; align-items: center; gap: 5px; }
+.user-delete-button { font-family: 'Mochiy Pop One', sans-serif; background-color: #e57373; color: white; border: none; padding: 4px 8px; border-radius: 8px; cursor: pointer; font-size: 0.8em; transition: background-color 0.3s; }
+.user-delete-button:hover { background-color: #d32f2f; }
 
 /* --- メインメニュー / ステージ選択画面 --- */
 .menu-buttons { margin-top: 40px; display: flex; flex-direction: column; gap: 20px; }

@@ -15,6 +15,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // ユーザー選択画面で使うAPI
     getUsers: () => ipcRenderer.invoke('get-users'),
     loginOrCreateUser: (userName) => ipcRenderer.invoke('login-or-create-user', userName),
+    deleteUser: (userName) => ipcRenderer.invoke('delete-user', userName),
     onSetUser: (callback) => ipcRenderer.on('set-user', (event, userName) => callback(userName)),
 
     // 画面遷移で使うAPI

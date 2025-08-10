@@ -3,6 +3,8 @@
   "userSelectDescription": "Digite seu nome ou selecione abaixo",
   "namePlaceholder": "Digite o nome...",
   "confirmButton": "Confirmar",
+  "userDeleteButton": "Excluir",
+  "confirmUserDelete": "Excluir o usuário \"{userName}\"?",
   "foundUsers": "Usuários encontrados",
   "noUsersFound": "(Nenhum usuário ainda)",
   "feedbackNameEmpty": "Por favor, insira um nome!",
