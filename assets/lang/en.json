@@ -89,6 +89,8 @@
     "statsTitle": "Statistics",
     "scoreTransition": "Score Transition",
     "keyStatsTitle": "Key Stats (Missed Keys)",
+    "clearHistoryButton": "Clear History",
+    "confirmClearHistory": "Are you sure you want to clear your history?",
     "stageOptionPrefix": "Stage ",
     "mistakeUnit": " times",
     "attemptLabel": "Attempt {n}",

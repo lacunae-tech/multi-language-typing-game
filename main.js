@@ -161,6 +161,23 @@ ipcMain.handle('get-stats-data', () => {
     return loadUserData(currentUser);
 });
 
+// ユーザーデータの履歴をクリアするIPCハンドラ
+ipcMain.handle('clear-user-history', () => {
+    if (!currentUser) {
+        return { success: false, error: 'No user logged in' };
+    }
+    try {
+        const userData = loadUserData(currentUser) || {};
+        userData.scoreHistory = {};
+        userData.keyStats = {};
+        saveUserData(currentUser, userData);
+        return { success: true };
+    } catch (error) {
+        console.error('Failed to clear user history:', error);
+        return { success: false, error: error.message };
+    }
+});
+
 app.whenReady().then(() => {
     createWindow();
     app.on('activate', () => {
