@@ -104,7 +104,7 @@ backButton.addEventListener('click', () => {
 
 clearHistoryButton.addEventListener('click', async () => {
     const message = currentTranslation.confirmClearHistory || 'Are you sure you want to clear your history?';
-    if (confirm(message)) {
+    if (await showModalConfirm(message)) {
         await window.electronAPI.clearUserHistory();
         statsData = await window.electronAPI.getStatsData();
         renderKeyStats();

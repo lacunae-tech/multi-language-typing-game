@@ -328,3 +328,24 @@ textarea#credits-textarea::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0.1); /* スクロールバーの背景色 */
     border-radius: 5px;
 }
+/* Modal dialog */
+dialog.modal-dialog {
+    border: none;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 400px;
+}
+
+dialog.modal-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-buttons {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.modal-buttons button {
+    margin: 0 5px;
+}
+

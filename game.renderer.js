@@ -706,12 +706,12 @@ function handleKeyPress(event) {
 }
 
 // --- ゲームフロー関数 ---
-function stopGame(message) {
+async function stopGame(message) {
     isPlaying = false;
     cancelAnimationFrame(gameLoopId);
     if (settings.bgm) bgmAudio.pause();
     clearInterval(timerInterval);
-    if (message) alert(message);
+    if (message) await showModalAlert(message);
     window.electronAPI.navigateToMainMenu();
 }
 
