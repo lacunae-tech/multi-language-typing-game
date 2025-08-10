@@ -179,7 +179,10 @@ let lastSpawnTime = 0;
 // --- singleCharモード用の変数 ---
 let singleChar_currentQuestion = '';
 let singleChar_highlightTimeout = null;
-let singleChar_highlightedKeyElement = null;
+let singleChar_highlightedKeyElements = [];
+let singleChar_inputSequence = [];
+let singleChar_sequenceIndex = 0;
+let singleChar_accentInfo = null;
 let singleChar_consecutiveCorrectAnswers = 0;
 let singleChar_isKeyboardVisible = true;
 
@@ -243,6 +246,53 @@ function getKeyElementForChar(char) {
     return document.getElementById(`key-${id}`);
 }
 
+const COMBINING_ACCENT_MAP = {
+    '\u0308': { accentChar: '¨', keyChar: '^', needsShift: true },
+    '\u0301': { accentChar: '´', keyChar: "'", needsShift: false },
+    '\u0300': { accentChar: '`', keyChar: '`', needsShift: false },
+    '\u0302': { accentChar: '^', keyChar: '^', needsShift: true },
+    '\u0303': { accentChar: '~', keyChar: '~', needsShift: true }
+};
+
+const DEAD_KEY_MAP = {
+    '¨': { keyChar: '^', needsShift: true },
+    '´': { keyChar: "'", needsShift: false },
+    '`': { keyChar: '`', needsShift: false },
+    '^': { keyChar: '^', needsShift: true },
+    '~': { keyChar: '~', needsShift: true }
+};
+
+function getAccentInfo(char) {
+    if (DEAD_KEY_MAP[char]) {
+        return { accentChar: char, baseChar: null, ...DEAD_KEY_MAP[char] };
+    }
+    const normalized = char.normalize('NFD');
+    if (normalized.length > 1) {
+        const base = normalized[0];
+        const combining = normalized[1];
+        const info = COMBINING_ACCENT_MAP[combining];
+        if (info) {
+            return { accentChar: info.accentChar, baseChar: base, keyChar: info.keyChar, needsShift: info.needsShift };
+        }
+    }
+    return null;
+}
+
+function highlightAccent(info) {
+    const keyElement = getKeyElementForChar(info.keyChar);
+    if (keyElement) {
+        keyElement.classList.add('blinking');
+        singleChar_highlightedKeyElements.push(keyElement);
+    }
+    if (info.needsShift) {
+        const shiftElement = document.getElementById('key-Shift');
+        if (shiftElement) {
+            shiftElement.classList.add('blinking');
+            singleChar_highlightedKeyElements.push(shiftElement);
+        }
+    }
+}
+
 function singleChar_updateKeyboardVisibility() {
     if (!currentConfig.showKeyboard) {
         keyboardLayoutDiv.style.visibility = 'hidden';
@@ -252,10 +302,8 @@ function singleChar_updateKeyboardVisibility() {
 }
 
 function singleChar_clearHighlight() {
-    if (singleChar_highlightedKeyElement) {
-        singleChar_highlightedKeyElement.classList.remove('blinking');
-        singleChar_highlightedKeyElement = null;
-    }
+    singleChar_highlightedKeyElements.forEach(el => el.classList.remove('blinking'));
+    singleChar_highlightedKeyElements = [];
 }
 
 async function saveResultAndExit(message) {
@@ -278,6 +326,8 @@ async function saveResultAndExit(message) {
 function singleChar_setNextQuestion() {
     clearTimeout(singleChar_highlightTimeout);
     singleChar_clearHighlight();
+    singleChar_inputSequence = [];
+    singleChar_sequenceIndex = 0;
     const randomIndex = Math.floor(Math.random() * currentConfig.questionKeys.length);
     singleChar_currentQuestion = currentConfig.questionKeys[randomIndex];
     questionText.classList.add('flipping');
@@ -287,11 +337,21 @@ function singleChar_setNextQuestion() {
     questionText.addEventListener('animationend', () => {
         questionText.classList.remove('flipping');
     }, { once: true });
+    singleChar_accentInfo = getAccentInfo(singleChar_currentQuestion);
+    if (singleChar_accentInfo) {
+        singleChar_inputSequence = singleChar_accentInfo.baseChar ? [singleChar_accentInfo.accentChar, singleChar_currentQuestion] : [singleChar_accentInfo.accentChar];
+    } else {
+        singleChar_inputSequence = [singleChar_currentQuestion];
+    }
     singleChar_highlightTimeout = setTimeout(() => {
-        const keyElement = getKeyElementForChar(singleChar_currentQuestion);
-        if (keyElement) {
-            keyElement.classList.add('blinking');
-            singleChar_highlightedKeyElement = keyElement;
+        if (singleChar_accentInfo) {
+            highlightAccent(singleChar_accentInfo);
+        } else {
+            const keyElement = getKeyElementForChar(singleChar_currentQuestion);
+            if (keyElement) {
+                keyElement.classList.add('blinking');
+                singleChar_highlightedKeyElements.push(keyElement);
+            }
         }
     }, 2000);
 }
@@ -729,7 +789,18 @@ function handleKeyPress(event) {
                 pressedKeyElement.classList.remove('pressed');
             }, 100);
         }
-        if (key === singleChar_currentQuestion) {
+        const expectedChar = singleChar_inputSequence[singleChar_sequenceIndex] || singleChar_currentQuestion;
+        if (key === expectedChar) {
+            if (singleChar_accentInfo && singleChar_sequenceIndex === 0 && singleChar_inputSequence.length > 1) {
+                singleChar_sequenceIndex++;
+                singleChar_clearHighlight();
+                const baseKey = getKeyElementForChar(removeDiacritics(singleChar_currentQuestion));
+                if (baseKey) {
+                    baseKey.classList.add('blinking');
+                    singleChar_highlightedKeyElements.push(baseKey);
+                }
+                return;
+            }
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
             totalCorrectTyped++;
             remainingCountDisplay.textContent = currentConfig.questionLimit - totalCorrectTyped;
@@ -763,11 +834,6 @@ function handleKeyPress(event) {
         } else {
             if (settings.sfx) { errorAudio.currentTime = 0; errorAudio.play(); }
 
-            // (追加) どのキーでミスしたかを記録
-            const expectedKey = word_currentWord[word_typedWord.length];
-            if (expectedKey) {
-                keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
-            }
             singleChar_consecutiveCorrectAnswers = 0;
             singleChar_isKeyboardVisible = true;
             singleChar_updateKeyboardVisibility();
@@ -775,6 +841,14 @@ function handleKeyPress(event) {
             if (currentConfig.mistakePenalty) {
                 timeLeft -= currentConfig.mistakePenalty;
                 timerDisplay.textContent = timeLeft;
+            }
+            if (expectedChar) {
+                keyMistakeStats[expectedChar] = (keyMistakeStats[expectedChar] || 0) + 1;
+            }
+            singleChar_sequenceIndex = 0;
+            singleChar_clearHighlight();
+            if (singleChar_accentInfo) {
+                highlightAccent(singleChar_accentInfo);
             }
         }
     }
