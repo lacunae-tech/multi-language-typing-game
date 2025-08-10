@@ -25,11 +25,37 @@ const comboDisplay = document.getElementById('combo-display');
 
 const infoBarelements = document.querySelectorAll('.info-box');
 const opponentInfoContainer = document.getElementById('opponent-info-container');
-const opponentProgressContainer = document.getElementById('opponent-progress-container');
-const opponentProgressBar = document.getElementById('opponent-progress-bar');
-const myProgressBar = document.getElementById('my-progress-bar');
+const opponentProgressAnimal = document.getElementById('opponent-progress-animal');
+const myProgressAnimal = document.getElementById('my-progress-animal');
 const myWordCount = document.getElementById('my-word-count');
 const opponentWordCount = document.getElementById('opponent-word-count');
+
+const MY_ANIMAL_IMAGES = {
+    normal: './assets/img/fox_normal.png',
+    mistake: './assets/img/fox_mistake.png',
+    combo: './assets/img/fox_combo.png'
+};
+
+const OPPONENT_ANIMAL_IMAGES = {
+    normal: './assets/img/camel_normal.png',
+    mistake: './assets/img/camel_mistake.png',
+    combo: './assets/img/camel_combo.png'
+};
+
+function setAnimalState(element, images, state) {
+    element.src = images[state];
+    if (state !== 'normal') {
+        clearTimeout(element._stateTimeout);
+        element._stateTimeout = setTimeout(() => {
+            element.src = images.normal;
+        }, state === 'combo' ? 1000 : 500);
+    }
+}
+
+function updateAnimalPosition(element, score) {
+    const progress = score / currentConfig.questionLimit;
+    element.style.left = `${progress * 100}%`;
+}
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let currentTranslation = {};
@@ -442,6 +468,7 @@ function handleKeyPress(event) {
         const ok = processWordInput(event.key);
         if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
+            setAnimalState(myProgressAnimal, MY_ANIMAL_IMAGES, 'normal');
             updateWordAsteroidDisplay();
 
             if (word_typedWord === word_currentWord) {
@@ -452,13 +479,15 @@ function handleKeyPress(event) {
                     raceConsecutivePerfect++;
                     if (raceConsecutivePerfect % 3 === 0) {
                         myScore += 3; // ボーナス
+                        setAnimalState(myProgressAnimal, MY_ANIMAL_IMAGES, 'combo');
+                        window.electronAPI.sendMessage({ type: 'status_update', value: 'combo' });
                     }
                 } else {
                     raceConsecutivePerfect = 0;
                 }
 
                 // UI更新
-                myProgressBar.style.width = `${(myScore / currentConfig.questionLimit) * 100}%`;
+                updateAnimalPosition(myProgressAnimal, myScore);
                 myWordCount.textContent = myScore;
 
                 // 相手にスコアを通知
@@ -480,6 +509,8 @@ function handleKeyPress(event) {
                 keyMistakeStats[expectedKey] = (keyMistakeStats[expectedKey] || 0) + 1;
             }
             raceWordHasMistake = true;
+            setAnimalState(myProgressAnimal, MY_ANIMAL_IMAGES, 'mistake');
+            window.electronAPI.sendMessage({ type: 'status_update', value: 'mistake' });
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
         if (event.key.length > 1) return;
@@ -787,8 +818,10 @@ function startGame() {
         
         // UIの初期化
         opponentInfoContainer.style.display = 'block';
-        myProgressBar.style.width = '0%';
-        opponentProgressBar.style.width = '0%';
+        updateAnimalPosition(myProgressAnimal, 0);
+        updateAnimalPosition(opponentProgressAnimal, 0);
+        setAnimalState(myProgressAnimal, MY_ANIMAL_IMAGES, 'normal');
+        setAnimalState(opponentProgressAnimal, OPPONENT_ANIMAL_IMAGES, 'normal');
         myWordCount.textContent = '0';
         opponentWordCount.textContent = '0';
 
@@ -831,9 +864,12 @@ function listenToOpponent() {
     window.electronAPI.onNetworkData(data => {
         if (data.type === 'score_update' && currentConfig.gameMode === 'race') {
             opponentScore = data.value;
-            opponentProgressBar.style.width = `${(opponentScore / currentConfig.questionLimit) * 100}%`;
+            updateAnimalPosition(opponentProgressAnimal, opponentScore);
             opponentWordCount.textContent = opponentScore;
             checkRaceWinCondition();
+        }
+        if (data.type === 'status_update' && currentConfig.gameMode === 'race') {
+            setAnimalState(opponentProgressAnimal, OPPONENT_ANIMAL_IMAGES, data.value);
         }
         if (data.type === 'opponent_quit') {
             // (追加) 相手が退出したら、勝利としてゲームを終了する
@@ -962,9 +998,12 @@ async function initialize() {
     if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
         opponentInfoContainer.style.display = 'block';
         if (currentConfig.gameMode === 'race') {
-            opponentProgressBar.style.display = 'block';
+            opponentProgressAnimal.style.display = 'block';
+            myProgressAnimal.style.display = 'block';
         } else {
             document.getElementById('opponent-score-container').style.display = 'block';
+            opponentProgressAnimal.style.display = 'none';
+            myProgressAnimal.style.display = 'none';
         }
         asteroidContainer.style.display = 'none';
         questionTextWrapper.style.display = 'block';
