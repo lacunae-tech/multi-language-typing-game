@@ -84,7 +84,7 @@ async function displayUsers() {
         deleteButton.addEventListener('click', async (e) => {
             e.stopPropagation();
             const msg = currentTranslation.confirmUserDelete.replace('{userName}', user);
-            if (confirm(msg)) {
+            if (await showModalConfirm(msg)) {
                 await window.electronAPI.deleteUser(user);
                 setTimeout(() => {
                     nameInput.value = ''; // 入力欄をクリア
