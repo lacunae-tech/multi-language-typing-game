@@ -1,4 +1,5 @@
 const backButton = document.getElementById('back-button');
+const clearHistoryButton = document.getElementById('clear-history-button');
 const stageSelect = document.getElementById('stage-select');
 const keyStatsGrid = document.getElementById('key-stats-grid');
 const chartCanvas = document.getElementById('score-chart');
@@ -99,6 +100,16 @@ stageSelect.addEventListener('change', () => {
 
 backButton.addEventListener('click', () => {
     window.electronAPI.navigateToMainMenu();
+});
+
+clearHistoryButton.addEventListener('click', async () => {
+    const message = currentTranslation.confirmClearHistory || 'Are you sure you want to clear your history?';
+    if (confirm(message)) {
+        await window.electronAPI.clearUserHistory();
+        statsData = await window.electronAPI.getStatsData();
+        renderKeyStats();
+        renderChart(stageSelect.value);
+    }
 });
 
 initialize();

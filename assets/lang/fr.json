@@ -88,6 +88,8 @@
     "statsTitle": "Statistiques",
     "scoreTransition": "Évolution du score",
     "keyStatsTitle": "Statistiques des touches (touches ratées)",
+    "clearHistoryButton": "Effacer l'historique",
+    "confirmClearHistory": "Êtes-vous sûr de vouloir effacer votre historique ?",
     "stageOptionPrefix": "Niveau ",
     "mistakeUnit": " fois",
     "attemptLabel": "Tentative {n}",

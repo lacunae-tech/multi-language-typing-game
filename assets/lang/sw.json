@@ -88,6 +88,8 @@
   "statsTitle": "Takwimu",
   "scoreTransition": "Mabadiliko ya Alama",
   "keyStatsTitle": "Takwimu za Vifunguo (Vilivyokosewa)",
+  "clearHistoryButton": "Futa Historia",
+  "confirmClearHistory": "Je, una uhakika unataka kufuta historia yako?",
   "stageOptionPrefix": "Hatua ",
   "mistakeUnit": " mara",
   "attemptLabel": "Jaribio {n}",

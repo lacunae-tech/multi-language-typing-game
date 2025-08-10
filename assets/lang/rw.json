@@ -88,6 +88,8 @@
   "statsTitle": "Imibare",
   "scoreTransition": "Imihindagurikire y’Amanota",
   "keyStatsTitle": "Imibare y’Imfunguzo (Zibuze)",
+  "clearHistoryButton": "Siba Amateka",
+  "confirmClearHistory": "Uremeza ko ushaka gusiba amateka yawe?",
   "stageOptionPrefix": "Urwego ",
   "mistakeUnit": " inshuro",
   "attemptLabel": "Igerageza {n}",

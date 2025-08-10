@@ -88,6 +88,8 @@
   "statsTitle": "Estatísticas",
   "scoreTransition": "Transição de Pontuação",
   "keyStatsTitle": "Estatísticas de Teclas (Teclas Erradas)",
+  "clearHistoryButton": "Limpar histórico",
+  "confirmClearHistory": "Tem certeza de que deseja limpar seu histórico?",
   "stageOptionPrefix": "Fase ",
   "mistakeUnit": " vezes",
   "attemptLabel": "Tentativa {n}",

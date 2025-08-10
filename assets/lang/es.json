@@ -88,6 +88,8 @@
   "statsTitle": "Estadísticas",
   "scoreTransition": "Transición de puntuación",
   "keyStatsTitle": "Estadísticas de teclas (teclas falladas)",
+  "clearHistoryButton": "Borrar historial",
+  "confirmClearHistory": "¿Seguro que quieres borrar tu historial?",
   "stageOptionPrefix": "Nivel ",
   "mistakeUnit": " veces",
   "attemptLabel": "Intento {n}",
