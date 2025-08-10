@@ -1,10 +1,49 @@
 {
-    "layout": [
-       ["&","é", "\"", "'", "(", "-", "è", "_", "ç", "à", ")"],
-      ["a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "^"],
-      ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "ù"],
-      ["w", "x", "c", "v", "b", "n", ",", ";", ":", "!"]
+  "displayLayout": [
+    [
+      { "default": "²", "id": "²" },
+      { "default": "&", "shift": "1", "id": "&" },
+      { "default": "é", "shift": "2", "id": "é" },
+      { "default": "\"", "shift": "3", "id": "\"" },
+      { "default": "'", "shift": "4", "id": "'" },
+      { "default": "(", "shift": "5", "id": "(" },
+      { "default": "-", "shift": "6", "id": "-" },
+      { "default": "è", "shift": "7", "id": "è" },
+      { "default": "_", "shift": "8", "id": "_" },
+      { "default": "ç", "shift": "9", "id": "ç" },
+      { "default": "à", "shift": "0", "id": "à" },
+      { "default": ")", "shift": "°", "id": ")" },
+      { "default": "=", "shift": "+", "id": "=" },
+      "Backspace"
     ],
-    "homeRowKeys": ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m"]
+    [
+      "Tab", "a", "z", "e", "r", "t", "y", "u", "i", "o", "p", 
+      { "default": "^", "shift": "¨", "id": "^" },
+      { "default": "$", "shift": "£", "id": "$" },
+      "Enter"
+    ],
+    [
+      "CapsLock", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", 
+      { "default": "ù", "shift": "%", "id": "ù" },
+      { "default": "*", "shift": "µ", "id": "*" }
+    ],
+    [
+      "Shift", 
+      { "default": "<", "shift": ">", "id": "<" },
+      "w", "x", "c", "v", "b", "n", 
+      { "default": ",", "shift": "?", "id": "," },
+      { "default": ";", "shift": ".", "id": ";" },
+      { "default": ":", "shift": "/", "id": ":" },
+      { "default": "!", "shift": "§", "id": "!" },
+      "Shift"
+    ]
+  ],
+  "practiceKeys": {
+    "homeRow": ["q", "s", "d", "f", "g", "h", "j", "k", "l", "m"],
+    "alphabet": [
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+      "é", "è", "ê", "à", "â", "ç", "ù", "û", "ü", "î", "ï", "ô"
+    ]
   }
-  
+}

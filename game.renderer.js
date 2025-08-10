@@ -128,6 +128,7 @@ const STAGE_CONFIG = {
         gameMode: 'scoreAttack', // 新しいゲームモードとして 'scoreAttack' を定義
         wordList: [],         // 単語リストを使用 (ステージ5のものを流用)
         timeLimit: 120,       // 仕様書に基づき制限時間を設定
+        status: 'comingSoon',
     },
     9: {
         id: 9,

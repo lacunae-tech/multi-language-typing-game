@@ -1,9 +1,48 @@
 {
-  "layout": [
-    ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "'", "¡"],
-    ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "`", "+"],
-    ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "´"],
-    ["z", "x", "c", "v", "b", "n", "m", ",", ".", "-"]
+  "displayLayout": [
+    [
+      { "default": "º", "shift": "ª", "id": "º" },
+      { "default": "1", "shift": "!", "id": "1" },
+      { "default": "2", "shift": "\"", "id": "2" },
+      { "default": "3", "shift": "·", "id": "3" },
+      { "default": "4", "shift": "$", "id": "4" },
+      { "default": "5", "shift": "%", "id": "5" },
+      { "default": "6", "shift": "&", "id": "6" },
+      { "default": "7", "shift": "/", "id": "7" },
+      { "default": "8", "shift": "(", "id": "8" },
+      { "default": "9", "shift": ")", "id": "9" },
+      { "default": "0", "shift": "=", "id": "0" },
+      { "default": "'", "shift": "?", "id": "'" },
+      { "default": "¡", "shift": "¿", "id": "¡" },
+      "Backspace"
+    ],
+    [
+      "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
+      { "default": "`", "shift": "^", "id": "`" },
+      { "default": "+", "shift": "*", "id": "+" },
+      "Enter"
+    ],
+    [
+      "CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ",
+      { "default": "´", "shift": "¨", "id": "´" },
+      { "default": "ç", "id": "ç" }
+    ],
+    [
+      "Shift", 
+      { "default": "<", "shift": ">", "id": "<" },
+      "z", "x", "c", "v", "b", "n", "m",
+      { "default": ",", "shift": ";", "id": "," },
+      { "default": ".", "shift": ":", "id": "." },
+      { "default": "-", "shift": "_", "id": "-" },
+      "Shift"
+    ]
   ],
-  "homeRowKeys": ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ", "´"]
+  "practiceKeys": {
+    "homeRow": ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
+    "alphabet": [
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+      "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+      "ñ", "á", "é", "í", "ó", "ú", "ü"
+    ]
+  }
 }
