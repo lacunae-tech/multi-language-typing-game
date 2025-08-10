@@ -83,7 +83,7 @@ retryButton.addEventListener('click', () => {
 });
 
 backButton.addEventListener('click', () => {
-    window.electronAPI.navigateToMainMenu();
+    window.electronAPI.navigateToStageSelect();
 });
 
 async function initialize() {

@@ -712,7 +712,7 @@ async function stopGame(message) {
     if (settings.bgm) bgmAudio.pause();
     clearInterval(timerInterval);
     if (message) await showModalAlert(message);
-    window.electronAPI.navigateToMainMenu();
+    window.electronAPI.navigateToStageSelect();
 }
 
 function gameClear(customMessage) {
