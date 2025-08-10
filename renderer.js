@@ -68,14 +68,31 @@ async function displayUsers() {
     }
 
     users.forEach(user => {
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'user-entry';
+
         const userButton = document.createElement('button');
         userButton.textContent = user;
         userButton.className = 'user-button';
-        // 既存ユーザーのボタンが押されたら、その名前でログイン
         userButton.addEventListener('click', () => {
             handleLogin(user);
         });
-        userListDiv.appendChild(userButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = currentTranslation.userDeleteButton;
+        deleteButton.className = 'user-delete-button';
+        deleteButton.addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const msg = currentTranslation.confirmUserDelete.replace('{userName}', user);
+            if (confirm(msg)) {
+                await window.electronAPI.deleteUser(user);
+                displayUsers();
+            }
+        });
+
+        entryDiv.appendChild(userButton);
+        entryDiv.appendChild(deleteButton);
+        userListDiv.appendChild(entryDiv);
     });
 }
 

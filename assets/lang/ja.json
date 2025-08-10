@@ -3,6 +3,8 @@
     "userSelectDescription": "名前を入力するか、以下から選んでください",
     "namePlaceholder": "名前を入力...",
     "confirmButton": "確認",
+    "userDeleteButton": "削除",
+    "confirmUserDelete": "ユーザー「{userName}」を削除しますか？",
     "foundUsers": "見つかったユーザー",
     "noUsersFound": "（ユーザーがまだいません）",
     "feedbackNameEmpty": "名前を入力してください！",

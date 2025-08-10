@@ -3,6 +3,8 @@
   "userSelectDescription": "Weka jina lako au chagua kutoka hapa chini",
   "namePlaceholder": "Weka jina...",
   "confirmButton": "Thibitisha",
+  "userDeleteButton": "Futa",
+  "confirmUserDelete": "Futa mtumiaji \"{userName}\"?",
   "foundUsers": "Watumiaji Waliopatikana",
   "noUsersFound": "(Hakuna watumiaji bado)",
   "feedbackNameEmpty": "Tafadhali weka jina!",

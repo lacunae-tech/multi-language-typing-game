@@ -3,6 +3,8 @@
   "userSelectDescription": "Andika izina ryawe cyangwa uhitemo hasi",
   "namePlaceholder": "Andika izina...",
   "confirmButton": "Emeza",
+  "userDeleteButton": "Siba",
+  "confirmUserDelete": "Ushaka gusiba umukoresha \"{userName}\"?",
   "foundUsers": "Abakoresha Babonetse",
   "noUsersFound": "(Nta bakoresha baraboneka)",
   "feedbackNameEmpty": "Nylyamubwire izina!",

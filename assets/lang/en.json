@@ -3,6 +3,8 @@
     "userSelectDescription": "Enter your name or select from below",
     "namePlaceholder": "Enter name...",
     "confirmButton": "Confirm",
+    "userDeleteButton": "Delete",
+    "confirmUserDelete": "Delete user \"{userName}\"?",
     "foundUsers": "Found Users",
     "noUsersFound": "(No users yet)",
     "feedbackNameEmpty": "Please enter a name!",
