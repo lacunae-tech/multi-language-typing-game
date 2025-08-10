@@ -58,6 +58,7 @@ function updateAnimalPosition(element, score) {
 }
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
+let CURRENT_ACCENT_MAP = {}; // (New!) 現在のレイアウトのアクセント情報
 let KEY_CHAR_TO_ID = {}; // (New!) 文字から物理キーIDへのマッピング
 let isShiftActive = false; // (New!) Shiftキーの状態
 let currentTranslation = {};
@@ -246,34 +247,16 @@ function getKeyElementForChar(char) {
     return document.getElementById(`key-${id}`);
 }
 
-const COMBINING_ACCENT_MAP = {
-    '\u0308': { accentChar: '¨', keyChar: '^', needsShift: true },
-    '\u0301': { accentChar: '´', keyChar: "'", needsShift: false },
-    '\u0300': { accentChar: '`', keyChar: '`', needsShift: false },
-    '\u0302': { accentChar: '^', keyChar: '^', needsShift: true },
-    '\u0303': { accentChar: '~', keyChar: '~', needsShift: true }
-};
-
-const DEAD_KEY_MAP = {
-    '¨': { keyChar: '^', needsShift: true },
-    '´': { keyChar: "'", needsShift: false },
-    '`': { keyChar: '`', needsShift: false },
-    '^': { keyChar: '^', needsShift: true },
-    '~': { keyChar: '~', needsShift: true }
-};
-
 function getAccentInfo(char) {
-    if (DEAD_KEY_MAP[char]) {
-        return { accentChar: char, baseChar: null, ...DEAD_KEY_MAP[char] };
-    }
-    const normalized = char.normalize('NFD');
-    if (normalized.length > 1) {
-        const base = normalized[0];
-        const combining = normalized[1];
-        const info = COMBINING_ACCENT_MAP[combining];
-        if (info) {
-            return { accentChar: info.accentChar, baseChar: base, keyChar: info.keyChar, needsShift: info.needsShift };
-        }
+    const layoutInfo = CURRENT_ACCENT_MAP[char];
+    if (layoutInfo) {
+        const base = char.normalize('NFD')[0];
+        return {
+            accentChar: layoutInfo.accentChar,
+            baseChar: base !== char ? base : null,
+            keyChar: layoutInfo.keyChar,
+            needsShift: layoutInfo.needsShift
+        };
     }
     return null;
 }
@@ -338,19 +321,26 @@ function singleChar_setNextQuestion() {
         questionText.classList.remove('flipping');
     }, { once: true });
     singleChar_accentInfo = getAccentInfo(singleChar_currentQuestion);
-    if (singleChar_accentInfo) {
-        singleChar_inputSequence = singleChar_accentInfo.baseChar ? [singleChar_accentInfo.accentChar, singleChar_currentQuestion] : [singleChar_accentInfo.accentChar];
+    if (singleChar_accentInfo && singleChar_accentInfo.baseChar) {
+        singleChar_inputSequence = [singleChar_accentInfo.accentChar, singleChar_currentQuestion];
     } else {
         singleChar_inputSequence = [singleChar_currentQuestion];
     }
     singleChar_highlightTimeout = setTimeout(() => {
-        if (singleChar_accentInfo) {
+        if (singleChar_accentInfo && singleChar_accentInfo.baseChar) {
             highlightAccent(singleChar_accentInfo);
         } else {
             const keyElement = getKeyElementForChar(singleChar_currentQuestion);
             if (keyElement) {
                 keyElement.classList.add('blinking');
                 singleChar_highlightedKeyElements.push(keyElement);
+            }
+            if (singleChar_accentInfo && singleChar_accentInfo.needsShift) {
+                const shiftElement = document.getElementById('key-Shift');
+                if (shiftElement) {
+                    shiftElement.classList.add('blinking');
+                    singleChar_highlightedKeyElements.push(shiftElement);
+                }
             }
         }
     }, 2000);
@@ -847,7 +837,7 @@ function handleKeyPress(event) {
             }
             singleChar_sequenceIndex = 0;
             singleChar_clearHighlight();
-            if (singleChar_accentInfo) {
+            if (singleChar_accentInfo && singleChar_accentInfo.baseChar) {
                 highlightAccent(singleChar_accentInfo);
             }
         }
@@ -1057,6 +1047,7 @@ async function initialize() {
     if (layoutData && layoutData.displayLayout && layoutData.practiceKeys) {
         // グローバル変数を設定（キーボード描画用）
         CURRENT_LAYOUT = layoutData.displayLayout;
+        CURRENT_ACCENT_MAP = layoutData.accentMap || {};
 
         // ホームキーを使うステージ（1と3）の設定
         STAGE_CONFIG[1].questionKeys = layoutData.practiceKeys.homeRow;
