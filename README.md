@@ -107,6 +107,7 @@ npm start
 * `npm run build` … 本番ビルド
 * `npm run build:win32` … Windows 32bit向けのビルド
 * `npm run build:win64` … Windows 64bit向けのビルド
+* `npm run build:win7` … Windows 7向けビルド
 
 > Windows以外で実行する場合は `wine` や `nsis` などが必要
 
@@ -131,6 +132,12 @@ npm start
 
 
 ## バージョン履歴
+
+### [2.0.2] - 2025-08-11
+#### 追加
+- Windows 7用のビルドコマンドを追加（`npm run build:win7`）
+
+---
 
 ### [2.0.1] - 2025-08-08
 #### 追加

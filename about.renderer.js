@@ -5,9 +5,9 @@ const appDescriptionEl = document.getElementById('app-description');
 const appCopyrightEl = document.getElementById('app-copyright');
 const appAuthorUrlEL = document.getElementById('app-author-url');
 const backButton = document.getElementById('back-button');
-const creditsTextarea = document.getElementById('credits-textarea'); // (変更) textareaを取得
+const creditsTextarea = document.getElementById('credits-textarea'); 
 
-let currentTranslation = {}; // (追加)
+let currentTranslation = {}; 
 
 function translateUI() {
     document.querySelectorAll('[data-translate-key]').forEach(element => {
@@ -29,7 +29,6 @@ function translateUI() {
 function populateCreditsTextarea(credits, appInfo, lang) {
     let fullText = '';
 
-    // --- アセットクレジット部分 ---
     if (credits) {
         fullText += '--- Assets ---\n\n';
         for (const key in credits) {

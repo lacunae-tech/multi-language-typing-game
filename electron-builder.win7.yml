@@ -1,0 +1,33 @@
+# electron-builder.win7.yml
+appId: tech.lacunae.typinggame
+productName: Typing Game (Win7)
+directories:
+  output: release
+files:
+  - "**/*"
+  - "!*.md"
+  - "!release/*"
+  - "!.gitignore"
+  - "!.git/*"
+  - "!仕様書.md"
+  - "!assets/lang/**"
+  - "!assets/layouts/**"
+  - "!assets/words/**"
+extraResources:
+  - from: assets/lang
+    to: assets/lang
+  - from: assets/layouts
+    to: assets/layouts
+  - from: assets/words
+    to: assets/words
+
+# ★ここが肝：Electron 22 系を明示
+electronVersion: "22.3.27"
+
+win:
+  target:
+    - nsis
+    - zip
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
