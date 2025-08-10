@@ -86,9 +86,15 @@ async function displayUsers() {
             const msg = currentTranslation.confirmUserDelete.replace('{userName}', user);
             if (confirm(msg)) {
                 await window.electronAPI.deleteUser(user);
-                await displayUsers();
-                nameInput.value = '';
-                nameInput.focus();
+                setTimeout(() => {
+                    nameInput.value = ''; // 入力欄をクリア
+                    nameInput.disabled = false; // disabled属性を解除
+                    nameInput.focus(); // フォーカスを設定
+                }, 10);
+            } else {
+                nameInput.value = ''; // 入力欄をクリア
+                nameInput.disabled = false; // disabled属性を解除
+                nameInput.focus(); // フォーカスを設定
             }
         });
 
@@ -103,6 +109,6 @@ async function initialize() {
     const settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     translateUI();
-    await displayUsers();
+    displayUsers();
 }
 initialize();
