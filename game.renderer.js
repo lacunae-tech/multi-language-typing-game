@@ -193,7 +193,7 @@ function singleChar_clearHighlight() {
     }
 }
 
-function saveResultAndExit(message) {
+async function saveResultAndExit(message) {
     const finalScore = score + (timeLeft > 0 ? timeLeft * 100 : 0);
 
     const resultData = {
@@ -203,7 +203,7 @@ function saveResultAndExit(message) {
         endMessage: message // 終了メッセージも結果画面に渡す
     };
 
-    window.electronAPI.saveGameResult(resultData);
+    await window.electronAPI.saveGameResult(resultData);
     window.electronAPI.navigateToResult(resultData);
 }
 
