@@ -1,6 +1,7 @@
 const endMessageEl = document.getElementById('end-message');
-const finalScoreEl = document.getElementById('final-score');
+const scoreEl = document.getElementById('score');
 const timeBonusEl = document.getElementById('time-bonus');
+const totalScoreEl = document.getElementById('total-score');
 
 const retryButton = document.getElementById('retry-button');
 const backButton = document.getElementById('back-button');
@@ -33,8 +34,9 @@ async function displayResults() {
 
     // 今回の結果を表示
     endMessageEl.textContent = lastResult.endMessage;
-    finalScoreEl.textContent = lastResult.score.toLocaleString();
-    timeBonusEl.textContent = `タイムボーナス: ${lastResult.timeBonus.toLocaleString()}`;
+    scoreEl.textContent = lastResult.score.toLocaleString();
+    timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
+    totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
     
     // グラフを描画
     const stageKey = `stage${lastResult.stageId}`;

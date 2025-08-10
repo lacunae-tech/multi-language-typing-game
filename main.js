@@ -139,9 +139,9 @@ ipcMain.handle('save-game-result', async (event, result) => {
     const stageKey = `stage${result.stageId}`;
     if (!userData.scoreHistory[stageKey]) userData.scoreHistory[stageKey] = [];
 
-    // 新しいスコアを追加
+    // 新しいスコアを追加（トータルスコアを保存）
     userData.scoreHistory[stageKey].push({
-        score: result.score,
+        score: result.totalScore || result.score,
         date: new Date().toISOString()
     });
 
@@ -491,3 +491,4 @@ ipcMain.on('close-connection', () => {
     }
     isHost = false; // Reset flag
 });
+

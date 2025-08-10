@@ -194,13 +194,16 @@ function singleChar_clearHighlight() {
 }
 
 async function saveResultAndExit(message) {
-    const finalScore = score + (timeLeft > 0 ? timeLeft * 100 : 0);
+    const timeBonus = timeLeft > 0 ? timeLeft * 100 : 0;
+    const totalScore = score + timeBonus;
 
     const resultData = {
         stageId: currentConfig.id,
-        score: finalScore,
+        score: score,
+        timeBonus: timeBonus,
+        totalScore: totalScore,
         mistakes: keyMistakeStats,
-        endMessage: message // 終了メッセージも結果画面に渡す
+        endMessage: message
     };
 
     await window.electronAPI.saveGameResult(resultData);
@@ -716,18 +719,8 @@ async function stopGame(message) {
 }
 
 function gameClear(customMessage) {
-    // if (customMessage) {
-    //     stopGame(customMessage);
-    //     return;
-    // }
-    const timeBonus = timeLeft * 100;
-    const finalScore = score + timeBonus;
-    const message = `${currentTranslation.alertClearTitle}\n` +
-                  `${currentTranslation.alertScore}: ${score}\n` +
-                  `${currentTranslation.alertTimeBonus}: ${timeBonus}\n` +
-                  `${currentTranslation.alertTotalScore}: ${finalScore}`;
-
-    saveResultAndExit(message); // 新しい共通関数を呼び出す
+    const message = customMessage || currentTranslation.alertClearTitle;
+    saveResultAndExit(message);
 }
 
 function gameOver(customMessage) { // customMessageを受け取れるように変更
@@ -746,8 +739,8 @@ function gameOver(customMessage) { // customMessageを受け取れるように�
         judgeRaceResult();
         return;
     }
-    const message = customMessage || `${currentTranslation.alertTimeUp} ${currentTranslation.alertScore}: ${score}`;
-    saveResultAndExit(message); // 新しい共通関数を呼び出す
+    const message = customMessage || currentTranslation.alertTimeUp;
+    saveResultAndExit(message);
 
 }
 
@@ -1014,3 +1007,4 @@ async function initialize() {
     startCountdown();
 }
 initialize();
+
