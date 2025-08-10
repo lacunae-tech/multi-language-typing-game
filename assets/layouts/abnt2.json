@@ -40,9 +40,23 @@
   "practiceKeys": {
     "homeRow": ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ç"],
     "alphabet": [
-      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
       "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
       "ç", "á", "à", "ã", "â", "é", "ê", "í", "ó", "ô", "õ", "ú", "ü"
     ]
+  },
+  "deadKeyMap": {
+    "á": { "accent": "´", "needsShift": false },
+    "à": { "accent": "`", "needsShift": false },
+    "ã": { "accent": "~", "needsShift": false },
+    "â": { "accent": "^", "needsShift": true },
+    "é": { "accent": "´", "needsShift": false },
+    "ê": { "accent": "^", "needsShift": true },
+    "í": { "accent": "´", "needsShift": false },
+    "ó": { "accent": "´", "needsShift": false },
+    "ô": { "accent": "^", "needsShift": true },
+    "õ": { "accent": "~", "needsShift": false },
+    "ú": { "accent": "´", "needsShift": false },
+    "ü": { "accent": "¨", "needsShift": true }
   }
 }

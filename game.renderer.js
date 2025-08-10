@@ -59,6 +59,7 @@ function updateAnimalPosition(element, score) {
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
 let KEY_CHAR_TO_ID = {}; // (New!) 文字から物理キーIDへのマッピング
+let LAYOUT_DEAD_KEYS = {}; // (New!) デッドキーが必要な文字のマッピング
 let isShiftActive = false; // (New!) Shiftキーの状態
 let currentTranslation = {};
 // --- ステージごとの設定 ---
@@ -238,6 +239,21 @@ function removeDiacritics(char) {
     return char.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
+function getAccentInfo(char) {
+    const lower = char.toLowerCase();
+    if (KEY_CHAR_TO_ID[char] || KEY_CHAR_TO_ID[lower]) {
+        return null; // 1キー入力で入力可能
+    }
+    const info = LAYOUT_DEAD_KEYS[char] || LAYOUT_DEAD_KEYS[lower];
+    if (!info) return null;
+    return {
+        accent: info.accent,
+        keyChar: info.accent,
+        needsShift: info.needsShift,
+        baseChar: removeDiacritics(lower)
+    };
+}
+
 function getKeyElementForChar(char) {
     const id = KEY_CHAR_TO_ID[char] || KEY_CHAR_TO_ID[char.toLowerCase()] || KEY_CHAR_TO_ID[removeDiacritics(char.toLowerCase())] || char;
     return document.getElementById(`key-${id}`);
@@ -255,6 +271,24 @@ function singleChar_clearHighlight() {
     if (singleChar_highlightedKeyElement) {
         singleChar_highlightedKeyElement.classList.remove('blinking');
         singleChar_highlightedKeyElement = null;
+    }
+}
+
+function highlightAccent(info) {
+    updateShiftDisplay(info.needsShift);
+    const accentKey = getKeyElementForChar(info.keyChar);
+    if (accentKey) {
+        accentKey.classList.add('blinking');
+        singleChar_highlightedKeyElement = accentKey;
+        setTimeout(() => {
+            accentKey.classList.remove('blinking');
+            updateShiftDisplay(false);
+            const baseKey = getKeyElementForChar(info.baseChar);
+            if (baseKey) {
+                baseKey.classList.add('blinking');
+                singleChar_highlightedKeyElement = baseKey;
+            }
+        }, 1000);
     }
 }
 
@@ -288,10 +322,15 @@ function singleChar_setNextQuestion() {
         questionText.classList.remove('flipping');
     }, { once: true });
     singleChar_highlightTimeout = setTimeout(() => {
-        const keyElement = getKeyElementForChar(singleChar_currentQuestion);
-        if (keyElement) {
-            keyElement.classList.add('blinking');
-            singleChar_highlightedKeyElement = keyElement;
+        const accentInfo = getAccentInfo(singleChar_currentQuestion);
+        if (accentInfo) {
+            highlightAccent(accentInfo);
+        } else {
+            const keyElement = getKeyElementForChar(singleChar_currentQuestion);
+            if (keyElement) {
+                keyElement.classList.add('blinking');
+                singleChar_highlightedKeyElement = keyElement;
+            }
         }
     }, 2000);
 }
@@ -983,6 +1022,7 @@ async function initialize() {
     if (layoutData && layoutData.displayLayout && layoutData.practiceKeys) {
         // グローバル変数を設定（キーボード描画用）
         CURRENT_LAYOUT = layoutData.displayLayout;
+        LAYOUT_DEAD_KEYS = layoutData.deadKeyMap || {};
 
         // ホームキーを使うステージ（1と3）の設定
         STAGE_CONFIG[1].questionKeys = layoutData.practiceKeys.homeRow;
