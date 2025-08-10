@@ -40,9 +40,17 @@
   "practiceKeys": {
     "homeRow": ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
     "alphabet": [
-      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
       "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
       "ñ", "á", "é", "í", "ó", "ú", "ü"
     ]
+  },
+  "accentMap": {
+    "á": { "accentChar": "´", "keyChar": "´", "needsShift": false },
+    "é": { "accentChar": "´", "keyChar": "´", "needsShift": false },
+    "í": { "accentChar": "´", "keyChar": "´", "needsShift": false },
+    "ó": { "accentChar": "´", "keyChar": "´", "needsShift": false },
+    "ú": { "accentChar": "´", "keyChar": "´", "needsShift": false },
+    "ü": { "accentChar": "¨", "keyChar": "´", "needsShift": true }
   }
 }
