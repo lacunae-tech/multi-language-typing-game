@@ -126,13 +126,13 @@ const createWindow = () => {
 
 
 // ゲーム結果を保存するIPCハンドラ
-ipcMain.on('save-game-result', (event, result) => {
+ipcMain.handle('save-game-result', async (event, result) => {
     console.log('レンダラーからゲーム結果を受信しました:', result);
     console.log('現在のユーザー:', currentUser);
-    if (!currentUser) return;
+    if (!currentUser) return { success: false };
 
     const userData = loadUserData(currentUser);
-    if (!userData) return;
+    if (!userData) return { success: false };
 
     // スコア履歴の初期化
     if (!userData.scoreHistory) userData.scoreHistory = {};
@@ -153,6 +153,7 @@ ipcMain.on('save-game-result', (event, result) => {
     }
 
     saveUserData(currentUser, userData);
+    return { success: true };
 });
 
 // 統計データを取得するIPCハンドラ

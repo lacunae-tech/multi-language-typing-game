@@ -32,7 +32,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // ゲーム画面で使うAPI (New!)
     getCurrentStageId: () => ipcRenderer.invoke('get-current-stage-id'),
     getRaceWordList: () => ipcRenderer.invoke('get-race-word-list'),
-    saveGameResult: (result) => ipcRenderer.send('save-game-result', result),
+    saveGameResult: (result) => ipcRenderer.invoke('save-game-result', result),
     getStatsData: () => ipcRenderer.invoke('get-stats-data'),
     clearUserHistory: () => ipcRenderer.invoke('clear-user-history'),
 
