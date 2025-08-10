@@ -58,6 +58,8 @@ function updateAnimalPosition(element, score) {
 }
 
 let CURRENT_LAYOUT = []; // (New!) 現在のキーボードレイアウトを保持
+let KEY_CHAR_TO_ID = {}; // (New!) 文字から物理キーIDへのマッピング
+let isShiftActive = false; // (New!) Shiftキーの状態
 let currentTranslation = {};
 // --- ステージごとの設定 ---
 const STAGE_CONFIG = {
@@ -191,18 +193,54 @@ let raceWordHasMistake = false; // 現在の単語でミスが発生したか
 // --- 関数定義 ---
 function createKeyboard() {
     keyboardLayoutDiv.innerHTML = '';
-    CURRENT_LAYOUT.forEach(row => { // QWERTY_LAYOUTからCURRENT_LAYOUTに変更
+    KEY_CHAR_TO_ID = {};
+    CURRENT_LAYOUT.forEach(row => {
         const rowDiv = document.createElement('div');
         rowDiv.className = 'key-row';
-        row.forEach(keyChar => {
+        row.forEach(keyData => {
             const keyDiv = document.createElement('div');
             keyDiv.className = 'key';
-            keyDiv.id = `key-${keyChar}`;
-            keyDiv.textContent = keyChar;
+            let id, defaultChar, shiftChar;
+            if (typeof keyData === 'string') {
+                id = keyData;
+                defaultChar = keyData;
+                shiftChar = keyData;
+                if (keyData.length === 1) {
+                    KEY_CHAR_TO_ID[keyData.toLowerCase()] = id;
+                }
+            } else {
+                id = keyData.id;
+                defaultChar = keyData.default;
+                shiftChar = keyData.shift || keyData.default;
+                KEY_CHAR_TO_ID[defaultChar.toLowerCase()] = id;
+                KEY_CHAR_TO_ID[shiftChar.toLowerCase()] = id;
+            }
+            keyDiv.id = `key-${id}`;
+            keyDiv.dataset.default = defaultChar;
+            keyDiv.dataset.shift = shiftChar;
+            keyDiv.textContent = isShiftActive ? shiftChar : defaultChar;
             rowDiv.appendChild(keyDiv);
         });
         keyboardLayoutDiv.appendChild(rowDiv);
     });
+}
+
+function updateShiftDisplay(active) {
+    isShiftActive = active;
+    const keys = keyboardLayoutDiv.querySelectorAll('.key');
+    keys.forEach(key => {
+        const char = active ? key.dataset.shift : key.dataset.default;
+        key.textContent = char;
+    });
+}
+
+function removeDiacritics(char) {
+    return char.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+function getKeyElementForChar(char) {
+    const id = KEY_CHAR_TO_ID[char] || KEY_CHAR_TO_ID[char.toLowerCase()] || KEY_CHAR_TO_ID[removeDiacritics(char.toLowerCase())] || char;
+    return document.getElementById(`key-${id}`);
 }
 
 function singleChar_updateKeyboardVisibility() {
@@ -250,7 +288,7 @@ function singleChar_setNextQuestion() {
         questionText.classList.remove('flipping');
     }, { once: true });
     singleChar_highlightTimeout = setTimeout(() => {
-        const keyElement = document.getElementById(`key-${singleChar_currentQuestion}`);
+        const keyElement = getKeyElementForChar(singleChar_currentQuestion);
         if (keyElement) {
             keyElement.classList.add('blinking');
             singleChar_highlightedKeyElement = keyElement;
@@ -461,12 +499,14 @@ function wordAsteroid_gameLoop() {
 function handleKeyPress(event) {
     if (event.key === 'Escape') { stopGame(null); return; }
     if (!isPlaying) return;
+    if (event.key === 'Shift') return;
+    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
 
     if (currentConfig.gameMode === 'race') {
-        if (event.key.length > 1) return;
+        if (key.length > 1) return;
         if (!word_currentWord) return; // 単語がなければ何もしない
 
-        const ok = processWordInput(event.key);
+        const ok = processWordInput(key);
         if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
             setAnimalState(myProgressAnimal, MY_ANIMAL_IMAGES, 'normal');
@@ -514,9 +554,9 @@ function handleKeyPress(event) {
             window.electronAPI.sendMessage({ type: 'status_update', value: 'mistake' });
         }
     } else if (currentConfig.gameMode === 'scoreAttack') {
-        if (event.key.length > 1) return;
+        if (key.length > 1) return;
 
-        const ok = processWordInput(event.key);
+        const ok = processWordInput(key);
         if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
 
@@ -551,9 +591,9 @@ function handleKeyPress(event) {
         }
         updateWordAsteroidDisplay(); // 画面表示を更新
     } else if (currentConfig.gameMode === 'wordAsteroid') {
-        if (event.key.length > 1) return;
+        if (key.length > 1) return;
 
-        const ok = processWordInput(event.key);
+        const ok = processWordInput(key);
         if (ok) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
 
@@ -595,7 +635,7 @@ function handleKeyPress(event) {
         }
         updateWordAsteroidDisplay();
     } else if (currentConfig.gameMode === 'fallingStars') {
-        const targetStarIndex = activeStars.findIndex(s => s.char === event.key);
+        const targetStarIndex = activeStars.findIndex(s => s.char === key);
         if (targetStarIndex !== -1) {
             const targetStar = activeStars[targetStarIndex];
             if (targetStar.isBouncing) return;
@@ -682,14 +722,14 @@ function handleKeyPress(event) {
         }
         if (totalCorrectTyped >= currentConfig.questionLimit) { gameClear(); }
     } else { // singleCharモード
-        const pressedKeyElement = document.getElementById(`key-${event.key}`);
+        const pressedKeyElement = getKeyElementForChar(key);
         if (pressedKeyElement) {
             pressedKeyElement.classList.add('pressed');
             setTimeout(() => {
                 pressedKeyElement.classList.remove('pressed');
             }, 100);
         }
-        if (event.key === singleChar_currentQuestion) {
+        if (key === singleChar_currentQuestion) {
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
             totalCorrectTyped++;
             remainingCountDisplay.textContent = currentConfig.questionLimit - totalCorrectTyped;
@@ -940,17 +980,17 @@ async function initialize() {
     const wordListData = await window.electronAPI.getWordList(settings.language);
 
     // (New!) レイアウトデータに基づいてステージ設定を動的に更新
-    if (layoutData && layoutData.layout && layoutData.homeRowKeys) {
+    if (layoutData && layoutData.displayLayout && layoutData.practiceKeys) {
         // グローバル変数を設定（キーボード描画用）
-        CURRENT_LAYOUT = layoutData.layout;
-    
+        CURRENT_LAYOUT = layoutData.displayLayout;
+
         // ホームキーを使うステージ（1と3）の設定
-        STAGE_CONFIG[1].questionKeys = layoutData.homeRowKeys;
-        STAGE_CONFIG[3].questionKeys = layoutData.homeRowKeys;
-    
+        STAGE_CONFIG[1].questionKeys = layoutData.practiceKeys.homeRow;
+        STAGE_CONFIG[3].questionKeys = layoutData.practiceKeys.homeRow;
+
         // 全キーを使うステージ（2と4）の設定
-        STAGE_CONFIG[2].questionKeys = layoutData.layout.flat();
-        STAGE_CONFIG[4].questionKeys = layoutData.layout.flat();
+        STAGE_CONFIG[2].questionKeys = layoutData.practiceKeys.alphabet;
+        STAGE_CONFIG[4].questionKeys = layoutData.practiceKeys.alphabet;
     }
     // (New!) 単語リストデータに基づいてステージ設定を動的に更新
     if (wordListData) {
@@ -980,6 +1020,8 @@ async function initialize() {
     currentConfig = STAGE_CONFIG[stageId] || STAGE_CONFIG[1];
     createKeyboard();
     window.addEventListener('keydown', handleKeyPress);
+    window.addEventListener('keydown', e => { if (e.key === 'Shift') updateShiftDisplay(true); });
+    window.addEventListener('keyup', e => { if (e.key === 'Shift') updateShiftDisplay(false); });
     quitButton.addEventListener('click', () => {
         // (追加) 対戦モードの場合、相手に退出を通知する
         if (currentConfig.gameMode === 'race' || currentConfig.gameMode === 'scoreAttack') {
