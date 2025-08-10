@@ -86,7 +86,9 @@ async function displayUsers() {
             const msg = currentTranslation.confirmUserDelete.replace('{userName}', user);
             if (confirm(msg)) {
                 await window.electronAPI.deleteUser(user);
-                displayUsers();
+                await displayUsers();
+                nameInput.value = '';
+                nameInput.focus();
             }
         });
 
@@ -101,6 +103,6 @@ async function initialize() {
     const settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     translateUI();
-    displayUsers();
+    await displayUsers();
 }
 initialize();
