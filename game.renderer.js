@@ -550,7 +550,7 @@ function handleKeyPress(event) {
     if (event.key === 'Escape') { stopGame(null); return; }
     if (!isPlaying) return;
     if (event.key === 'Shift') return;
-    const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
+    let key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
 
     if (currentConfig.gameMode === 'race') {
         if (key.length > 1) return;
@@ -772,6 +772,9 @@ function handleKeyPress(event) {
         }
         if (totalCorrectTyped >= currentConfig.questionLimit) { gameClear(); }
     } else { // singleCharモード
+        if (event.key === 'Dead' && singleChar_accentInfo) {
+            key = singleChar_accentInfo.accentChar;
+        }
         const pressedKeyElement = getKeyElementForChar(key);
         if (pressedKeyElement) {
             pressedKeyElement.classList.add('pressed');
