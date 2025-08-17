@@ -10,6 +10,7 @@ const clearHistoryButton = document.getElementById('clear-history-button');
 const stageSelect = document.getElementById('stage-select');
 const keyStatsGrid = document.getElementById('key-stats-grid');
 const chartCanvas = document.getElementById('score-chart');
+const weakKeySection = document.getElementById('weak-key-section');
 
 let lastResult = null;
 let statsData = null;
@@ -145,6 +146,7 @@ async function initialize() {
         scoreEl.textContent = lastResult.score.toLocaleString();
         timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
         totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
+        weakKeySection.style.display = 'none';
     } else {
         resultSummaryEl.style.display = 'none';
         retryButton.style.display = 'none';
