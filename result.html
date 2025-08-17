@@ -8,8 +8,8 @@
 <body>
     <div class="container">
         <h1 id="end-message" data-translate-key="alertClearTitle">クリア！</h1>
-        
-        <div class="result-summary">
+
+        <div id="result-summary" class="result-summary">
             <p data-translate-key="alertScore">今回のスコア</p>
             <h2 id="score">0</h2>
             <p data-translate-key="alertTimeBonus">タイムボーナス</p>
@@ -19,17 +19,29 @@
             <h2 id="total-score">0</h2>
         </div>
 
-        <div class="chart-container" style="width: 100%; height: 300px; margin-top: 20px;">
-            <canvas id="score-chart"></canvas>
+        <div id="stats-section" class="stats-section">
+            <div>
+                <h2 data-translate-key="scoreTransition">スコア推移</h2>
+                <select id="stage-select" class="custom-select"></select>
+                <div class="chart-container" style="width: 100%; height: 300px; margin-top: 20px;">
+                    <canvas id="score-chart"></canvas>
+                </div>
+            </div>
+            <div>
+                <h2 data-translate-key="keyStatsTitle">苦手キー分析 (ミスタッチ数)</h2>
+                <div id="key-stats-grid" class="key-stats-grid"></div>
+            </div>
         </div>
 
         <div class="menu-buttons" style="margin-top: 30px; flex-direction: row; justify-content: center; gap: 20px;">
             <button class="menu-button" id="retry-button" data-translate-key="retry">もういちど</button>
             <button class="menu-button" id="back-button" data-translate-key="backToMenu">メニューへ</button>
+            <button class="menu-button" id="clear-history-button" data-translate-key="clearHistoryButton">履歴をクリア</button>
         </div>
     </div>
 
     <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
+    <script src="modal.js"></script>
     <script src="result.renderer.js"></script>
 </body>
 </html>

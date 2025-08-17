@@ -1,13 +1,19 @@
 const endMessageEl = document.getElementById('end-message');
+const resultSummaryEl = document.getElementById('result-summary');
 const scoreEl = document.getElementById('score');
 const timeBonusEl = document.getElementById('time-bonus');
 const totalScoreEl = document.getElementById('total-score');
 
 const retryButton = document.getElementById('retry-button');
 const backButton = document.getElementById('back-button');
+const clearHistoryButton = document.getElementById('clear-history-button');
+const stageSelect = document.getElementById('stage-select');
+const keyStatsGrid = document.getElementById('key-stats-grid');
 const chartCanvas = document.getElementById('score-chart');
 
 let lastResult = null;
+let statsData = null;
+let scoreChart = null;
 let currentTranslation = {};
 
 function translateUI() {
@@ -21,53 +27,73 @@ function translateUI() {
     });
 }
 
-// グラフと結果を表示するメインの関数
-async function displayResults() {
-    // 今回のゲーム結果と、過去の全統計データを取得
-    lastResult = await window.electronAPI.getLastGameResult();
-    const statsData = await window.electronAPI.getStatsData();
-
-    if (!lastResult) {
-        endMessageEl.textContent = '結果の取得に失敗しました';
-        return;
-    }
-
-    // 今回の結果を表示
-    endMessageEl.textContent = lastResult.endMessage;
-    scoreEl.textContent = lastResult.score.toLocaleString();
-    timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
-    totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
-    
-    // グラフを描画
-    const stageKey = `stage${lastResult.stageId}`;
-    if (statsData && statsData.scoreHistory && statsData.scoreHistory[stageKey]) {
-        renderScoreChart(statsData.scoreHistory[stageKey]);
+function populateStageOptions() {
+    stageSelect.innerHTML = '';
+    for (let i = 1; i <= 9; i++) {
+        const option = document.createElement('option');
+        option.value = `stage${i}`;
+        const prefix = currentTranslation.stageOptionPrefix || 'Stage ';
+        option.textContent = `${prefix}${i}`;
+        stageSelect.appendChild(option);
     }
 }
 
-// グラフを描画する関数
-function renderScoreChart(history) {
-    const labels = history.map((_, i) => `${i + 1}回目`);
+function renderKeyStats() {
+    keyStatsGrid.innerHTML = '';
+    if (!statsData || !statsData.keyStats) return;
+
+    const keyStats = statsData.keyStats;
+    const sortedKeys = Object.keys(keyStats).sort((a, b) => keyStats[b].mistakes - keyStats[a].mistakes);
+
+    sortedKeys.forEach(key => {
+        const stat = keyStats[key];
+        const div = document.createElement('div');
+        div.className = 'key-stat';
+        if (stat.mistakes >= 5) {
+            div.classList.add('weak');
+        }
+        const unit = currentTranslation.mistakeUnit || '回';
+        div.innerHTML = `<div class="key-char">${key}</div><div class="mistake-rate">${stat.mistakes}${unit}</div>`;
+        keyStatsGrid.appendChild(div);
+    });
+}
+
+function renderChart(stageKey) {
+    if (scoreChart) {
+        scoreChart.destroy();
+    }
+    if (!statsData || !statsData.scoreHistory || !statsData.scoreHistory[stageKey]) {
+        return;
+    }
+
+    const history = statsData.scoreHistory[stageKey];
+    const labels = history.map((_, i) => {
+        const template = currentTranslation.attemptLabel || '{n}回目';
+        return template.replace('{n}', i + 1);
+    });
     const data = history.map(h => h.score);
 
-    // 今回のスコアをグラフ上で目立たせるための設定
-    const pointRadii = new Array(data.length - 1).fill(4);
-    pointRadii.push(8); // 最後の点を大きく
-    const pointColors = new Array(data.length - 1).fill('#29b6f6');
-    pointColors.push('#f06292'); // 最後の点の色を変更
+    const dataset = {
+        label: currentTranslation.scoreLabel || 'スコア',
+        data: data,
+        borderColor: '#81d4fa',
+        tension: 0.1
+    };
 
-    new Chart(chartCanvas, {
+    if (lastResult && stageKey === `stage${lastResult.stageId}`) {
+        const pointRadii = new Array(data.length).fill(4);
+        const pointColors = new Array(data.length).fill('#29b6f6');
+        pointRadii[data.length - 1] = 8;
+        pointColors[data.length - 1] = '#f06292';
+        dataset.pointRadius = pointRadii;
+        dataset.pointBackgroundColor = pointColors;
+    }
+
+    scoreChart = new Chart(chartCanvas, {
         type: 'line',
         data: {
             labels: labels,
-            datasets: [{
-                label: `ステージ${lastResult.stageId}のスコア推移`,
-                data: data,
-                borderColor: '#81d4fa',
-                pointBackgroundColor: pointColors,
-                pointRadius: pointRadii,
-                tension: 0.1
-            }]
+            datasets: [dataset]
         },
         options: {
             responsive: true,
@@ -76,22 +102,62 @@ function renderScoreChart(history) {
     });
 }
 
-// ボタンのイベントリスナー
+stageSelect.addEventListener('change', () => {
+    renderChart(stageSelect.value);
+});
+
 retryButton.addEventListener('click', () => {
     if (lastResult) {
-        // 同じステージでゲームを再開
         window.electronAPI.navigateToGame(lastResult.stageId);
     }
 });
 
 backButton.addEventListener('click', () => {
-    window.electronAPI.navigateToStageSelect();
+    if (lastResult) {
+        window.electronAPI.navigateToStageSelect();
+    } else {
+        window.electronAPI.navigateToMainMenu();
+    }
+});
+
+clearHistoryButton.addEventListener('click', async () => {
+    const message = currentTranslation.confirmClearHistory || 'Are you sure you want to clear your history?';
+    if (await showModalConfirm(message)) {
+        await window.electronAPI.clearUserHistory();
+        statsData = await window.electronAPI.getStatsData();
+        renderKeyStats();
+        renderChart(stageSelect.value);
+    }
 });
 
 async function initialize() {
     const settings = await window.electronAPI.getSettings();
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     translateUI();
-    await displayResults();
+
+    [statsData, lastResult] = await Promise.all([
+        window.electronAPI.getStatsData(),
+        window.electronAPI.getLastGameResult()
+    ]);
+
+    if (lastResult) {
+        endMessageEl.textContent = lastResult.endMessage;
+        scoreEl.textContent = lastResult.score.toLocaleString();
+        timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
+        totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
+    } else {
+        resultSummaryEl.style.display = 'none';
+        retryButton.style.display = 'none';
+        endMessageEl.style.display = 'none';
+    }
+
+    populateStageOptions();
+    if (lastResult) {
+        stageSelect.value = `stage${lastResult.stageId}`;
+    }
+    renderKeyStats();
+    renderChart(stageSelect.value);
 }
+
 initialize();
+
