@@ -87,6 +87,15 @@
   "lobbyConnectedToHost": "Imeunganishwa na mwenyeji {{hostName}}",
   "lobbyStartButton": "Anza Mechi",
 
+  "aboutTitle": "Kuhusu programu hii",
+  "menuAbout": "Kuhusu programu",
+  "aboutCreditsTitle": "Kuhusu rasilimali",
+  "aboutAppNameLabel": "Jina la programu",
+  "aboutVersionLabel": "Toleo",
+  "aboutAuthorLabel": "Mwandishi",
+  "aboutDescriptionLabel": "Maelezo",
+  "aboutCopyrightLabel": "Haki miliki",
+  
   "statsTitle": "Takwimu",
   "scoreTransition": "Mabadiliko ya Alama",
   "keyStatsTitle": "Takwimu za Vifunguo (Vilivyokosewa)",

@@ -105,7 +105,7 @@ const STAGE_CONFIG = {
     5: {
         id:5,
         title: "単語れんしゅう",
-        timeLimit: 90,
+        timeLimit: 120,
         questionLimit: 60, // 単語数
         wordList: [], // (Update!) JSONから動的に読み込むため、空にする
         gameMode: 'wordAsteroid',

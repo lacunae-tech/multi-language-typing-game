@@ -87,6 +87,15 @@
     "lobbyConnectedToHost": "Connecté à l'hôte {{hostName}}",
     "lobbyStartButton": "Lancer la partie",
   
+    "aboutTitle": "À propos de cette application",
+    "menuAbout": "À propos de l'application",
+    "aboutCreditsTitle": "À propos des ressources",
+    "aboutAppNameLabel": "Nom de l'application",
+    "aboutVersionLabel": "Version",
+    "aboutAuthorLabel": "Auteur",
+    "aboutDescriptionLabel": "Description",
+    "aboutCopyrightLabel": "Droits d'auteur",
+
     "statsTitle": "Statistiques",
     "scoreTransition": "Évolution du score",
     "keyStatsTitle": "Statistiques des touches (touches ratées)",

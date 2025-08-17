@@ -87,6 +87,15 @@
   "lobbyConnectedToHost": "Conectado ao anfitrião {{hostName}}",
   "lobbyStartButton": "Iniciar Partida",
 
+  "aboutTitle": "Sobre este aplicativo",
+  "menuAbout": "Sobre o aplicativo",
+  "aboutCreditsTitle": "Sobre os recursos",
+  "aboutAppNameLabel": "Nome do aplicativo",
+  "aboutVersionLabel": "Versão",
+  "aboutAuthorLabel": "Autor",
+  "aboutDescriptionLabel": "Descrição",
+  "aboutCopyrightLabel": "Direitos autorais",
+  
   "statsTitle": "Estatísticas",
   "scoreTransition": "Transição de Pontuação",
   "keyStatsTitle": "Estatísticas de Teclas (Teclas Erradas)",

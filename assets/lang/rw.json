@@ -87,6 +87,15 @@
   "lobbyConnectedToHost": "Yahujwe n'umuyobozi {{hostName}}",
   "lobbyStartButton": "Tangiza Irushanwa",
 
+  "aboutTitle": "Ibyerekeye uru porogaramu",
+  "menuAbout": "Ibyerekeye porogaramu",
+  "aboutCreditsTitle": "Ibyerekeye umutungo",
+  "aboutAppNameLabel": "Izina rya porogaramu",
+  "aboutVersionLabel": "Verisiyo",
+  "aboutAuthorLabel": "Umwanditsi",
+  "aboutDescriptionLabel": "Ibisobanuro",
+  "aboutCopyrightLabel": "Uburenganzira", 
+  
   "statsTitle": "Imibare",
   "scoreTransition": "Imihindagurikire y’Amanota",
   "keyStatsTitle": "Imibare y’Imfunguzo (Zibuze)",
