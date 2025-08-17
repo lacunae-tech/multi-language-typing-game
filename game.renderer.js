@@ -1072,6 +1072,8 @@ function judgeRaceResult() {
 
 async function initialize() {
     settings = await window.electronAPI.getSettings();
+    document.documentElement.dir = settings.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = settings.language;
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     document.querySelectorAll('[data-translate-key]').forEach(el => {
         const key = el.getAttribute('data-translate-key');

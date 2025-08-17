@@ -384,3 +384,11 @@ dialog.modal-dialog::backdrop {
     padding: 8px 12px;
     border-bottom: 1px solid #eee;
 }
+
+/* RTL support */
+html[dir="rtl"] .settings-container,
+html[dir="rtl"] .stage-button,
+html[dir="rtl"] .user-list-container,
+html[dir="rtl"] .input-form {
+    text-align: right;
+}

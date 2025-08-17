@@ -28,6 +28,8 @@ async function saveCurrentSettings() {
     
     // 言語が変更された場合は、UIを再翻訳
     currentTranslation = await window.electronAPI.getTranslation(newSettings.language);
+    document.documentElement.dir = newSettings.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = newSettings.language;
     translateUI();
 }
 
@@ -41,6 +43,8 @@ async function loadAndApplySettings() {
 
     // UIを翻訳
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
+    document.documentElement.dir = settings.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = settings.language;
     translateUI();
 }
 

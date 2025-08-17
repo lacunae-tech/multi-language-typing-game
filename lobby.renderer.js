@@ -71,6 +71,8 @@ backButton.addEventListener('click', () => {
 
 async function initialize() {
     const settings = await window.electronAPI.getSettings();
+    document.documentElement.dir = settings.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = settings.language;
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     translateUI();
 }

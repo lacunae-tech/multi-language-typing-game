@@ -65,6 +65,8 @@ function populateCreditsTextarea(credits, appInfo, lang) {
 async function initialize() {
     // 翻訳処理
     const settings = await window.electronAPI.getSettings();
+    document.documentElement.dir = settings.language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = settings.language;
     currentTranslation = await window.electronAPI.getTranslation(settings.language);
     translateUI();
 
