@@ -37,7 +37,8 @@
       "!仕様書.md",
       "!assets/lang/**",
       "!assets/layouts/**",
-      "!assets/words/**"
+      "!assets/words/**",
+      "!manual/**"
     ],
     "extraResources": [
       {
@@ -51,6 +52,10 @@
       {
         "from": "assets/words",
         "to": "assets/words"
+      },
+      {
+        "from": "manual",
+        "to": "manual"
       }
     ],
     "win": {

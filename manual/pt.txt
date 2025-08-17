@@ -1,0 +1,136 @@
+
+==================================================
+                 Jogo de Digitação (Win7)
+==================================================
+
+Este aplicativo é um jogo de prática de digitação
+para jogar com amigos e familiares em uma rede local.
+O objetivo é melhorar suas habilidades enquanto se diverte.
+
+--------------------------------------------------
+■ Requisitos do sistema
+--------------------------------------------------
+- SO      : Windows 7 SP1 / Windows 10 / Windows 11 (32/64bit)
+- CPU     : 1GHz ou superior (Pentium 4 ou equivalente)
+- Memória : Mínimo 512MB, recomendado 1GB ou mais
+- Tela    : 1280 x 800 ou superior
+- Outros  : Funciona totalmente offline
+
+--------------------------------------------------
+■ Instalação
+--------------------------------------------------
+
+[ Versão ZIP ]
+ 1. Baixe e extraia o arquivo ZIP em qualquer pasta
+ 2. Clique duas vezes em "Typing Game (Win7).exe"
+ 3. Para desinstalar, basta excluir a pasta extraída
+
+[ Versão Instalador ]
+ 1. Baixe o arquivo de instalação no site
+    Exemplos: Typing Game (Win7) Setup 3.0.0.exe
+              Typing Game (Win7) Setup 3.1.0.exe
+       * O nome varia conforme a versão
+ 2. Execute e siga as instruções
+ 3. Inicie pelo Menu Iniciar ou atalho da área de trabalho
+    ("Typing Game (Win7).exe")
+ 4. Para desinstalar, use "Aplicativos e recursos" do Windows
+
+--------------------------------------------------
+■ Como começar
+--------------------------------------------------
+ 1. Abra o aplicativo
+ 2. Digite seu nome
+ 3. Escolha um modo no menu
+
+--------------------------------------------------
+■ Modos de jogo
+--------------------------------------------------
+ 1. Prática de teclas básicas : Teclas da posição inicial (90 seg)
+ 2. Prática de todas as teclas: Uma tecla qualquer (90 seg)
+ 3. Queda das teclas básicas  : Sequências de teclas básicas (80 carac. / 120 seg)
+ 4. Queda de todas as teclas  : Sequências de todas as teclas (80 carac. / 120 seg)
+ 5. Prática de palavras       : Palavras comuns
+ 6. Prática de frases         : Frases curtas
+ 7. VS: Corrida de progresso  : Competição de velocidade
+ 8. VS: Desafio rápido        : Pontuação em tempo limitado
+ 9. Revisão de teclas fracas  : Baseada em estatísticas pessoais
+
+--------------------------------------------------
+■ Partida em rede local
+--------------------------------------------------
+[ Como anfitrião ]
+ 1. Escolha "Host game" no menu
+ 2. Compartilhe seu endereço IP local
+
+[ Como convidado ]
+ 1. Escolha "Connect to host" no menu
+ 2. Digite o endereço IP do anfitrião
+
+[ Condições de rede ]
+ - Todos devem estar na mesma LAN
+ - A porta 8080 deve estar aberta no firewall
+
+--------------------------------------------------
+■ Personalização
+--------------------------------------------------
+
+[ Versão ZIP ]
+ - Palavras:   Editar arquivos JSON em resources/assets/word
+ - Layouts:    Editar arquivos JSON em resources/assets/layouts
+ - Idiomas:    Editar arquivos JSON em resources/assets/lang
+
+[ Versão Instalador ]
+ - Pasta padrão:
+   C:\Program Files\Typing Game (Win7)\resources\assets\
+ - Estrutura igual à versão ZIP (word / layouts / lang)
+ - Pode exigir privilégios de administrador
+
+--------------------------------------------------
+■ FAQ
+--------------------------------------------------
+Q: Aparece "O Windows protegeu seu computador"  
+A: Clique em "Mais informações" → "Executar mesmo assim"
+
+Q: A tela está em branco ou o jogo não inicia  
+A: Atualize o driver gráfico e execute como administrador
+
+Q: Funciona com apenas 512MB de memória?  
+A: Sim, mas recomenda-se 1GB ou mais
+
+Q: Não consigo conectar no modo VS  
+A: Verifique se todos estão na mesma LAN e se a porta 8080 não está bloqueada
+
+--------------------------------------------------
+■ Suporte
+--------------------------------------------------
+Site : https://lacunae.tech  
+Contato : Formulário disponível no site  
+
+Ao relatar problemas, informe sua versão do Windows 
+e os passos detalhados para reproduzir.
+
+==================================================
+
+--------------------------------------------------
+■ Histórico de atualizações (resumo)
+--------------------------------------------------
+
+[3.0.0] - 2025-08-17
+ - Suporte para frases com Kanji
+ - Listas antigas de palavras não são mais compatíveis
+
+[2.0.4] - 2025-08-17
+ - Telas de resultados e estatísticas unificadas
+
+[2.0.3] - 2025-08-11
+ - Suporte para caracteres acentuados
+ - Personagens exibidos no modo VS
+
+[2.0.0] - 2025-08-08
+ - Regras do modo VS melhoradas
+ - Suporte para entrada em romaji
+ - Novo modo de treino de teclas fracas
+
+[1.0.0] - Lançamento inicial
+ - Modos básicos de prática de digitação
+ - Modo VS (beta)

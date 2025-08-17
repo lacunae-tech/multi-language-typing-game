@@ -1,0 +1,135 @@
+==================================================
+                 Jeu de Dactylographie (Win7)
+==================================================
+
+Cette application est un jeu d’entraînement à la frappe,
+pour jouer avec des amis ou en famille sur un réseau local.
+L’objectif est d’améliorer vos compétences en vous amusant.
+
+--------------------------------------------------
+■ Configuration requise
+--------------------------------------------------
+- OS      : Windows 7 SP1 / Windows 10 / Windows 11 (32/64bit)
+- CPU     : 1GHz ou plus (Pentium 4 ou équivalent)
+- Mémoire : Minimum 512MB, recommandé 1GB ou plus
+- Écran   : 1280 x 800 ou plus
+- Autres  : Fonctionne totalement hors ligne
+
+--------------------------------------------------
+■ Installation
+--------------------------------------------------
+
+[ Version ZIP ]
+ 1. Téléchargez et décompressez le fichier ZIP
+ 2. Double-cliquez sur "Typing Game (Win7).exe"
+ 3. Pour désinstaller, supprimez le dossier extrait
+
+[ Version Installateur ]
+ 1. Téléchargez le fichier d’installation
+    Exemples: Typing Game (Win7) Setup 3.0.0.exe
+              Typing Game (Win7) Setup 3.1.0.exe
+       * Le nom change selon la version
+ 2. Exécutez-le et suivez les instructions
+ 3. Lancez depuis le menu démarrer ou le raccourci bureau
+    ("Typing Game (Win7).exe")
+ 4. Pour désinstaller, utilisez "Applications et fonctionnalités"
+
+--------------------------------------------------
+■ Démarrer le jeu
+--------------------------------------------------
+ 1. Lancez l’application
+ 2. Entrez votre nom
+ 3. Choisissez un mode dans le menu
+
+--------------------------------------------------
+■ Modes de jeu
+--------------------------------------------------
+ 1. Pratique des touches de base   : Touches de position de base (90 sec)
+ 2. Pratique de toutes les touches : Une touche au hasard (90 sec)
+ 3. Chute des touches de base      : Chaînes de touches de base (80 car. / 120 sec)
+ 4. Chute de toutes les touches    : Chaînes de toutes les touches (80 car. / 120 sec)
+ 5. Pratique de mots               : Mots courants
+ 6. Pratique de phrases            : Phrases courtes
+ 7. VS: Course de progression      : Compétition de vitesse
+ 8. VS: Défi rapide                 : Score dans un temps limité
+ 9. Révision des touches faibles   : Basée sur vos statistiques
+
+--------------------------------------------------
+■ Jeu en réseau local
+--------------------------------------------------
+[ Comme hôte ]
+ 1. Choisissez "Host game" dans le menu
+ 2. Partagez votre adresse IP locale
+
+[ Comme invité ]
+ 1. Choisissez "Connect to host" dans le menu
+ 2. Entrez l’adresse IP de l’hôte
+
+[ Conditions réseau ]
+ - Tous les joueurs doivent être sur le même LAN
+ - Le port 8080 doit être ouvert dans le pare-feu
+
+--------------------------------------------------
+■ Personnalisation
+--------------------------------------------------
+
+[ Version ZIP ]
+ - Mots:       Modifier les JSON dans resources/assets/word
+ - Claviers:   Modifier les JSON dans resources/assets/layouts
+ - Langues:    Modifier les JSON dans resources/assets/lang
+
+[ Version Installateur ]
+ - Dossier par défaut:
+   C:\Program Files\Typing Game (Win7)\resources\assets\
+ - Identique à la version ZIP (word / layouts / lang)
+ - Peut nécessiter des droits administrateur
+
+--------------------------------------------------
+■ FAQ
+--------------------------------------------------
+Q: "Windows a protégé votre ordinateur" apparaît  
+A: Cliquez sur "Informations supplémentaires" → "Exécuter quand même"
+
+Q: L’écran est vide ou le jeu ne démarre pas  
+A: Mettez à jour vos pilotes graphiques et exécutez en tant qu’administrateur
+
+Q: Fonctionne-t-il avec seulement 512MB de mémoire ?  
+A: Oui, mais 1GB ou plus est recommandé
+
+Q: Impossible de se connecter en mode VS  
+A: Vérifiez que tout le monde est sur le même LAN et que le port 8080 est ouvert
+
+--------------------------------------------------
+■ Support
+--------------------------------------------------
+Site web : https://lacunae.tech  
+Contact  : Formulaire disponible sur le site  
+
+Lors d’un rapport de problème, indiquez votre version de Windows 
+et les étapes précises pour reproduire l’erreur.
+
+==================================================
+
+--------------------------------------------------
+■ Historique des mises à jour (extrait)
+--------------------------------------------------
+
+[3.0.0] - 2025-08-17
+ - Support des phrases avec Kanji
+ - Anciennes listes de mots non compatibles
+
+[2.0.4] - 2025-08-17
+ - Fusion de l’écran de résultats et de statistiques
+
+[2.0.3] - 2025-08-11
+ - Support des caractères accentués
+ - Affichage des personnages en mode VS
+
+[2.0.0] - 2025-08-08
+ - Amélioration des règles du mode VS
+ - Support de la saisie en romaji
+ - Ajout du mode d’entraînement des touches faibles
+
+[1.0.0] - Version initiale
+ - Modes de pratique de frappe de base
+ - Mode VS (bêta)

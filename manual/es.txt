@@ -1,0 +1,135 @@
+==================================================
+                 Juego de Mecanografía (Win7)
+==================================================
+
+Esta aplicación es un juego de práctica de mecanografía
+para jugar con amigos y familiares en una red local.
+El objetivo es mejorar tus habilidades mientras te diviertes.
+
+--------------------------------------------------
+■ Requisitos del sistema
+--------------------------------------------------
+- SO      : Windows 7 SP1 / Windows 10 / Windows 11 (32/64bit)
+- CPU     : 1GHz o superior (Pentium 4 o equivalente)
+- Memoria : Mínimo 512MB, recomendado 1GB o más
+- Pantalla: 1280 x 800 o superior
+- Otros   : Funciona completamente sin internet
+
+--------------------------------------------------
+■ Instalación
+--------------------------------------------------
+
+[ Versión ZIP ]
+ 1. Descarga y descomprime el archivo ZIP
+ 2. Haz doble clic en "Typing Game (Win7).exe"
+ 3. Para desinstalar, elimina la carpeta descomprimida
+
+[ Versión Instalador ]
+ 1. Descarga el archivo de instalación desde la web
+    Ejemplo: Typing Game (Win7) Setup 3.0.0.exe
+             Typing Game (Win7) Setup 3.1.0.exe
+       * El nombre cambia según la versión
+ 2. Ejecuta el archivo y sigue las instrucciones
+ 3. Inicia desde el menú inicio o el acceso directo
+    ("Typing Game (Win7).exe")
+ 4. Para desinstalar, usa "Aplicaciones y características"
+
+--------------------------------------------------
+■ Cómo empezar
+--------------------------------------------------
+ 1. Abre la aplicación
+ 2. Ingresa tu nombre
+ 3. Selecciona un modo en el menú
+
+--------------------------------------------------
+■ Modos de juego
+--------------------------------------------------
+ 1. Práctica de teclas base   : Teclas de posición inicial (90 seg)
+ 2. Práctica de todas las teclas : Una tecla de todo el teclado (90 seg)
+ 3. Teclas base en caída      : Cadenas de teclas base (80 carac. / 120 seg)
+ 4. Todas las teclas en caída : Cadenas de todo el teclado (80 carac. / 120 seg)
+ 5. Práctica de palabras      : Palabras comunes
+ 6. Práctica de frases        : Frases cortas
+ 7. VS: Carrera de progreso   : Competencia de velocidad
+ 8. VS: Reto rápido           : Puntaje en tiempo limitado
+ 9. Revisión de teclas débiles: Según estadísticas personales
+
+--------------------------------------------------
+■ Juego en red local
+--------------------------------------------------
+[ Como anfitrión ]
+ 1. Selecciona "Host game" en el menú
+ 2. Comparte tu dirección IP local
+
+[ Como invitado ]
+ 1. Selecciona "Connect to host" en el menú
+ 2. Ingresa la dirección IP del anfitrión
+
+[ Condiciones de red ]
+ - Todos deben estar en la misma LAN
+ - El puerto 8080 debe estar abierto en el firewall
+
+--------------------------------------------------
+■ Personalización
+--------------------------------------------------
+
+[ Versión ZIP ]
+ - Palabras:   Editar JSON en resources/assets/word
+ - Teclados:   Editar JSON en resources/assets/layouts
+ - Idiomas:    Editar JSON en resources/assets/lang
+
+[ Versión Instalador ]
+ - Carpeta por defecto:
+   C:\Program Files\Typing Game (Win7)\resources\assets\
+ - Igual que la versión ZIP (word / layouts / lang)
+ - Puede requerir permisos de administrador
+
+--------------------------------------------------
+■ FAQ
+--------------------------------------------------
+Q: Aparece "Windows protegió tu PC"  
+A: Haz clic en "Más información" → "Ejecutar de todas formas"
+
+Q: La pantalla está en blanco o no inicia  
+A: Actualiza el controlador gráfico y ejecútalo como administrador
+
+Q: ¿Funciona con solo 512MB de memoria?  
+A: Sí, pero se recomienda 1GB o más
+
+Q: No puedo conectarme en modo VS  
+A: Verifica que todos estén en la misma LAN y que el puerto 8080 no esté bloqueado
+
+--------------------------------------------------
+■ Soporte
+--------------------------------------------------
+Sitio web : https://lacunae.tech  
+Contacto  : Formulario disponible en el sitio web  
+
+Al informar un problema, incluye la versión de Windows
+y los pasos detallados para reproducirlo.
+
+==================================================
+
+--------------------------------------------------
+■ Historial de actualizaciones (extracto)
+--------------------------------------------------
+
+[3.0.0] - 2025-08-17
+ - Soporte para frases con Kanji
+ - Las listas de palabras antiguas ya no son compatibles
+
+[2.0.4] - 2025-08-17
+ - Pantalla de resultados y estadísticas combinadas
+
+[2.0.3] - 2025-08-11
+ - Soporte para caracteres acentuados
+ - Se muestran personajes en el modo VS
+
+[2.0.0] - 2025-08-08
+ - Reglas de juego VS mejoradas
+ - Soporte para entrada en romaji
+ - Nuevo modo de práctica de teclas débiles
+
+[1.0.0] - Lanzamiento inicial
+ - Modos básicos de práctica de mecanografía
+ - Modo VS (beta)

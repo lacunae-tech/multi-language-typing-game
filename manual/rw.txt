@@ -1,0 +1,136 @@
+==================================================
+                 Umukino wo Kwandika (Win7)
+==================================================
+
+Uyu mukino ugufasha kwitoza kwandika ku kibaho cya mudasobwa,
+kandi ushobora gukinwa n’inshuti cyangwa umuryango kuri
+mudasobwa ziri ku muyoboro umwe. Intego ni ukwigira
+kwandika neza kandi wishimye.
+
+--------------------------------------------------
+■ Ibisabwa
+--------------------------------------------------
+- OS       : Windows 7 SP1 / Windows 10 / Windows 11 (32/64bit)
+- CPU      : 1GHz cyangwa hejuru (Pentium 4 cyangwa bingana)
+- Ubufasha : Byibuze 512MB, byiza 1GB cyangwa hejuru
+- Mugaragaza: 1280 x 800 cyangwa hejuru
+- Ibindi   : Ikora nta internet ikenewe
+
+--------------------------------------------------
+■ Gushyiraho
+--------------------------------------------------
+
+[ Verisiyo ya ZIP ]
+ 1. Kanda ukureho ZIP hanyuma uyifungure
+ 2. Kanda kabiri kuri "Typing Game (Win7).exe"
+ 3. Gusiba: kuraho dosiye yose
+
+[ Verisiyo ifite Installateur ]
+ 1. Kuramo dosiye ya setup kuri website
+    Urugero: Typing Game (Win7) Setup 3.0.0.exe
+             Typing Game (Win7) Setup 3.1.0.exe
+       * Izina rihinduka bitewe na verisiyo
+ 2. Fungura dosiye, ukurikize amabwiriza
+ 3. Tangira umukino ukoresheje Start Menu cyangwa shortcut
+    ("Typing Game (Win7).exe")
+ 4. Gusiba: koresha "Applications and Features"
+
+--------------------------------------------------
+■ Uko utangira
+--------------------------------------------------
+ 1. Tangiza application
+ 2. Injiza izina ryawe
+ 3. Hitamo mode mu menu
+
+--------------------------------------------------
+■ Modes
+--------------------------------------------------
+ 1. Kwitoza kuri home keys       : Inyuguti z’ingenzi (90 sec)
+ 2. Kwitoza ku nyuguti zose      : Inyuguti zose (90 sec)
+ 3. Inyuguti zimanuka (home)     : Imbaga y’inyuguti (80 / 120 sec)
+ 4. Inyuguti zimanuka (zose)     : Imbaga y’inyuguti (80 / 120 sec)
+ 5. Amagambo                    : Amagambo asanzwe
+ 6. Interuro                    : Interuro ngufi
+ 7. VS: Irushanwa ryihuse       : Ugereranya umuvuduko
+ 8. VS: Kwihuta mu gihe gito    : Amanota mu gihe gito
+ 9. Kwigarura ku nyuguti zoroshye : Hashingiwe ku mibare yawe
+
+--------------------------------------------------
+■ Gukina ku muyoboro umwe
+--------------------------------------------------
+[ Nk’umucumbi (Host) ]
+ 1. Hitamo "Host game"
+ 2. Sangira IP yawe n’abandi
+
+[ Nk’umushyitsi (Guest) ]
+ 1. Hitamo "Connect to host"
+ 2. Injiza IP y’umucumbi
+
+[ Ibisabwa bya network ]
+ - Bose bagomba kuba kuri LAN imwe
+ - Port 8080 igomba kuba ifunguye
+
+--------------------------------------------------
+■ Guhindura (Customization)
+--------------------------------------------------
+
+[ Verisiyo ZIP ]
+ - Amagambo:  Hindura JSON muri resources/assets/word
+ - Layouts:  Hindura JSON muri resources/assets/layouts
+ - Indimi:   Hindura JSON muri resources/assets/lang
+
+[ Verisiyo Installateur ]
+ - Dosiye isanzwe:
+   C:\Program Files\Typing Game (Win7)\resources\assets\
+ - Imiterere nk’iya ZIP
+ - Bishobora gusaba uburenganzira bwa admin
+
+--------------------------------------------------
+■ FAQ
+--------------------------------------------------
+Q: "Windows yirinze mudasobwa yawe" iragaragara  
+A: Kanda kuri "More info" → "Run anyway"
+
+Q: Ecran iri ubusa cyangwa ntitangira  
+A: Vugurura driver ya graphics hanyuma uyikoreshe nka administrator
+
+Q: Ese irakora na 512MB gusa?  
+A: Yego, ariko 1GB cyangwa hejuru birasabwa
+
+Q: Ntibishoboka gukina VS  
+A: Reba ko mwese muri kuri LAN imwe kandi port 8080 ifunguye
+
+--------------------------------------------------
+■ Ubufasha
+--------------------------------------------------
+Website : https://lacunae.tech  
+Ubutumwa : Fomu iraboneka kuri website  
+
+Mu gutanga raporo, andika verisiyo ya Windows ukoresha
+n’intambwe zose zerekana ikibazo.
+
+==================================================
+
+--------------------------------------------------
+■ Amateka y’ivugurura (mu ncamake)
+--------------------------------------------------
+
+[3.0.0] - 2025-08-17
+ - Kongeraho interuro zikoreshwa muri Kanji
+ - Amadosiye ashaje y’amagambo ntakora
+
+[2.0.4] - 2025-08-17
+ - Kwerekana ibisubizo n’imibare byahujwe
+
+[2.0.3] - 2025-08-11
+ - Kongeraho inyuguti zifite accents
+ - Karakteri zigaragazwa muri VS mode
+
+[2.0.0] - 2025-08-08
+ - Amategeko ya VS yahinduwe
+ - Kwandika mu romaji byemewe
+ - Mode nshya yo kwitoza inyuguti zoroshye
+
+[1.0.0] - Igihe cya mbere cyasohotse
+ - Modes y’ibanze yo kwandika
+ - VS mode (beta)

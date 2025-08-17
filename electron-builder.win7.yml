@@ -13,6 +13,7 @@ files:
   - "!assets/lang/**"
   - "!assets/layouts/**"
   - "!assets/words/**"
+  - "!manual/**"
 extraResources:
   - from: assets/lang
     to: assets/lang
@@ -20,6 +21,8 @@ extraResources:
     to: assets/layouts
   - from: assets/words
     to: assets/words
+  - from: manual
+    to: manual
 
 # ★ここが肝：Electron 22 系を明示
 electronVersion: "22.3.27"

@@ -1,0 +1,135 @@
+==================================================
+                 Typing Game (Win7)
+==================================================
+
+This application is a typing practice game where you 
+can play with friends and family over a local network.
+The goal is to improve your typing skills while having fun.
+
+--------------------------------------------------
+■ System Requirements
+--------------------------------------------------
+- OS      : Windows 7 SP1 / Windows 10 / Windows 11 (32/64bit)
+- CPU     : 1GHz or higher (Pentium 4 or equivalent)
+- Memory  : Minimum 512MB, 1GB or more recommended
+- Display : 1280 x 800 or higher
+- Other   : Works completely offline
+
+--------------------------------------------------
+■ Installation
+--------------------------------------------------
+
+[ ZIP version ]
+ 1. Download the ZIP file and extract it to any folder
+ 2. Double-click "Typing Game (Win7).exe" to start
+ 3. To uninstall, just delete the extracted folder
+
+[ Installer version ]
+ 1. Download the setup file from the website
+    Examples: Typing Game (Win7) Setup 3.0.0.exe
+              Typing Game (Win7) Setup 3.1.0.exe
+       * The file name differs depending on the version
+ 2. Run the file and follow the instructions
+ 3. Start the game from the Start Menu or desktop shortcut
+    ("Typing Game (Win7).exe")
+ 4. To uninstall, use "Apps and Features" in Windows
+
+--------------------------------------------------
+■ How to Start
+--------------------------------------------------
+ 1. Launch the application
+ 2. Enter your name
+ 3. Choose a mode from the menu
+
+--------------------------------------------------
+■ Game Modes
+--------------------------------------------------
+ 1. Home Key Practice    : Single home position keys (90 sec)
+ 2. All Key Practice     : Single keys from all keys (90 sec)
+ 3. Falling Home Keys    : Strings from home keys (80 chars / 120 sec)
+ 4. Falling All Keys     : Strings from all keys (80 chars / 120 sec)
+ 5. Word Practice        : Common words
+ 6. Sentence Practice    : Short sentences
+ 7. VS: Progress Race    : Compete with opponent speed
+ 8. VS: Fast Eating      : Score battle within time limit
+ 9. Weak Key Review      : Based on personal statistics
+
+--------------------------------------------------
+■ Local Network Match
+--------------------------------------------------
+[ As Host ]
+ 1. Select "Host game" from the menu
+ 2. Share your local IP address with other players
+
+[ As Guest ]
+ 1. Select "Connect to host" from the menu
+ 2. Enter the host’s IP address
+
+[ Network Conditions ]
+ - All players must be on the same LAN
+ - Port 8080 must be open in the firewall
+
+--------------------------------------------------
+■ Customization
+--------------------------------------------------
+
+[ ZIP version ]
+ - Words:     Edit JSON files in resources/assets/word
+ - Layouts:   Edit JSON files in resources/assets/layouts
+ - Languages: Edit JSON files in resources/assets/lang
+
+[ Installer version ]
+ - Default install folder (example):
+   C:\Program Files\Typing Game (Win7)\resources\assets\
+ - Same file structure as ZIP version (word / layouts / lang)
+ - Administrator rights may be required to edit
+
+--------------------------------------------------
+■ FAQ
+--------------------------------------------------
+Q: "Windows protected your PC" appears at startup  
+A: Click "More info" → "Run anyway"
+
+Q: The screen is blank or game won’t start  
+A: Update your graphics driver and run as administrator
+
+Q: Can it run with only 512MB memory?  
+A: Yes, but 1GB or more is recommended for smoother play
+
+Q: Cannot connect in VS mode  
+A: Make sure all players are on the same LAN and port 8080 is not blocked
+
+--------------------------------------------------
+■ Support
+--------------------------------------------------
+Website : https://lacunae.tech  
+Contact : A support form is available on the website  
+
+When reporting issues, please include your Windows version 
+and detailed steps to reproduce the problem.
+
+==================================================
+
+--------------------------------------------------
+■ Update History (excerpt)
+--------------------------------------------------
+
+[3.0.0] - 2025-08-17
+ - Added support for Kanji sentences
+ - Old word lists are no longer compatible
+
+[2.0.4] - 2025-08-17
+ - Combined results screen and statistics screen
+
+[2.0.3] - 2025-08-11
+ - Added support for accented character input
+ - Characters now appear in VS mode
+
+[2.0.0] - 2025-08-08
+ - Improved VS stage rules
+ - Added romaji input support
+ - Added weak key practice mode
+
+[1.0.0] - Initial Release
+ - Basic typing practice modes
+ - VS mode (beta)

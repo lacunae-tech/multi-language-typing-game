@@ -1,0 +1,136 @@
+==================================================
+                 Mchezo wa Kuandika (Win7)
+==================================================
+
+Programu hii ni mchezo wa mazoezi ya kuandika haraka
+ambapo unaweza kucheza na marafiki au familia kwenye
+mtandao wa eneo moja (LAN). Lengo ni kuboresha ujuzi
+wa kuandika huku ukifurahia.
+
+--------------------------------------------------
+■ Mahitaji ya mfumo
+--------------------------------------------------
+- OS      : Windows 7 SP1 / Windows 10 / Windows 11 (32/64bit)
+- CPU     : 1GHz au zaidi (Pentium 4 au sawa)
+- Kumbukumbu: Angalau 512MB, inapendekezwa 1GB au zaidi
+- Skrini  : 1280 x 800 au zaidi
+- Nyingine: Inafanya kazi bila intaneti
+
+--------------------------------------------------
+■ Usakinishaji
+--------------------------------------------------
+
+[ Toleo la ZIP ]
+ 1. Pakua na utoe faili ya ZIP
+ 2. Bonyeza mara mbili "Typing Game (Win7).exe"
+ 3. Kuondoa: futa folda yote uliyotoa
+
+[ Toleo la Kisakinishi ]
+ 1. Pakua faili la setup kutoka tovuti
+    Mfano: Typing Game (Win7) Setup 3.0.0.exe
+           Typing Game (Win7) Setup 3.1.0.exe
+       * Jina hubadilika kulingana na toleo
+ 2. Endesha faili na fuata maagizo
+ 3. Anza kupitia Start Menu au shortcut ya desktop
+    ("Typing Game (Win7).exe")
+ 4. Kuondoa: tumia "Apps and Features"
+
+--------------------------------------------------
+■ Jinsi ya kuanza
+--------------------------------------------------
+ 1. Fungua programu
+ 2. Weka jina lako
+ 3. Chagua mode kutoka kwenye menu
+
+--------------------------------------------------
+■ Modes za mchezo
+--------------------------------------------------
+ 1. Mazoezi ya home keys     : Funguo za msingi (90 sek)
+ 2. Mazoezi ya funguo zote   : Funguo zote (90 sek)
+ 3. Funguo za msingi zinazoanguka : Mifumo ya funguo (80 / 120 sek)
+ 4. Funguo zote zinazoanguka : Mifumo ya funguo (80 / 120 sek)
+ 5. Mazoezi ya maneno        : Maneno ya kawaida
+ 6. Mazoezi ya sentensi      : Sentensi fupi
+ 7. VS: Mbio za maendeleo    : Kulinganisha kasi
+ 8. VS: Changamoto ya haraka : Alama ndani ya muda mfupi
+ 9. Kurejea funguo dhaifu    : Kulingana na takwimu zako
+
+--------------------------------------------------
+■ Mchezo wa mtandao wa eneo moja
+--------------------------------------------------
+[ Kama mwenyeji ]
+ 1. Chagua "Host game" kwenye menu
+ 2. Shirikisha anwani yako ya IP ya ndani
+
+[ Kama mgeni ]
+ 1. Chagua "Connect to host" kwenye menu
+ 2. Weka anwani ya IP ya mwenyeji
+
+[ Masharti ya mtandao ]
+ - Wachezaji wote wawe kwenye LAN moja
+ - Bandari 8080 ifunguliwe kwenye firewall
+
+--------------------------------------------------
+■ Urekebishaji (Customization)
+--------------------------------------------------
+
+[ Toleo la ZIP ]
+ - Maneno:   Hariri faili za JSON kwenye resources/assets/word
+ - Layouts:  Hariri faili za JSON kwenye resources/assets/layouts
+ - Lugha:    Hariri faili za JSON kwenye resources/assets/lang
+
+[ Toleo la Kisakinishi ]
+ - Folda chaguo-msingi:
+   C:\Program Files\Typing Game (Win7)\resources\assets\
+ - Muundo sawa na toleo la ZIP
+ - Inaweza kuhitaji ruhusa za admin
+
+--------------------------------------------------
+■ Maswali ya Mara kwa Mara
+--------------------------------------------------
+Q: "Windows imelinda kompyuta yako" inaonekana  
+A: Bonyeza "Maelezo zaidi" → "Run anyway"
+
+Q: Skrini ni nyeupe au mchezo hauanzi  
+A: Sasisha driver ya graphics na uendeshe kama administrator
+
+Q: Je, inaweza kufanya kazi na 512MB pekee?  
+A: Ndiyo, lakini inapendekezwa 1GB au zaidi
+
+Q: Siwezi kuunganishwa kwenye VS mode  
+A: Hakikisha wote mpo LAN moja na bandari 8080 haijazuiwa
+
+--------------------------------------------------
+■ Usaidizi
+--------------------------------------------------
+Tovuti : https://lacunae.tech  
+Mawasiliano : Fomu inapatikana kwenye tovuti  
+
+Unapotoa ripoti ya tatizo, taja toleo la Windows
+na hatua ulizochukua kuonyesha tatizo.
+
+==================================================
+
+--------------------------------------------------
+■ Historia ya masasisho (muhtasari)
+--------------------------------------------------
+
+[3.0.0] - 2025-08-17
+ - Kuongezwa msaada kwa sentensi za Kanji
+ - Orodha za maneno za zamani hazina tena ulinganifu
+
+[2.0.4] - 2025-08-17
+ - Skrini ya matokeo na takwimu zimeunganishwa
+
+[2.0.3] - 2025-08-11
+ - Msaada kwa herufi zenye alama (accented)
+ - Wahusika sasa wanaonekana kwenye VS mode
+
+[2.0.0] - 2025-08-08
+ - Sheria za VS zimeboreshwa
+ - Msaada kwa uingizaji wa romaji
+ - Njia mpya ya mazoezi ya funguo dhaifu
+
+[1.0.0] - Toleo la kwanza
+ - Modes za msingi za mazoezi ya kuandika
+ - VS mode (beta)
