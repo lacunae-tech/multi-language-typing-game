@@ -162,6 +162,7 @@ let keyMistakeStats = {}; // (追加) このゲーム中のキーごとのミス
 
 // --- wordAsteroidモード用の変数 ---
 let word_currentWord = '';
+let word_displayWord = '';
 let word_typedWord = '';
 let word_consecutiveCorrect = 0;
 let word_asteroidScale = 1.0;
@@ -421,7 +422,14 @@ function fallingStars_gameLoop() {
 
 // --- wordAsteroidモード用関数 ---
 function setNextWordAsteroidQuestion() {
-    word_currentWord = currentConfig.wordList[Math.floor(Math.random() * currentConfig.wordList.length)];
+    const entry = currentConfig.wordList[Math.floor(Math.random() * currentConfig.wordList.length)];
+    if (typeof entry === 'string') {
+        word_currentWord = entry;
+        word_displayWord = entry;
+    } else {
+        word_currentWord = entry.reading;
+        word_displayWord = entry.text;
+    }
     word_typedWord = '';
     word_asteroidScale = 1.0;
     asteroidContainer.style.setProperty('transform', `scale(${word_asteroidScale})`, 'important');
@@ -441,22 +449,48 @@ function setNextWordAsteroidQuestion() {
 
 function updateWordAsteroidDisplay() {
     questionText.innerHTML = '';
-    for (let i = 0; i < word_currentWord.length; i++) {
-        const charSpan = document.createElement('span');
-        charSpan.className = 'char';
-        charSpan.textContent = word_currentWord[i];
+    if (word_displayWord === word_currentWord) {
+        for (let i = 0; i < word_currentWord.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = word_displayWord[i];
 
-        if (i < word_typedWord.length) {
-            if (word_typedWord[i] === word_currentWord[i]) {
-                charSpan.classList.add('correct');
-            } else {
-                charSpan.classList.add('incorrect');
+            if (i < word_typedWord.length) {
+                if (word_typedWord[i] === word_currentWord[i]) {
+                    charSpan.classList.add('correct');
+                } else {
+                    charSpan.classList.add('incorrect');
+                }
             }
+            if (i === word_typedWord.length) {
+                charSpan.classList.add('current');
+            }
+            questionText.appendChild(charSpan);
         }
-        if (i === word_typedWord.length) {
-            charSpan.classList.add('current');
+    } else {
+        const ruby = document.createElement('ruby');
+        const rb = document.createElement('rb');
+        rb.textContent = word_displayWord;
+        ruby.appendChild(rb);
+        const rt = document.createElement('rt');
+        for (let i = 0; i < word_currentWord.length; i++) {
+            const charSpan = document.createElement('span');
+            charSpan.className = 'char';
+            charSpan.textContent = word_currentWord[i];
+            if (i < word_typedWord.length) {
+                if (word_typedWord[i] === word_currentWord[i]) {
+                    charSpan.classList.add('correct');
+                } else {
+                    charSpan.classList.add('incorrect');
+                }
+            }
+            if (i === word_typedWord.length) {
+                charSpan.classList.add('current');
+            }
+            rt.appendChild(charSpan);
         }
-        questionText.appendChild(charSpan);
+        ruby.appendChild(rt);
+        questionText.appendChild(ruby);
     }
 }
 
@@ -485,12 +519,7 @@ function processWordInput(key) {
         romajiBuffer = newBuffer;
         if (matches.includes(newBuffer)) {
             // 1文字分のかなを確定
-            let kanaChar = group.kana;
-            // romaji.js の促音処理では次子音がそのまま kana に入るため復元する
-            if (kanaChar.length === 1 && !/^[\u3040-\u309f]$/.test(kanaChar)) {
-                kanaChar = 'っ';
-            }
-            word_typedWord += kanaChar;
+            word_typedWord += group.kana;
             romajiIndex++;
             romajiBuffer = '';
         }
@@ -999,7 +1028,14 @@ function setNextRaceWord() {
     if (raceWordIndex >= currentConfig.wordList.length) {
         raceWordIndex = 0; // 単語リストをループ
     }
-    word_currentWord = currentConfig.wordList[raceWordIndex];
+    const entry = currentConfig.wordList[raceWordIndex];
+    if (typeof entry === 'string') {
+        word_currentWord = entry;
+        word_displayWord = entry;
+    } else {
+        word_currentWord = entry.reading;
+        word_displayWord = entry.text;
+    }
     raceWordIndex++;
     word_typedWord = '';
     raceWordHasMistake = false;
