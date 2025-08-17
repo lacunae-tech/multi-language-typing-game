@@ -142,7 +142,11 @@ async function initialize() {
     ]);
 
     if (lastResult) {
-        endMessageEl.textContent = lastResult.endMessage;
+        if (lastResult.endMessage) {
+            endMessageEl.textContent = lastResult.endMessage;
+        } else {
+            endMessageEl.style.display = 'none';
+        }
         scoreEl.textContent = lastResult.score.toLocaleString();
         timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
         totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
