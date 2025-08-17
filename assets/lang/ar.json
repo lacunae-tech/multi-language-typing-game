@@ -1,4 +1,5 @@
 {
+    "direction": "rtl",
     "userSelectTitle": "اختر المستخدم",
     "userSelectDescription": "أدخل اسمك أو اختر من القائمة",
     "namePlaceholder": "اكتب الاسم...",

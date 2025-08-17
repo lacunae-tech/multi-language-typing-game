@@ -9,6 +9,7 @@ const userListDiv = document.getElementById('user-list');
 let currentTranslation = {};
 
 function translateUI() {
+    document.documentElement.setAttribute('dir', currentTranslation.direction || 'ltr');
     document.querySelectorAll('[data-translate-key]').forEach(el => {
         const key = el.getAttribute('data-translate-key');
         if (currentTranslation[key]) el.textContent = currentTranslation[key];
