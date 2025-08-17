@@ -10,6 +10,7 @@ const creditsTextarea = document.getElementById('credits-textarea');
 let currentTranslation = {}; 
 
 function translateUI() {
+    document.documentElement.setAttribute('dir', currentTranslation.direction || 'ltr');
     document.querySelectorAll('[data-translate-key]').forEach(element => {
         const key = element.getAttribute('data-translate-key');
         if (currentTranslation[key]) {

@@ -8,6 +8,7 @@ let currentTranslation = {};
 
 // UIのテキストを翻訳する関数
 function translateUI() {
+    document.documentElement.setAttribute('dir', currentTranslation.direction || 'ltr');
     document.querySelectorAll('[data-translate-key]').forEach(element => {
         const key = element.getAttribute('data-translate-key');
         if (currentTranslation[key]) {
