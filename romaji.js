@@ -36,49 +36,55 @@ const RomanjiConverter = (function() {
         '。': ['.'], '、': [','], 'ー': ['-'], '「': ['['], '」': [']']
     };
 
-    // 小さい「っ」の処理
-    function handleSokuon(input) {
-        return input.replace(/っ(.)/g, (match, p1) => {
-            const romanjiOptions = romanjiMap[p1] || [p1];
-            const firstChar = romanjiOptions[0].charAt(0);
-            // 'chi' の前の 'っ' は 't' になる特別ルール
-            if (romanjiOptions[0].startsWith('ch')) {
-                return 't' + p1;
-            }
-            return firstChar + p1;
-        });
+    // カタカナをひらがなに変換
+    function toHiragana(str) {
+        return str.replace(/[\u30a1-\u30f6]/g, ch =>
+            String.fromCharCode(ch.charCodeAt(0) - 0x60)
+        );
     }
-    
+
     /**
      * かな文字列を、複数のローマ字表記候補を持つオブジェクトの配列に変換します。
+     * カタカナにも対応し、促音（っ/ッ）も考慮します。
      * @param {string} text - 変換するかな文字列。
      * @returns {Array<Object>} かなとローマ字候補の配列。例: [{ kana: 'し', romanji: ['shi', 'si'] }]
      */
     function convert(text) {
-        let hiraganaText = text; // ここでカタカナ→ひらがな変換を追加することも可能
-        
-        hiraganaText = handleSokuon(hiraganaText);
-
         let result = [];
         let i = 0;
-        while (i < hiraganaText.length) {
-            let found = false;
-            // 2文字の組み合わせをチェック (例: きゃ)
-            if (i + 1 < hiraganaText.length) {
-                const twoChars = hiraganaText.substring(i, i + 2);
-                if (romanjiMap[twoChars]) {
-                    result.push({ kana: twoChars, romanji: romanjiMap[twoChars] });
+        while (i < text.length) {
+            const char = text[i];
+
+            // 促音処理
+            if (char === 'っ' || char === 'ッ') {
+                const next = text[i + 1];
+                if (next) {
+                    const nextHira = toHiragana(next);
+                    const romanjiOptions = romanjiMap[nextHira] || [nextHira];
+                    result.push({ kana: char, romanji: [romanjiOptions[0].charAt(0)] });
+                } else {
+                    result.push({ kana: char, romanji: [''] });
+                }
+                i++;
+                continue;
+            }
+
+            // 小書きのゃゅょ等を含む2文字の組み合わせ
+            if (i + 1 < text.length) {
+                const twoOrig = text.substring(i, i + 2);
+                const twoHira = toHiragana(twoOrig);
+                if (romanjiMap[twoHira]) {
+                    result.push({ kana: twoOrig, romanji: romanjiMap[twoHira] });
                     i += 2;
-                    found = true;
+                    continue;
                 }
             }
-            // 1文字をチェック
-            if (!found) {
-                const oneChar = hiraganaText.charAt(i);
-                const romanji = romanjiMap[oneChar] || [oneChar];
-                result.push({ kana: oneChar, romanji: romanji });
-                i += 1;
-            }
+
+            const oneOrig = char;
+            const oneHira = toHiragana(oneOrig);
+            const romanji = romanjiMap[oneHira] || [oneHira];
+            result.push({ kana: oneOrig, romanji: romanji });
+            i++;
         }
         return result;
     }
