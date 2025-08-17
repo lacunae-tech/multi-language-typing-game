@@ -289,7 +289,7 @@ function singleChar_clearHighlight() {
     singleChar_highlightedKeyElements = [];
 }
 
-async function saveResultAndExit(message) {
+async function saveResultAndExit(endMessage) {
     const timeBonus = timeLeft > 0 ? timeLeft * 100 : 0;
     const totalScore = score + timeBonus;
 
@@ -299,7 +299,7 @@ async function saveResultAndExit(message) {
         timeBonus: timeBonus,
         totalScore: totalScore,
         mistakes: keyMistakeStats,
-        endMessage: message
+        endMessage
     };
 
     await window.electronAPI.saveGameResult(resultData);
@@ -858,8 +858,8 @@ async function stopGame(message) {
 }
 
 function gameClear(customMessage) {
-    const message = customMessage || currentTranslation.alertClearTitle;
-    saveResultAndExit(message);
+    const endMessage = customMessage || currentTranslation.alertClearTitle;
+    saveResultAndExit(endMessage);
 }
 
 function gameOver(customMessage) { // customMessageを受け取れるように変更
@@ -878,8 +878,8 @@ function gameOver(customMessage) { // customMessageを受け取れるように�
         judgeRaceResult();
         return;
     }
-    const message = customMessage || currentTranslation.alertTimeUp;
-    saveResultAndExit(message);
+    const endMessage = customMessage || currentTranslation.alertTimeUp;
+    saveResultAndExit(endMessage);
 
 }
 
