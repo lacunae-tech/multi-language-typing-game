@@ -364,3 +364,23 @@ dialog.modal-dialog::backdrop {
 .key-char { font-size: 1.5em; font-weight: bold; }
 .mistake-rate { font-size: 0.9em; color: #d32f2f; }
 
+
+#result-summary {
+    text-align: center;
+}
+
+#result-summary table {
+    width:60%;
+    margin:auto;
+}
+
+#result-summary th {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+    color: #ff8a65;
+}
+
+#result-summary td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #eee;
+}
