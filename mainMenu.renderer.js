@@ -40,6 +40,10 @@ document.getElementById('settings-button').addEventListener('click', () => {
     window.electronAPI.navigateToSettings();
 });
 
+document.getElementById('manual-button').addEventListener('click', () => {
+    window.electronAPI.navigateToManual();
+});
+
 document.getElementById('about-button').addEventListener('click', () => {
     window.electronAPI.navigateToAbout();
 });

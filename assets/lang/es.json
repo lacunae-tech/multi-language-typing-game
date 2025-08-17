@@ -104,5 +104,7 @@
   "stageOptionPrefix": "Nivel ",
   "mistakeUnit": " veces",
   "attemptLabel": "Intento {n}",
-  "scoreLabel": "Puntuación"
+  "scoreLabel": "Puntuación",
+  "manualTitle": "Manual",
+  "menuManual": "Manual"
 }

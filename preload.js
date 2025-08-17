@@ -5,9 +5,10 @@ contextBridge.exposeInMainWorld('electronAPI', {
     // 設定API
     getSettings: () => ipcRenderer.invoke('get-settings'),
     saveSettings: (settings) => ipcRenderer.invoke('save-settings', settings), 
-    getTranslation: (lang) => ipcRenderer.invoke('get-translation', lang), 
-    getLayout: (layoutName) => ipcRenderer.invoke('get-layout', layoutName), 
-    getWordList: (lang) => ipcRenderer.invoke('get-word-list', lang), 
+    getTranslation: (lang) => ipcRenderer.invoke('get-translation', lang),
+    getLayout: (layoutName) => ipcRenderer.invoke('get-layout', layoutName),
+    getWordList: (lang) => ipcRenderer.invoke('get-word-list', lang),
+    getManualContent: (lang) => ipcRenderer.invoke('get-manual-content', lang),
     getAppInfo: () => ipcRenderer.invoke('get-app-info'),
     openExternalLink: (url) => ipcRenderer.send('open-external-link', url),
     getCreditsData: () => ipcRenderer.invoke('get-credits-data'),
@@ -28,6 +29,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
     navigateToResult: (result) => ipcRenderer.send('navigate-to-result', result),
     getLastGameResult: () => ipcRenderer.invoke('get-last-game-result'),
     navigateToAbout: () => ipcRenderer.send('navigate-to-about'),
+    navigateToManual: () => ipcRenderer.send('navigate-to-manual'),
 
     // ゲーム画面で使うAPI (New!)
     getCurrentStageId: () => ipcRenderer.invoke('get-current-stage-id'),

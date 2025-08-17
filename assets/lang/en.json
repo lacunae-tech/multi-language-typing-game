@@ -96,6 +96,8 @@
     "attemptLabel": "Attempt {n}",
     "scoreLabel": "Score",
 
+    "manualTitle": "Manual",
+    "menuManual": "Manual",
     "aboutTitle": "About this App",
     "menuAbout": "About this App",
     "aboutAppNameLabel": "App Name",

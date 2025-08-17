@@ -104,5 +104,7 @@
   "stageOptionPrefix": "Urwego ",
   "mistakeUnit": " inshuro",
   "attemptLabel": "Igerageza {n}",
-  "scoreLabel": "Amanota"
+  "scoreLabel": "Amanota",
+  "manualTitle": "Imfashanyigisho",
+  "menuManual": "Imfashanyigisho"
 }
