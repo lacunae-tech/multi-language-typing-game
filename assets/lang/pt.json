@@ -104,5 +104,7 @@
   "stageOptionPrefix": "Fase ",
   "mistakeUnit": " vezes",
   "attemptLabel": "Tentativa {n}",
-  "scoreLabel": "Pontuação"
+  "scoreLabel": "Pontuação",
+  "manualTitle": "Manual",
+  "menuManual": "Manual"
 }

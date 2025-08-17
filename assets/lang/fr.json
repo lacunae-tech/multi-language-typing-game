@@ -104,6 +104,8 @@
     "stageOptionPrefix": "Niveau ",
     "mistakeUnit": " fois",
     "attemptLabel": "Tentative {n}",
-    "scoreLabel": "Score"
+    "scoreLabel": "Score",
+    "manualTitle": "Manuel",
+    "menuManual": "Manuel"
   }
   

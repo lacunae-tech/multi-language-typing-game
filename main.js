@@ -267,6 +267,25 @@ ipcMain.handle('get-word-list', (event, lang) => {
     }
 });
 
+ipcMain.handle('get-manual-content', (event, lang) => {
+    try {
+        const baseDir = app.isPackaged
+            ? path.join(process.resourcesPath, 'manual')
+            : path.join(__dirname, 'manual');
+        const filePath = path.join(baseDir, `${lang}.txt`);
+        const fallbackPath = path.join(baseDir, 'en.txt');
+        if (fs.existsSync(filePath)) {
+            return fs.readFileSync(filePath, 'utf-8');
+        } else if (fs.existsSync(fallbackPath)) {
+            return fs.readFileSync(fallbackPath, 'utf-8');
+        }
+        return '';
+    } catch (error) {
+        console.error('マニュアルの読み込みに失敗しました:', error);
+        return '';
+    }
+});
+
 // (追加) レース用の単語リストを取得するAPI
 ipcMain.handle('get-race-word-list', () => {
     return currentRaceWordList;
@@ -344,6 +363,10 @@ ipcMain.handle('get-last-game-result', () => {
 
 ipcMain.on('navigate-to-about', () => {
     mainWindow.loadFile('about.html');
+});
+
+ipcMain.on('navigate-to-manual', () => {
+    mainWindow.loadFile('manual.html');
 });
 
 // --- ネットワークAPI ---

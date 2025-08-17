@@ -104,5 +104,7 @@
   "stageOptionPrefix": "Hatua ",
   "mistakeUnit": " mara",
   "attemptLabel": "Jaribio {n}",
-  "scoreLabel": "Alama"
+  "scoreLabel": "Alama",
+  "manualTitle": "Mwongozo",
+  "menuManual": "Mwongozo"
 }
