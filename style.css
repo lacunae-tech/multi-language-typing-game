@@ -356,3 +356,11 @@ dialog.modal-dialog::backdrop {
 
 .modal-buttons button { font-family: 'Mochiy Pop One', sans-serif; background-color: #ff8a65; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-size: 0.8em; margin:10px; cursor: pointer; transition: background-color 0.3s; }
 
+/* --- 統計セクション --- */
+.stats-section { display: flex; flex-direction: column; gap: 30px; width: 100%; }
+.key-stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 10px; }
+.key-stat { background: #f0f0f0; padding: 10px; border-radius: 8px; }
+.key-stat.weak { background: #ffcdd2; }
+.key-char { font-size: 1.5em; font-weight: bold; }
+.mistake-rate { font-size: 0.9em; color: #d32f2f; }
+

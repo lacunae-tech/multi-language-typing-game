@@ -235,7 +235,7 @@ ipcMain.handle('get-translation', (event, lang) => {
         return {};
     }
 });
-ipcMain.on('navigate-to-stats', () => { mainWindow.loadFile('stats.html'); });
+ipcMain.on('navigate-to-stats', () => { mainWindow.loadFile('result.html'); });
 ipcMain.handle('get-layout', (event, layoutName) => {
     try {
         const filePath = getAssetPath('layouts', `${layoutName}.json`);
