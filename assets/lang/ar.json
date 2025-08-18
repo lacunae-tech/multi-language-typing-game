@@ -15,21 +15,17 @@
     "userDataError": "حدث خطأ أثناء معالجة بيانات المستخدم.",
     "title_found_users": "المستخدمون الموجودون",
     "button_confirm": "تأكيد",
-
     "mainMenuTitle": "القائمة الرئيسية",
     "mainMenuWelcome": "أهلاً، {userName}!",
     "menuStart": "ابدأ اللعبة",
     "menuStats": "الإحصائيات",
     "menuSettings": "الإعدادات",
-
     "stageSelectTitle": "اختر مرحلة",
-
     "titleStageSelect": "اختيار المرحلة",
     "titleGame": "اللعبة",
     "titleResult": "نتيجة اللعبة",
     "titleLobby": "غرفة المنافسة",
     "titleStats": "الإحصائيات",
-
     "gameLabelTime": "الوقت",
     "gameLabelScore": "النقاط",
     "gameLabelRemaining": "الباقي",
@@ -42,16 +38,43 @@
     "YourProgress": "تقدمك",
     "comingSoon": "(قريبًا)",
     "stages": {
-        "1": { "name": "Home Row Practice", "description": "Basic training" },
-        "2": { "name": "All Keys Practice", "description": "Practice all keys" },
-        "3": { "name": "Falling Stars: Home Row", "description": "Home row training" },
-        "4": { "name": "Falling Stars: All Keys", "description": "All keys training" },
-        "5": { "name": "Word Practice", "description": "Destroy the meteorites!" },
-        "6": { "name": "Sentence Practice", "description": "Destroy with long sentences!" },
-        "7": { "name": "VS: Progress Race", "description": "Race to the finish!" },
-        "8": { "name": "VS: Score Attack", "description": "Compete for score!" },
-        "9": { "name": "Weak Key Review", "description": "Review keys you struggle with" }
-      },
+        "1": {
+            "name": "تمرين صف الارتكاز",
+            "description": "تدريب أساسي"
+        },
+        "2": {
+            "name": "تمرين جميع المفاتيح",
+            "description": "تدرب على جميع المفاتيح"
+        },
+        "3": {
+            "name": "نجوم ساقطة: صف الارتكاز",
+            "description": "تدريب صف الارتكاز"
+        },
+        "4": {
+            "name": "نجوم ساقطة: جميع المفاتيح",
+            "description": "تدريب جميع المفاتيح"
+        },
+        "5": {
+            "name": "تمرين الكلمات",
+            "description": "دمّر النيازك!"
+        },
+        "6": {
+            "name": "تمرين الجمل",
+            "description": "دمّر بالجمل الطويلة!"
+        },
+        "7": {
+            "name": "مواجهة: سباق التقدم",
+            "description": "تسابق حتى النهاية!"
+        },
+        "8": {
+            "name": "مواجهة: تحدي النقاط",
+            "description": "تنافس على النقاط!"
+        },
+        "9": {
+            "name": "مراجعة المفاتيح الضعيفة",
+            "description": "راجع المفاتيح التي تواجه صعوبة فيها"
+        }
+    },
     "alertClearTitle": "تم!",
     "alertGameOverTitle": "انتهت اللعبة!",
     "alertScore": "النتيجة",
@@ -66,15 +89,12 @@
     "gameOverTie": "تعادل! ({myCount} مقابل {opponentCount})",
     "retry": "إعادة",
     "backToMenu": "العودة إلى القائمة",
-
     "settingsTitle": "الإعدادات",
     "settingBGM": "الموسيقى",
     "settingSFX": "التأثيرات الصوتية",
     "settingLanguage": "اللغة",
     "settingLayout": "تخطيط لوحة المفاتيح",
     "backButton": "رجوع",
-
-
     "lobbyTitle": "غرفة المنافسة",
     "lobbyHostButton": "كن المضيف",
     "lobbyJoinButton": "انضم إلى اللعبة",
@@ -86,7 +106,6 @@
     "lobbyClientConnected": "{{clientName}} متصل",
     "lobbyConnectedToHost": "متصل بالمضيف {{hostName}}",
     "lobbyStartButton": "ابدأ المباراة",
-
     "statsTitle": "الإحصائيات",
     "scoreTransition": "انتقال النقاط",
     "keyStatsTitle": "إحصائيات المفاتيح (المفاتيح الخاطئة)",
@@ -96,7 +115,6 @@
     "mistakeUnit": " مرة",
     "attemptLabel": "المحاولة {n}",
     "scoreLabel": "النتيجة",
-
     "manualTitle": "دليل",
     "menuManual": "دليل",
     "aboutTitle": "حول هذا التطبيق",
@@ -107,5 +125,4 @@
     "aboutAuthorLabel": "المؤلف",
     "aboutDescriptionLabel": "الوصف",
     "aboutCopyrightLabel": "حقوق النشر"
-
 }
