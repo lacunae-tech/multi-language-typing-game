@@ -9,8 +9,14 @@ const backButton = document.getElementById('back-button');
 const clearHistoryButton = document.getElementById('clear-history-button');
 const stageSelect = document.getElementById('stage-select');
 const keyStatsGrid = document.getElementById('key-stats-grid');
+const chartContainer = document.getElementById('chart-container');
 const chartCanvas = document.getElementById('score-chart');
+const scoreTableContainer = document.getElementById('score-table-container');
+const scoreTable = document.getElementById('score-table');
 const weakKeySection = document.getElementById('weak-key-section');
+
+const isWindows7 = navigator.userAgent.includes('Windows NT 6.1');
+const useChart = !isWindows7 && typeof Chart !== 'undefined';
 
 let lastResult = null;
 let statsData = null;
@@ -60,7 +66,38 @@ function renderKeyStats() {
     });
 }
 
+function renderScoreTable(stageKey) {
+    chartContainer.style.display = 'none';
+    scoreTableContainer.style.display = 'block';
+    const thead = scoreTable.querySelector('thead');
+    const tbody = scoreTable.querySelector('tbody');
+    thead.innerHTML = '';
+    tbody.innerHTML = '';
+    if (!statsData || !statsData.scoreHistory || !statsData.scoreHistory[stageKey]) {
+        return;
+    }
+    const attemptHeader = currentTranslation.attemptHeader || '#';
+    const scoreHeader = currentTranslation.scoreLabel || 'Score';
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = `<th>${attemptHeader}</th><th>${scoreHeader}</th>`;
+    thead.appendChild(headerRow);
+    const history = statsData.scoreHistory[stageKey];
+    const maxScore = Math.max(...history.map(h => h.score));
+    history.forEach((h, i) => {
+        const row = document.createElement('tr');
+        if (h.score === maxScore) row.classList.add('highlight');
+        row.innerHTML = `<td>${i + 1}</td><td>${h.score.toLocaleString()}</td>`;
+        tbody.appendChild(row);
+    });
+}
+
 function renderChart(stageKey) {
+    if (!useChart) {
+        renderScoreTable(stageKey);
+        return;
+    }
+    chartContainer.style.display = 'block';
+    scoreTableContainer.style.display = 'none';
     if (scoreChart) {
         scoreChart.destroy();
     }

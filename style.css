@@ -384,3 +384,25 @@ dialog.modal-dialog::backdrop {
     padding: 8px 12px;
     border-bottom: 1px solid #eee;
 }
+
+/* --- 統計画面 スコアテーブル --- */
+.score-table-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+#score-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#score-table th,
+#score-table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+#score-table tr.highlight {
+    background-color: #fff9c4;
+}
