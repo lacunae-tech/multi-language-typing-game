@@ -55,7 +55,11 @@
         </div>
     </div>
 
-    <script src="./node_modules/chart.js/dist/chart.umd.js"></script>
+    <script>
+        if (!navigator.userAgent.includes('Windows NT 6.1')) {
+            document.write('<script src="./node_modules/chart.js/dist/chart.umd.js"><\/script>');
+        }
+    </script>
     <script src="modal.js"></script>
     <script src="result.renderer.js"></script>
 </body>

@@ -18,6 +18,11 @@ const weakKeySection = document.getElementById('weak-key-section');
 const isWindows7 = navigator.userAgent.includes('Windows NT 6.1');
 const useChart = !isWindows7 && typeof Chart !== 'undefined';
 
+if (!useChart) {
+    chartContainer.style.display = 'none';
+    scoreTableContainer.style.display = 'block';
+}
+
 let lastResult = null;
 let statsData = null;
 let scoreChart = null;
