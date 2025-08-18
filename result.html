@@ -32,8 +32,14 @@
             <div>
                 <h2 data-translate-key="scoreTransition">スコア推移</h2>
                 <select id="stage-select" class="custom-select"></select>
-                <div class="chart-container" style="width: 100%; height: 300px; margin-top: 20px;">
+                <div class="chart-container" id="chart-container" style="width: 100%; height: 300px; margin-top: 20px;">
                     <canvas id="score-chart"></canvas>
+                </div>
+                <div id="score-table-container" class="score-table-container" style="display: none;">
+                    <table id="score-table">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
                 </div>
             </div>
             <div id="weak-key-section">
