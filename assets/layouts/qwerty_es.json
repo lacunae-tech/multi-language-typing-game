@@ -14,7 +14,7 @@
       { "default": "0", "shift": "=", "id": "0" },
       { "default": "'", "shift": "?", "id": "'" },
       { "default": "¡", "shift": "¿", "id": "¡" },
-      "Backspace"
+      "Back"
     ],
     [
       "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
@@ -23,7 +23,7 @@
       "Enter"
     ],
     [
-      "CapsLock", "a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ",
+      "Caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ",
       { "default": "´", "shift": "¨", "id": "´" },
       { "default": "ç", "id": "ç" }
     ],
