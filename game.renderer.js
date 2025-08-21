@@ -1113,7 +1113,9 @@ async function initialize() {
     if (stageId === 9) {
         const statsData = await window.electronAPI.getStatsData();
         if (statsData && statsData.keyStats) {
+            const availableKeys = new Set(STAGE_CONFIG[2].questionKeys);
             const topKeys = Object.entries(statsData.keyStats)
+                .filter(([key]) => availableKeys.has(key))
                 .sort((a, b) => b[1].mistakes - a[1].mistakes)
                 .slice(0, 10)
                 .map(([key]) => key);
