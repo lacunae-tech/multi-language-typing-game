@@ -62,6 +62,7 @@ h2 { color: #8d6e63; border-bottom: 2px dashed #ffccbc; padding-bottom: 5px; }
 .stage-id { font-size: 1.5em; font-weight: bold; color: #ff8a65; }
 .stage-name { font-size: 1.2em; color: #5d4037; margin-top: 10px; }
 .stage-description { font-size: 0.9em; color: #a1887f; margin-top: auto; padding-top: 10px; }
+.stage-clear { font-size: 0.9em; color: #2e7d32; margin-top: 8px; }
 .stage-button.disabled { background-color: #f5f5f5; cursor: not-allowed; color: #bdbdbd; }
 .stage-button.disabled:hover { transform: none; box-shadow: none; border-color: #eeeeee; }
 .stage-button.disabled .stage-id, .stage-button.disabled .stage-name, .stage-button.disabled .stage-description { color: #bdbdbd; }

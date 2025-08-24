@@ -17,13 +17,25 @@ function translateUI() {
 }
 
 // (修正) ステージボタンを生成する関数
-function createStageButtons() {
+async function createStageButtons() {
     stageGrid.innerHTML = ''; // 既存のボタンをクリア
 
     const stages = currentTranslation.stages;
     if (!stages) return;
 
     const comingSoonText = currentTranslation.comingSoon;
+
+    // プレイ済みステージを取得
+    const statsData = await window.electronAPI.getStatsData();
+    const playedStages = new Set();
+    if (statsData && statsData.scoreHistory) {
+        for (const [key, history] of Object.entries(statsData.scoreHistory)) {
+            const match = key.match(/^stage(\d+)$/);
+            if (match && history && history.length > 0) {
+                playedStages.add(parseInt(match[1], 10));
+            }
+        }
+    }
 
     for (const [id, stage] of Object.entries(stages)) {
         const stageButton = document.createElement('button');
@@ -51,6 +63,15 @@ function createStageButtons() {
             });
         }
 
+        const stageIdNum = parseInt(id, 10);
+        if (stageIdNum <= 6 && playedStages.has(stageIdNum)) {
+            const clearLabel = document.createElement('span');
+            clearLabel.className = 'stage-clear';
+            clearLabel.textContent = 'Clear';
+            const descEl = stageButton.querySelector('.stage-description');
+            stageButton.insertBefore(clearLabel, descEl);
+        }
+
         stageGrid.appendChild(stageButton);
     }
 }
@@ -71,6 +92,6 @@ async function initialize() {
         if (currentTranslation[key]) el.textContent = currentTranslation[key];
     });
 
-    createStageButtons(); // 翻訳データを使ってボタンを生成
+    await createStageButtons(); // 翻訳データとプレイ履歴を使ってボタンを生成
 }
 initialize();
