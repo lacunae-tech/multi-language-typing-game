@@ -102,9 +102,10 @@
   "clearHistoryButton": "Limpar histórico",
   "confirmClearHistory": "Tem certeza de que deseja limpar seu histórico?",
   "stageOptionPrefix": "Fase ",
-  "mistakeUnit": " vezes",
-  "attemptLabel": "Tentativa {n}",
-  "scoreLabel": "Pontuação",
-  "manualTitle": "Manual",
+    "mistakeUnit": " vezes",
+    "attemptLabel": "Tentativa {n}",
+    "scoreLabel": "Pontuação",
+    "accuracyLabel": "Precisão",
+    "manualTitle": "Manual",
   "menuManual": "Manual"
 }

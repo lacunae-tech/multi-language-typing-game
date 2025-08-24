@@ -96,6 +96,7 @@
     "mistakeUnit": "回",
     "attemptLabel": "{n}回目",
     "scoreLabel": "スコア",
+    "accuracyLabel": "正確率",
 
     "manualTitle": "マニュアル",
     "menuManual": "マニュアル",

@@ -115,6 +115,7 @@
     "mistakeUnit": " مرة",
     "attemptLabel": "المحاولة {n}",
     "scoreLabel": "النتيجة",
+    "accuracyLabel": "الدقة",
     "manualTitle": "دليل",
     "menuManual": "دليل",
     "aboutTitle": "حول هذا التطبيق",

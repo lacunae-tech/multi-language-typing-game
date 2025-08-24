@@ -3,6 +3,7 @@ const resultSummaryEl = document.getElementById('result-summary');
 const scoreEl = document.getElementById('score');
 const timeBonusEl = document.getElementById('time-bonus');
 const totalScoreEl = document.getElementById('total-score');
+const accuracyEl = document.getElementById('accuracy');
 
 const retryButton = document.getElementById('retry-button');
 const backButton = document.getElementById('back-button');
@@ -83,15 +84,17 @@ function renderScoreTable(stageKey) {
     }
     const attemptHeader = currentTranslation.attemptHeader || '#';
     const scoreHeader = currentTranslation.scoreLabel || 'Score';
+    const accuracyHeader = currentTranslation.accuracyLabel || 'Accuracy';
     const headerRow = document.createElement('tr');
-    headerRow.innerHTML = `<th>${attemptHeader}</th><th>${scoreHeader}</th>`;
+    headerRow.innerHTML = `<th>${attemptHeader}</th><th>${scoreHeader}</th><th>${accuracyHeader}</th>`;
     thead.appendChild(headerRow);
     const history = statsData.scoreHistory[stageKey];
     const maxScore = Math.max(...history.map(h => h.score));
     history.forEach((h, i) => {
         const row = document.createElement('tr');
         if (h.score === maxScore) row.classList.add('highlight');
-        row.innerHTML = `<td>${i + 1}</td><td>${h.score.toLocaleString()}</td>`;
+        const accuracyText = h.accuracy != null ? `${h.accuracy.toFixed(1)}%` : '-';
+        row.innerHTML = `<td>${i + 1}</td><td>${h.score.toLocaleString()}</td><td>${accuracyText}</td>`;
         tbody.appendChild(row);
     });
 }
@@ -193,6 +196,7 @@ async function initialize() {
         scoreEl.textContent = lastResult.score.toLocaleString();
         timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
         totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
+        accuracyEl.textContent = lastResult.accuracy != null ? `${lastResult.accuracy.toFixed(1)}%` : '-';
         weakKeySection.style.display = 'none';
     } else {
         resultSummaryEl.style.display = 'none';

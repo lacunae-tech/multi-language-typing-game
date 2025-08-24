@@ -159,6 +159,7 @@ let currentConfig = {};
 let gameLoopId = null;
 
 let keyMistakeStats = {}; // (追加) このゲーム中のキーごとのミスを記録するオブジェクト
+let correctKeyPresses = 0; // 正しく押されたキーの数
 
 // --- wordAsteroidモード用の変数 ---
 let word_currentWord = '';
@@ -294,11 +295,16 @@ async function saveResultAndExit(endMessage) {
     const timeBonus = timeLeft > 0 ? timeLeft * 100 : 0;
     const totalScore = score + timeBonus;
 
+    const totalMistakes = Object.values(keyMistakeStats).reduce((sum, count) => sum + count, 0);
+    const totalInputs = correctKeyPresses + totalMistakes;
+    const accuracy = totalInputs > 0 ? Math.round((correctKeyPresses / totalInputs) * 1000) / 10 : 0;
+
     const resultData = {
         stageId: currentConfig.id,
         score: score,
         timeBonus: timeBonus,
         totalScore: totalScore,
+        accuracy: accuracy,
         mistakes: keyMistakeStats,
         endMessage
     };
@@ -587,6 +593,7 @@ function handleKeyPress(event) {
 
         const ok = processWordInput(key);
         if (ok) {
+            correctKeyPresses++;
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
             setAnimalState(myProgressAnimal, MY_ANIMAL_IMAGES, 'normal');
             updateWordAsteroidDisplay();
@@ -637,6 +644,7 @@ function handleKeyPress(event) {
 
         const ok = processWordInput(key);
         if (ok) {
+            correctKeyPresses++;
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
 
             if (word_typedWord === word_currentWord) {
@@ -674,6 +682,7 @@ function handleKeyPress(event) {
 
         const ok = processWordInput(key);
         if (ok) {
+            correctKeyPresses++;
             if (settings.sfx) { typeAudio.currentTime = 0; typeAudio.play(); }
 
             if (word_typedWord === word_currentWord) {
@@ -716,6 +725,7 @@ function handleKeyPress(event) {
     } else if (currentConfig.gameMode === 'fallingStars') {
         const targetStarIndex = activeStars.findIndex(s => s.char === key);
         if (targetStarIndex !== -1) {
+            correctKeyPresses++;
             const targetStar = activeStars[targetStarIndex];
             if (targetStar.isBouncing) return;
 
@@ -813,6 +823,7 @@ function handleKeyPress(event) {
         }
         const expectedChar = singleChar_inputSequence[singleChar_sequenceIndex] || singleChar_currentQuestion;
         if (key === expectedChar) {
+            correctKeyPresses++;
             if (singleChar_accentInfo && singleChar_sequenceIndex === 0 && singleChar_inputSequence.length > 1) {
                 singleChar_sequenceIndex++;
                 singleChar_clearHighlight();
@@ -922,6 +933,7 @@ function startGame() {
     isPlaying = true;
     score = 0;
     totalCorrectTyped = 0;
+    correctKeyPresses = 0;
     timeLeft = currentConfig.timeLimit;
     scoreDisplay.textContent = score;
     timerDisplay.textContent = timeLeft;
