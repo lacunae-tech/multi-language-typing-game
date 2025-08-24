@@ -297,7 +297,9 @@ async function saveResultAndExit(endMessage) {
 
     const totalMistakes = Object.values(keyMistakeStats).reduce((sum, count) => sum + count, 0);
     const totalInputs = correctKeyPresses + totalMistakes;
-    const accuracy = totalInputs > 0 ? Math.round((correctKeyPresses / totalInputs) * 1000) / 10 : 0;
+    const accuracy = totalInputs > 0
+        ? Math.round(((totalInputs - totalMistakes) / totalInputs) * 1000) / 10
+        : 0;
 
     const resultData = {
         stageId: currentConfig.id,
