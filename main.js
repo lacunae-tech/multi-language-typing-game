@@ -142,6 +142,7 @@ ipcMain.handle('save-game-result', async (event, result) => {
     // 新しいスコアを追加（トータルスコアを保存）
     userData.scoreHistory[stageKey].push({
         score: result.totalScore || result.score,
+        accuracy: result.accuracy,
         date: new Date().toISOString()
     });
 

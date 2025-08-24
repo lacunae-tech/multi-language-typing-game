@@ -105,6 +105,7 @@
     "mistakeUnit": " fois",
     "attemptLabel": "Tentative {n}",
     "scoreLabel": "Score",
+    "accuracyLabel": "Précision",
     "manualTitle": "Manuel",
     "menuManual": "Manuel"
   }

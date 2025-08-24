@@ -95,6 +95,7 @@
     "mistakeUnit": " times",
     "attemptLabel": "Attempt {n}",
     "scoreLabel": "Score",
+    "accuracyLabel": "Accuracy",
 
     "manualTitle": "Manual",
     "menuManual": "Manual",

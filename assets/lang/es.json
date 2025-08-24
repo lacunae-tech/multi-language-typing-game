@@ -102,9 +102,10 @@
   "clearHistoryButton": "Borrar historial",
   "confirmClearHistory": "¿Seguro que quieres borrar tu historial?",
   "stageOptionPrefix": "Nivel ",
-  "mistakeUnit": " veces",
-  "attemptLabel": "Intento {n}",
-  "scoreLabel": "Puntuación",
-  "manualTitle": "Manual",
+    "mistakeUnit": " veces",
+    "attemptLabel": "Intento {n}",
+    "scoreLabel": "Puntuación",
+    "accuracyLabel": "Precisión",
+    "manualTitle": "Manual",
   "menuManual": "Manual"
 }

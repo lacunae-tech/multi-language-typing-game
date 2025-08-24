@@ -105,6 +105,7 @@
   "mistakeUnit": " inshuro",
   "attemptLabel": "Igerageza {n}",
   "scoreLabel": "Amanota",
+  "accuracyLabel": "Ukuri",
   "manualTitle": "Imfashanyigisho",
   "menuManual": "Imfashanyigisho"
 }
