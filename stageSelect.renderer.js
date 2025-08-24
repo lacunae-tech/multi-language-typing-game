@@ -38,6 +38,7 @@ async function createStageButtons() {
     }
 
     for (const [id, stage] of Object.entries(stages)) {
+        if (id === '8') continue; // Skip stage 8
         const stageButton = document.createElement('button');
         stageButton.className = 'stage-button';
 
@@ -55,7 +56,7 @@ async function createStageButtons() {
         if (!isComingSoon) {
             stageButton.addEventListener('click', () => {
                 const stageId = parseInt(id, 10);
-                if (stageId === 7 || stageId === 8) {
+                if (stageId === 7) {
                     window.electronAPI.navigateToLobby(stageId);
                 } else {
                     window.electronAPI.navigateToGame(stageId);
