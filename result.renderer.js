@@ -196,11 +196,10 @@ async function initialize() {
         scoreEl.textContent = lastResult.score.toLocaleString();
         timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
         totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
-        const totalInputs = (statsData?.totalCorrect || 0) + (statsData?.totalMistakes || 0);
-        const overallAccuracy = totalInputs > 0
-            ? ((totalInputs - (statsData?.totalMistakes || 0)) / totalInputs) * 100
+        const currentAccuracy = lastResult.accuracy != null
+            ? lastResult.accuracy
             : null;
-        accuracyEl.textContent = overallAccuracy != null ? `${overallAccuracy.toFixed(1)}%` : '-';
+        accuracyEl.textContent = currentAccuracy != null ? `${currentAccuracy.toFixed(1)}%` : '-';
         weakKeySection.style.display = 'none';
     } else {
         resultSummaryEl.style.display = 'none';
