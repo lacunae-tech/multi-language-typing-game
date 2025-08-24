@@ -536,7 +536,7 @@ function processWordInput(key) {
         return true; // 正しい入力（未確定含む）
     } else {
         const expected = word_currentWord[word_typedWord.length];
-        if (expected && key === expected.toLowerCase()) {
+        if (expected && removeDiacritics(expected.toLowerCase()) === removeDiacritics(key)) {
             word_typedWord += expected;
             return true;
         }
@@ -727,7 +727,8 @@ function handleKeyPress(event) {
         }
         updateWordAsteroidDisplay();
     } else if (currentConfig.gameMode === 'fallingStars') {
-        const targetStarIndex = activeStars.findIndex(s => s.char === key);
+        if (key.length > 1) return; // 無効なキーを無視
+        const targetStarIndex = activeStars.findIndex(s => removeDiacritics(s.char) === removeDiacritics(key));
         if (targetStarIndex !== -1) {
             correctKeyPresses++;
             const targetStar = activeStars[targetStarIndex];
