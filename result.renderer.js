@@ -196,7 +196,9 @@ async function initialize() {
         scoreEl.textContent = lastResult.score.toLocaleString();
         timeBonusEl.textContent = lastResult.timeBonus.toLocaleString();
         totalScoreEl.textContent = lastResult.totalScore.toLocaleString();
-        accuracyEl.textContent = lastResult.accuracy != null ? `${lastResult.accuracy.toFixed(1)}%` : '-';
+        const totalInputs = (statsData?.totalCorrect || 0) + (statsData?.totalMistakes || 0);
+        const overallAccuracy = totalInputs > 0 ? (statsData.totalCorrect / totalInputs) * 100 : null;
+        accuracyEl.textContent = overallAccuracy != null ? `${overallAccuracy.toFixed(1)}%` : '-';
         weakKeySection.style.display = 'none';
     } else {
         resultSummaryEl.style.display = 'none';

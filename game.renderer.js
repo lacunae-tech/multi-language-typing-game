@@ -306,6 +306,8 @@ async function saveResultAndExit(endMessage) {
         totalScore: totalScore,
         accuracy: accuracy,
         mistakes: keyMistakeStats,
+        correctKeyPresses: correctKeyPresses,
+        totalMistakes: totalMistakes,
         endMessage
     };
 

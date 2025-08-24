@@ -146,6 +146,12 @@ ipcMain.handle('save-game-result', async (event, result) => {
         date: new Date().toISOString()
     });
 
+    // (追加) 累計の正解数・ミス数を更新
+    if (!userData.totalCorrect) userData.totalCorrect = 0;
+    if (!userData.totalMistakes) userData.totalMistakes = 0;
+    userData.totalCorrect += result.correctKeyPresses || 0;
+    userData.totalMistakes += result.totalMistakes || 0;
+
     // キーごとのミス統計をマージ
     if (!userData.keyStats) userData.keyStats = {};
     for (const key in result.mistakes) {
@@ -172,6 +178,8 @@ ipcMain.handle('clear-user-history', () => {
         const userData = loadUserData(currentUser) || {};
         userData.scoreHistory = {};
         userData.keyStats = {};
+        userData.totalCorrect = 0;
+        userData.totalMistakes = 0;
         saveUserData(currentUser, userData);
         return { success: true };
     } catch (error) {
@@ -300,7 +308,11 @@ ipcMain.handle('login-or-create-user', async (event, userName) => {
             const newUser = {
                 userName: userName,
                 createdAt: new Date().toISOString(),
-                highScores: {}
+                highScores: {},
+                scoreHistory: {},
+                keyStats: {},
+                totalCorrect: 0,
+                totalMistakes: 0
             };
             fs.writeFileSync(filePath, JSON.stringify(newUser, null, 2));
         }
